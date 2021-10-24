@@ -1,6 +1,7 @@
 #include <fractool/map_color.hpp>
 #include <fractool/macros.hpp>
 
+
 // Colormap
 const uchar COLORMAP[256][3] = {
     {254, 254, 254},
