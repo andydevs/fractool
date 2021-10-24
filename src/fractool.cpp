@@ -1,15 +1,12 @@
+// Fractool
+#include <fractool/macros.h>
+
+// External
 #include <iostream>
 #include <complex>
 #include <algorithm>
 #include <opencv2/opencv.hpp>
 
-#define RED_CHAN 0
-#define GRN_CHAN 1
-#define BLU_CHAN 2
-#define NUM_CHANS 3
-
-#define ARRAY2D(w, x, y) y*w + x
-#define IMAGE(w, x, y, c) (ARRAY2D(w, x, y))*NUM_CHANS + c
 
 const uchar COLORMAP[256][3] = {
     {254, 254, 254},
