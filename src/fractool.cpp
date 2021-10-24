@@ -1,4 +1,6 @@
 #include <iostream>
+#include <complex>
+#include <algorithm>
 #include <opencv2/opencv.hpp>
 
 #define RED_CHAN 0
@@ -279,11 +281,25 @@ int main(int argc, char **argv) {
 
     // FRACTAL:
     // Run iteration algorithm
+    float x0 = (float)size_x/2;                 // Center x value
+    float y0 = (float)size_y/2;                 // Center y value
+    float gsc = 4.0;                            // Grid scale
+    float scl = gsc / std::min(size_x, size_y); // scale factor
+    std::complex<float> z, c;
     uchar n;
     for (unsigned j = 0; j < size_y; ++j) {
         for (unsigned i = 0; i < size_x; ++i) {
-            // Parameter
-            n = 255 * (i + j) / (size_x + size_y);
+            // Initialize z and c
+            z = std::complex<float>(0, 0);
+            c = std::complex<float>(i - x0, y0 - j) * scl;
+
+            // Iteration
+            n = 0;
+            while (n < 255 && std::abs(z) < 2) {
+                z *= z;
+                z += c;
+                n += 1;
+            }
             
             // Set parameter
             param_buffer[ARRAY2D(size_x, i, j)] = n;
