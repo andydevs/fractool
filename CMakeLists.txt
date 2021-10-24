@@ -6,6 +6,8 @@ include_directories(include)
 
 find_package(OpenCV REQUIRED)
 
-add_executable(fractool src/fractool.cpp)
+add_executable(fractool 
+    src/fractool.cpp 
+    src/map_color.cpp)
 target_include_directories(fractool PRIVATE ${OpenCV_INCLUDE_DIRS})
 target_link_libraries(fractool ${OpenCV_LIBS})
