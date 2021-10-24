@@ -11,7 +11,7 @@ _Requirements_
 | Name        | Version |
 |:-----------:|:-------:|
 | CMake       | >=3.0   |
-| ImageMagick | any     |
+| ImageMagick | >=7.0   |
 
 _How to Build (Linux/macOS)_
 
