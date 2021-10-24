@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 project(FracTool)
+set(CMAKE_CXX_STANDARD 14)
 
 find_package(ImageMagick 7 REQUIRED COMPONENTS Magick++ MagickCore)
 
