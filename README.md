@@ -8,10 +8,10 @@ Build
 
 _Requirements_
 
-| Name        | Version |
-|:-----------:|:-------:|
-| CMake       | >=3.0   |
-| ImageMagick | >=7.0   |
+| Name   | Version |
+|:------:|:-------:|
+| CMake  | >= 3.0  |
+| OpenCV | >= 4.5  |
 
 _How to Build (Linux/macOS)_
 

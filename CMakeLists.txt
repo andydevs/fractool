@@ -4,7 +4,7 @@ project(FracTool)
 set(CMAKE_CXX_STANDARD 14)
 include_directories(include)
 
-find_package(OpenCV REQUIRED)
+find_package(OpenCV 4.5 REQUIRED)
 
 add_executable(fractool 
     src/fractool.cpp
