@@ -68,8 +68,8 @@ Or
 
 Parameter Groups
 
-|     Group              |                         Params                         |
-|:----------------------:|:------------------------------------------------------:|
+| Group                  | Params                                                 |
+|:-----------------------|:-------------------------------------------------------|
 | Algorithm              | `--algorithm`, `--parameter`                           |
 | Transform              | `--translate-x`, `--translate-y`, `--rotate`, `--zoom` |
 | Postprocessing         | `--colormap`                                           |
