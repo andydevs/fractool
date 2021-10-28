@@ -4,19 +4,26 @@ Frac Tool
 FracTool is a tool used for generating images/videos of 2D fractals using various 
 algorithms.
 
-Development
+Roadmap
 -------------------------------------------------------------------------------------
 
 ### Demo 1:
 - One engine: single-threaded CPU
 - Fractool CLI
+- Colormaps stored in binary executable
 
 ### Demo 2:
-- Fractool GUI
 - Fractal File System
+- Colormap File System
 
 ### Demo 3:
+- Fractool GUI
+
+### Demo 4:
 - CPU engine is now multi-threaded
+
+### MVP:
+- GPU engine using CUDA
 
 Components
 -------------------------------------------------------------------------------------
