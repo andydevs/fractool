@@ -29,7 +29,7 @@ Shared components across different engines and applications
 - Fractal File Reading/Writing: Use YAML
 - Colormap File Reading/Writing: Custom
 
-Fractal File format: YAML file structure
+Fractal File format: YAML file structure. Can contain one or more documents
 
 ```yaml
 ---
