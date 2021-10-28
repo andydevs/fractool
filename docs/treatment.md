@@ -1,23 +1,33 @@
 Frac Tool
-=================================================================
+=================================================================================
 
-FracTool is a tool used for generating images/videos
-of 2D fractals using various algorithms.
+FracTool is a tool used for generating images/videos of 2D fractals using various 
+algorithms.
+
+Development
+---------------------------------------------------------------------------------
+
+- Demo 1:
+    - One engine: single-threaded CPU
+    - Fractool CLI
+- Demo 3:
+    - Fractool GUI
+    - Fractal File System
+- Demo 2:
+    - CPU engine is now multi-threaded
 
 Components
------------------------------------------------------------------
+---------------------------------------------------------------------------------
 
 ### Core
 
 Shared components across different engines and applications
 
-#### Image Writing
+- Image/Movie Writing: Use OpenCV
+- Fractal File Reading/Writing: Use OpenCV
+- Colormap File Reading/Writing: Custom
 
-Use OpenCV
-
-#### Filesystem
-
-YAML File format
+Fractal File format (yaml)
 
 ```yaml
 algorithm: zsquare-seed
@@ -40,31 +50,53 @@ image:
     filename: fractal.png
 ```
 
+Colormap file data structure: A binary file representing an array of colormap objects
+
+```c++
+#define NAME_MAX_LEN 64
+#define MAX_COLORS 256
+#define NUM_CHANNELS 3
+
+struct colormap {
+    char name[NAME_MAX_LEN];
+    unsigned char colors[MAX_COLORS*NUM_CHANNELS];
+};
+```
+
 ### Engines
 
 - CPU: use OpenMP
 - GPU: use CUDA. Default to CPU if no device available
 
+Each engine handles:
+
+- Fractal algorithm
+- Color mapping
+
 ### Applications
 
 #### CLI
 
-    $ fractool \
-        --use-gpu | --no-use-gpu \
-        --algorithm zsquare-seed \
-        --parameter 'c=-0.4 + 0.6j' \
-        --translate-x 20 \
-        --translate-y 40 \
-        --rotate 45 \
-        --zoom 1.3 \
-        --colormap flower \
-        --image-size-x 1920 \
-        --image-size-y 1080 \
-        --filename 'fractal.png'
+```bash
+$ fractool \
+    --use-gpu | --no-use-gpu \
+    --algorithm zsquare-seed \
+    --parameter 'c=-0.4 + 0.6j' \
+    --translate-x 20 \
+    --translate-y 40 \
+    --rotate 45 \
+    --zoom 1.3 \
+    --colormap flower \
+    --image-size-x 1920 \
+    --image-size-y 1080 \
+    --filename 'fractal.png'
+```
 
 Or
 
-    $ fractool --do 'fractal-file.yml'
+```bash
+$ fractool --load 'fractal-file.yml'
+```
 
 Parameter Groups
 
