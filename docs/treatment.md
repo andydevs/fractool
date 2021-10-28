@@ -66,7 +66,7 @@ Colormap file data structure: A binary file representing an array of colormap ob
 
 struct colormap {
     char name[NAME_MAX_LEN];
-    unsigned char colors[MAX_COLORS*NUM_CHANNELS];
+    unsigned char colors[MAX_COLORS][NUM_CHANNELS];
 };
 ```
 
