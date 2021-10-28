@@ -1,35 +1,38 @@
 Frac Tool
-=================================================================================
+=====================================================================================
 
 FracTool is a tool used for generating images/videos of 2D fractals using various 
 algorithms.
 
 Development
----------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
 
-- Demo 1:
-    - One engine: single-threaded CPU
-    - Fractool CLI
-- Demo 3:
-    - Fractool GUI
-    - Fractal File System
-- Demo 2:
-    - CPU engine is now multi-threaded
+### Demo 1:
+- One engine: single-threaded CPU
+- Fractool CLI
+
+### Demo 2:
+- Fractool GUI
+- Fractal File System
+
+### Demo 3:
+- CPU engine is now multi-threaded
 
 Components
----------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
 
 ### Core
 
 Shared components across different engines and applications
 
 - Image/Movie Writing: Use OpenCV
-- Fractal File Reading/Writing: Use OpenCV
+- Fractal File Reading/Writing: Use YAML
 - Colormap File Reading/Writing: Custom
 
-Fractal File format (yaml)
+Fractal File format: YAML file structure
 
 ```yaml
+---
 algorithm: zsquare-seed
 parameters:
     c:
@@ -48,6 +51,10 @@ image:
         x: 1920
         y: 1080
     filename: fractal.png
+---
+.
+.
+.
 ```
 
 Colormap file data structure: A binary file representing an array of colormap objects
