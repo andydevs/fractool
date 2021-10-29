@@ -124,6 +124,8 @@ Parameter Groups
 
 #### GUI
 
+![GUI](gui.svg)
+
 Should use a generic software or can be a multi-platform system
 
 - Real time display of fractal view

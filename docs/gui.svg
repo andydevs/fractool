@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="768"
+   height="576"
+   viewBox="0 0 203.2 152.4"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c4e8f9e, 2021-05-24)"
+   sodipodi:docname="gui.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     inkscape:showpageshadow="false"
+     inkscape:zoom="0.9865119"
+     inkscape:cx="253.92496"
+     inkscape:cy="294.47186"
+     inkscape:window-width="1792"
+     inkscape:window-height="1067"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke-width:0.665;stroke:#000000;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect31"
+       width="129.27281"
+       height="97.893311"
+       x="4.0230126"
+       y="5.0958161" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:23.1088px;line-height:1.25;font-family:sans-serif;fill:#ff2b2b;fill-opacity:1;stroke:none;stroke-width:0.577721"
+       x="-14.691843"
+       y="143.2506"
+       id="text2882"
+       transform="rotate(-11.694347)"><tspan
+         sodipodi:role="line"
+         id="tspan2880"
+         style="fill:#ff2b2b;fill-opacity:1;stroke-width:0.577721"
+         x="-14.691843"
+         y="143.2506">Controls</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:23.1088px;line-height:1.25;font-family:sans-serif;fill:#ff2b2b;fill-opacity:1;stroke:none;stroke-width:0.577721"
+       x="-48.598938"
+       y="180.31146"
+       id="text3868"
+       transform="rotate(-72.091491)"><tspan
+         sodipodi:role="line"
+         id="tspan3866"
+         style="fill:#ff2b2b;fill-opacity:1;stroke-width:0.577721"
+         x="-48.598938"
+         y="180.31146">Controls</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:23.1088px;line-height:1.25;font-family:sans-serif;fill:#ff2b2b;fill-opacity:1;stroke:none;stroke-width:0.577721"
+       x="67.530182"
+       y="165.47334"
+       id="text4032"
+       transform="rotate(-11.694347)"><tspan
+         sodipodi:role="line"
+         id="tspan4030"
+         style="fill:#ff2b2b;fill-opacity:1;stroke-width:0.577721"
+         x="67.530182"
+         y="165.47334">Controls</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:23.1088px;line-height:1.25;font-family:sans-serif;fill:#ff2b2b;fill-opacity:1;stroke:none;stroke-width:0.577721"
+       x="-2.5045309"
+       y="79.687836"
+       id="text4116"
+       transform="rotate(-23.434427)"><tspan
+         sodipodi:role="line"
+         id="tspan4114"
+         style="fill:#ff2b2b;fill-opacity:1;stroke-width:0.577721"
+         x="-2.5045309"
+         y="79.687836">Preview</tspan></text>
+  </g>
+</svg>
