@@ -77,6 +77,21 @@ struct colormap {
 };
 ```
 
+### Algorithms
+
+The various fractal generation algorithms
+
+- Mandelbrot
+- Julia-set
+    - Parameter: c complex
+- Burning-Ship
+- Parallel Mandelbrot
+- Newton's Method
+    - Parameter: roots array of complex
+
+Each algorithm needs a way to execute on either engine... 
+without having to write the algorithm twice
+
 ### Engines
 
 - CPU: use OpenMP
@@ -136,3 +151,9 @@ Should use a generic software or can be a multi-platform system
 - Set image dimensions and filename
 - Save image
 - Save parameters
+
+#### Colormap Utility
+
+Can use the same GUI but be used to create and save colormaps
+
+Or can be written in python
