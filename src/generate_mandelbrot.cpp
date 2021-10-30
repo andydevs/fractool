@@ -1,11 +1,13 @@
 #include <fractool/generate_mandelbrot.hpp>
 #include <fractool/macros.hpp>
+#include <algorithm>
+#include <complex>
 
 
 /**
  * Run mandelbrot set generation algorithm
  */
-void generate_mandelbrot(unsigned size_x, unsigned size_y, uchar* param_buffer)
+void generate_mandelbrot(unsigned size_x, unsigned size_y, unsigned char* param_buffer)
 {
     // Helper variables
     float gsc = 4.0;                            // Grid scale
@@ -15,7 +17,7 @@ void generate_mandelbrot(unsigned size_x, unsigned size_y, uchar* param_buffer)
 
     // Run iteration algorithm
     std::complex<float> z, c;
-    uchar n;
+    unsigned char n;
     for (unsigned j = 0; j < size_y; ++j) {
         for (unsigned i = 0; i < size_x; ++i) {
             // Initialize z and c
@@ -25,8 +27,7 @@ void generate_mandelbrot(unsigned size_x, unsigned size_y, uchar* param_buffer)
             // Iteration
             n = 0;
             while (n < 255 && std::abs(z) < 2) {
-                z *= z;
-                z += c;
+                z = z*z + c;
                 n += 1;
             }
             

@@ -4,9 +4,6 @@
 #include <fractool/generate_mandelbrot.hpp>
 
 // External
-#include <iostream>
-#include <complex>
-#include <algorithm>
 #include <opencv2/opencv.hpp>
 
 
