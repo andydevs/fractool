@@ -3,7 +3,7 @@
 
 
 // Colormap
-const uchar COLORMAP[256][3] = {
+const unsigned char COLORMAP[256][3] = {
     {255, 255, 255},
     {254, 254, 254},
     {253, 253, 253},
@@ -265,9 +265,9 @@ const uchar COLORMAP[256][3] = {
 /**
  * Map parameter space to color space using colormap
  */
-void map_color(unsigned size_x, unsigned size_y, uchar* param_buffer, uchar* color_buffer)
+void map_color(unsigned size_x, unsigned size_y, unsigned char* param_buffer, unsigned char* color_buffer)
 {
-    uchar n;
+    unsigned char n;
     for (unsigned j = 0; j < size_y; ++j) {
         for (unsigned i = 0; i < size_x; ++i) {
             // Get parameter

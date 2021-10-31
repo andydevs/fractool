@@ -4,9 +4,6 @@
 #include <fractool/generate_mandelbrot.hpp>
 
 // External
-#include <iostream>
-#include <complex>
-#include <algorithm>
 #include <opencv2/opencv.hpp>
 
 
@@ -19,8 +16,8 @@ int main(int argc, char **argv) {
     const unsigned size_y = 400;
 
     // Resources
-    uchar* param_buffer = new uchar[size_x * size_y];
-    uchar* color_buffer = new uchar[size_x * size_y * NUM_CHANS];
+    unsigned char* param_buffer = new unsigned char[size_x * size_y];
+    unsigned char* color_buffer = new unsigned char[size_x * size_y * NUM_CHANS];
 
     // Run stages
     generate_mandelbrot(size_x, size_y, param_buffer);
