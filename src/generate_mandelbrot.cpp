@@ -43,7 +43,7 @@ void generate_mandelbrot(unsigned size_x, unsigned size_y, unsigned char* param_
             }
 
             // Log output
-            BOOST_LOG_TRIVIAL(debug) 
+            BOOST_LOG_TRIVIAL(trace) 
                 << "Pixel (" << i << "," << j << "): "
                 << "c = " << c << " n = " << (int)n;
             
