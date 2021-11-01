@@ -5,6 +5,9 @@
 #include <fractool/map_color.hpp>
 #include <fractool/write_image.hpp>
 
+// External
+#include <boost/log/trivial.hpp>
+
 /**
  * Main program entrypoint
  */
@@ -12,7 +15,6 @@ int main(int argc, char **argv) {
     // Config struct
     config conf;
     conf.parse_args(argc, argv);
-    conf.print_config();
 
     // Resources
     unsigned char* param_buffer = new unsigned char[conf.image_size_x * conf.image_size_y];

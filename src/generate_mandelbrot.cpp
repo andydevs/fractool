@@ -6,11 +6,16 @@
 #include <algorithm>
 #include <complex>
 
+// External
+#include <boost/log/trivial.hpp>
+
 /**
  * Run mandelbrot set generation algorithm
  */
 void generate_mandelbrot(unsigned size_x, unsigned size_y, unsigned char* param_buffer)
 {
+    BOOST_LOG_TRIVIAL(info) << "Generating...";
+
     // Helper variables
     float gsc = 4.0;                            // Grid scale
     float x0 = (float)size_x/2;                 // Center x value
