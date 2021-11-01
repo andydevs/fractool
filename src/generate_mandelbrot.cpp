@@ -1,8 +1,10 @@
+// Fractool
 #include <fractool/generate_mandelbrot.hpp>
 #include <fractool/macros.hpp>
+
+// Internal
 #include <algorithm>
 #include <complex>
-
 
 /**
  * Run mandelbrot set generation algorithm
