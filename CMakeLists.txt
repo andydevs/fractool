@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(include)
 
 find_package(OpenCV 4.5 REQUIRED)
+find_package(Boost 1.76 REQUIRED COMPONENTS log)
 
 add_subdirectory(apps)
 add_subdirectory(src)
