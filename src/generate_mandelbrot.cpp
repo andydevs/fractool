@@ -14,13 +14,17 @@
  */
 void generate_mandelbrot(unsigned size_x, unsigned size_y, unsigned char* param_buffer)
 {
-    BOOST_LOG_TRIVIAL(info) << "Generating...";
+    // Print message
+    BOOST_LOG_TRIVIAL(info) << "Generating mandelbrot...";
 
     // Helper variables
     float gsc = 4.0;                            // Grid scale
     float x0 = (float)size_x/2;                 // Center x value
     float y0 = (float)size_y/2;                 // Center y value
     float scl = gsc / std::min(size_x, size_y); // Final scale factor
+    BOOST_LOG_TRIVIAL(debug) << "Grid scale: " << gsc;
+    BOOST_LOG_TRIVIAL(debug) << "Origin Point (x0, y0): (" << x0 << "," << y0 << ")";
+    BOOST_LOG_TRIVIAL(debug) << "Final Scale: " << scl;
 
     // Run iteration algorithm
     std::complex<float> z, c;
@@ -37,6 +41,11 @@ void generate_mandelbrot(unsigned size_x, unsigned size_y, unsigned char* param_
                 z = z*z + c;
                 n += 1;
             }
+
+            // Log output
+            BOOST_LOG_TRIVIAL(debug) 
+                << "Pixel (" << i << "," << j << "): "
+                << "c = " << c << " n = " << (int)n;
             
             // Set parameter
             param_buffer[ARRAY2D(size_x, i, j)] = n;
