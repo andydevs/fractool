@@ -8,16 +8,19 @@ Roadmap
 -------------------------------------------------------------------------------------
 
 ### Demo 1:
-- One engine: single-threaded CPU
+- One engine
+    - Single-threaded CPU
 - Fractool CLI
-- Colormaps stored in binary executable
+    - All arguments
+- Colormaps stored in executable
+    - Multiple colormaps
 
 ### Demo 2:
-- Fractal File System
-- Colormap File System
+- Fractool GUI
 
 ### Demo 3:
-- Fractool GUI
+- Fractal File System
+- Colormap File System
 
 ### Demo 4:
 - CPU engine is now multi-threaded
