@@ -8,10 +8,11 @@ Build
 
 _Requirements_
 
-| Name   | Version |
-|:------:|:-------:|
-| CMake  | >= 3.0  |
-| OpenCV | >= 4.5  |
+| Name   | Min Version | Components |
+|:-------|:------------|:-----------|
+| CMake  | 3.0         |            | 
+| OpenCV | 4.5         |            |
+| Boost  | 1.76        | log        |
 
 _How to Build (Linux/macOS)_
 

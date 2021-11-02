@@ -2,6 +2,9 @@
 #include <fractool/map_color.hpp>
 #include <fractool/macros.hpp>
 
+// External
+#include <boost/log/trivial.hpp>
+
 
 // Colormap
 const unsigned char COLORMAP[256][3] = {
@@ -268,6 +271,8 @@ const unsigned char COLORMAP[256][3] = {
  */
 void map_color(unsigned size_x, unsigned size_y, unsigned char* param_buffer, unsigned char* color_buffer)
 {
+    BOOST_LOG_TRIVIAL(info) << "Mapping Color...";
+    
     unsigned char n;
     for (unsigned j = 0; j < size_y; ++j) {
         for (unsigned i = 0; i < size_x; ++i) {

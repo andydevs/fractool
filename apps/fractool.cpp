@@ -5,14 +5,35 @@
 #include <fractool/map_color.hpp>
 #include <fractool/write_image.hpp>
 
+// External
+#include <boost/log/core.hpp>
+#include <boost/log/trivial.hpp>
+#include <boost/log/expressions.hpp>
+
+/**
+ * Initialize logging severity level
+ */
+void init_logging() {
+    boost::log::core::get()->set_filter(
+#ifdef DEBUG
+        boost::log::trivial::severity >= boost::log::trivial::debug
+#else
+        boost::log::trivial::severity >= boost::log::trivial::info
+#endif
+    );
+    BOOST_LOG_TRIVIAL(debug) << "Logging initialized";
+};
+
 /**
  * Main program entrypoint
  */
 int main(int argc, char **argv) {
+    // Initialize logging
+    init_logging();
+
     // Config struct
     config conf;
     conf.parse_args(argc, argv);
-    conf.print_config();
 
     // Resources
     unsigned char* param_buffer = new unsigned char[conf.image_size_x * conf.image_size_y];

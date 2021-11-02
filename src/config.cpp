@@ -2,6 +2,7 @@
 #include <fractool/config.hpp>
 
 // External
+#include <boost/log/trivial.hpp>
 #include <iostream>
 #include <unistd.h>
 #include <getopt.h>
@@ -18,6 +19,7 @@ config::config():
  * Print help message
  */
 void config::print_help() {
+    BOOST_LOG_TRIVIAL(debug) << "Printing help message";
     std::cout << std::endl
         << "$ fractool [options]" << std::endl
         << std::endl << "Options:" << std::endl
@@ -25,6 +27,7 @@ void config::print_help() {
         << "\t(-v | --image-size-y) <n>       Set vertical image size" << std::endl
         << "\t(-h | --help)                   Print help message" << std::endl
         << std::endl;
+    BOOST_LOG_TRIVIAL(debug) << "exiting...";
     exit(1);
 };
 
@@ -38,12 +41,21 @@ void config::print_config() {
 };
 
 /**
+ * Log config parameters
+ */
+void config::log_config() {
+    BOOST_LOG_TRIVIAL(debug) << "config.image_size_x = " << image_size_x;
+    BOOST_LOG_TRIVIAL(debug) << "config.image_size_y = " << image_size_y;
+}
+
+/**
  * Parse command line arguments
  *
  * @param argc number of command line arguments
  * @param argv command line arguments buffer
  */
 void config::parse_args(int argc, char **argv) {
+    BOOST_LOG_TRIVIAL(debug) << "Parsing config from command line options";
     // Define options
     const char* const shortopts = "u:v:h";
     const option longopts[] {
@@ -65,10 +77,14 @@ void config::parse_args(int argc, char **argv) {
                 break;
             case 'h':
                 print_help();
+                break;
             case '?':
                 break;
             default:
                 break;
         }
     }
+
+    // Log final config
+    log_config();
 }

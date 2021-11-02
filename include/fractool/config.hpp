@@ -25,6 +25,11 @@ struct config {
     void print_config();
 
     /**
+     * Log config parameters
+     */
+    void log_config();
+
+    /**
      * Parse command line arguments
      *
      * @param argc number of command line arguments
