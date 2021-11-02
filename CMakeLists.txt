@@ -14,4 +14,4 @@ find_package(Boost 1.76 REQUIRED COMPONENTS log)
 add_compile_definitions($<$<CONFIG:Debug>:DEBUG=1>)
 
 # Source directories
-add_subdirectory(src)
+add_subdirectory(src out)
