@@ -1,5 +1,5 @@
 // Fractool
-#include <fractool/config.hpp>
+#include <fractool/ftcore/config.hpp>
 
 // External
 #include <boost/log/trivial.hpp>
