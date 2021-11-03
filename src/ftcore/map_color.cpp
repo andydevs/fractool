@@ -1,6 +1,6 @@
 // Fractool
-#include <fractool/map_color.hpp>
 #include <fractool/macros.hpp>
+#include <fractool/ftcore/map_color.hpp>
 
 // External
 #include <boost/log/trivial.hpp>

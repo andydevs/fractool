@@ -1,7 +1,7 @@
-#include <fractool/write_image.hpp>
-#include <opencv2/opencv.hpp>
+#include <fractool/ftcore/write_image.hpp>
 
 // External
+#include <opencv2/opencv.hpp>
 #include <boost/log/trivial.hpp>
 
 

@@ -1,9 +1,9 @@
 // Fractool
 #include <fractool/macros.hpp>
-#include <fractool/config.hpp>
-#include <fractool/generate_mandelbrot.hpp>
-#include <fractool/map_color.hpp>
-#include <fractool/write_image.hpp>
+#include <fractool/ftcore/config.hpp>
+#include <fractool/ftcore/generate_mandelbrot.hpp>
+#include <fractool/ftcore/map_color.hpp>
+#include <fractool/ftcore/write_image.hpp>
 
 // External
 #include <boost/log/core.hpp>
