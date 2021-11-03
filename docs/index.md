@@ -1,6 +1,3 @@
-Frac Tool
-=====================================================================================
-
 FracTool is a tool used for generating images/videos of 2D fractals using various 
 algorithms.
 
