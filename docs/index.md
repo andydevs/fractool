@@ -129,13 +129,13 @@ $ fractool --load 'fractal-file.yml'
 
 Parameter Groups
 
-| Group                  | Params                                                 |
-|:-----------------------|:-------------------------------------------------------|
-| Algorithm              | `--algorithm`, `--parameter`                           |
-| Transform              | `--translate-x`, `--translate-y`, `--rotate`, `--zoom` |
-| Postprocessing         | `--colormap`                                           |
-| Image                  | `--image-size-x`, `--image-size-y`, `--filename`       |
-| Hardware Acceleeration | `--use-gpu`, `--no-use-gpu`                            |
+| Group                 | Params                                                 |
+|:----------------------|:-------------------------------------------------------|
+| Algorithm             | `--algorithm`, `--parameter`                           |
+| Transform             | `--translate-x`, `--translate-y`, `--rotate`, `--zoom` |
+| Postprocessing        | `--colormap`                                           |
+| Image                 | `--image-size-x`, `--image-size-y`, `--filename`       |
+| Hardware Acceleration | `--use-gpu`, `--no-use-gpu`                            |
 
 #### GUI
 
