@@ -4,8 +4,6 @@
 // External
 #include <boost/log/trivial.hpp>
 #include <iostream>
-#include <unistd.h>
-#include <getopt.h>
 
 
 // Program options namespace
