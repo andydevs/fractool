@@ -4,7 +4,7 @@ algorithms.
 Roadmap
 -------------------------------------------------------------------------------------
 
-### Demo 1:
+### 0.1.0: Demo 1
 - One engine
     - Single-threaded CPU
 - Fractool CLI
@@ -12,17 +12,17 @@ Roadmap
 - Colormaps stored in executable
     - Multiple colormaps
 
-### Demo 2:
+### 0.2.0: Demo 2
 - Fractool GUI
 
-### Demo 3:
+### 0.3.0: Demo 3
 - Fractal File System
 - Colormap File System
 
-### Demo 4:
+### 0.4.0: Demo 4
 - CPU engine is now multi-threaded
 
-### MVP:
+### 1.0.0: MVP
 - GPU engine using CUDA
 
 Components
@@ -95,11 +95,12 @@ without having to write the algorithm twice
 ### Engines
 
 - CPU: use OpenMP
-- GPU: use CUDA. Default to CPU if no device available
+- GPU: use CUDA. Default to CPU if no compatible device available
 
 Each engine handles:
 
 - Fractal algorithm
+- Post Processing
 - Color mapping
 
 ### Applications
