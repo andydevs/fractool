@@ -1,6 +1,9 @@
 #ifndef __FRACTOOL_CONFIG_H__
 #define __FRACTOOL_CONFIG_H__
 
+// Program options
+#include <boost/program_options.hpp>
+
 /**
  * Configuration object for tool
  */
@@ -8,6 +11,10 @@ struct config {
     // Config parameters
     unsigned image_size_x;
     unsigned image_size_y;
+
+    // Boost program options
+    boost::program_options::options_description options_desc;
+    boost::program_options::variables_map options_map;
 
     /**
      * Initialize with default parameters

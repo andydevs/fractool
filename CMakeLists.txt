@@ -8,10 +8,7 @@ include_directories(include)
 
 # Packages
 find_package(OpenCV 4.5 REQUIRED)
-find_package(Boost 1.76 REQUIRED COMPONENTS log)
-
-# Debug mode settings
-add_compile_definitions($<$<CONFIG:Debug>:DEBUG=1>)
+find_package(Boost 1.76 COMPONENTS log program_options REQUIRED)
 
 # Source directories
 add_subdirectory(src out)
