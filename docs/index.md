@@ -142,7 +142,9 @@ Parameter Groups
 
 ![GUI](gui.svg)
 
-Should use a generic software or can be a multi-platform system
+~~Should use a generic software or can be a multi-platform system~~
+
+Planning on using wxWidgets lib
 
 - Real time display of fractal view
 - Select between different algorithms
