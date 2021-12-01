@@ -95,11 +95,12 @@ without having to write the algorithm twice
 ### Engines
 
 - CPU: use OpenMP
-- GPU: use CUDA. Default to CPU if no device available
+- GPU: use CUDA. Default to CPU if no compatible device available
 
 Each engine handles:
 
 - Fractal algorithm
+- Post Processing
 - Color mapping
 
 ### Applications
