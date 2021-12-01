@@ -8,11 +8,11 @@ Build
 
 _Requirements_
 
-| Name   | Min Version | Components          | Used For                      |
-|:-------|:------------|:--------------------|:------------------------------|
-| CMake  | 3.0         |                     | Building                      |
-| OpenCV | 4.5         |                     | Image and video file writing  |
-| Boost  | 1.76        | log program_options | Logging, parsing command line |
+| Name   | Min Version | Used For                      |
+|:-------|:------------|:------------------------------|
+| CMake  | 3.0         | Building                      |
+| OpenCV | 4.5         | Image and video file writing  |
+| Boost  | 1.76        | Logging, parsing command line |
 
 _How to Build (Linux/macOS)_
 
