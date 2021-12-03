@@ -16,7 +16,7 @@
 - Colormap File System
 
 ### 0.4.0: Demo 4
-- CPU engine is now multi-threaded
+- CPU engine is multi-threaded
 
 ### 1.0.0: MVP
 - GPU engine using CUDA
