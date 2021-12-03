@@ -1,1 +1,5 @@
 theme: jekyll-theme-cayman
+title: FracTool
+description: >
+  Fractool is a tool for generating abstract images
+  using various 2D fractal generation algorithms

@@ -1,10 +1,11 @@
-Frac Tool
-===============================================================================
+FracTool
+============================================================================
 
-Third or Fourth iteration of Fractal Generator
+Fractool is a tool for generating abstract images using various 2D fractal 
+generation algorithms
 
 Build
--------------------------------------------------------------------------------
+----------------------------------------------------------------------------
 
 _Requirements_
 
