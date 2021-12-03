@@ -2,7 +2,7 @@
 [Roadmap](/fractool/roadmap)
 
 Build
-----------------------------------------------------------------------------
+-------------------------------------------------------------
 
 _Requirements_
 
@@ -24,3 +24,14 @@ Open project in terminal. Run following commands
 _How to Build (Windows)_
 
 Open project in Visual Studio. Build project using GUI
+
+Project Scope
+-------------------------------------------------------------
+
+FracTool is a personal application for generating fractal
+images. It will mainly be used by individuals for the
+purposes of creating such images for use in wallpapers,
+banner images for social media, creative image assets, etc.
+
+FracTool will _not_ implement a web solution, and will _not_
+expose an API for use in other programs.
