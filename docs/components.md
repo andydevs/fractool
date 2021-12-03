@@ -1,7 +1,7 @@
 [Back](/fractool)
 
 Core
-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
 
 Shared components across different engines and applications
 
@@ -9,7 +9,8 @@ Shared components across different engines and applications
 - Fractal File Reading/Writing: Use YAML
 - Colormap File Reading/Writing: Custom
 
-Fractal File format: YAML file structure. Can contain one or more documents
+Fractal File format: YAML file structure. Can contain one or more documents (called
+jobs)
 
 ```yaml
 ---
@@ -37,7 +38,8 @@ image:
 .
 ```
 
-Colormap file data structure: A binary file representing an array of colormap objects
+Colormap file data structure: A binary file 
+representing an array of colormap objects
 
 ```c++
 #define NAME_MAX_LEN 64
@@ -51,7 +53,7 @@ struct colormap {
 ```
 
 Algorithms
-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
 
 The various fractal generation algorithms
 
@@ -63,11 +65,11 @@ The various fractal generation algorithms
 - Newton's Method
     - Parameter: roots array of complex
 
-Each algorithm needs a way to execute on either engine... 
-without having to write the algorithm twice
+~~Each algorithm needs a way to execute on either engine... without having to write 
+the algorithm twice~~ Minimum rewriting of code required
 
 Engines
-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
 
 - CPU: use OpenMP
 - GPU: use CUDA. Default to CPU if no compatible device available
@@ -79,7 +81,7 @@ Each engine handles:
 - Color mapping
 
 Applications
-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
 
 ### CLI
 
