@@ -1,84 +1,58 @@
 [Back](/fractool)
 
-Core
--------------------------------------------------------------------------------------
-
-Shared components across different engines and applications
-
-- Image/Movie Writing: Use OpenCV
-- Fractal File Reading/Writing: Use YAML
-- Colormap File Reading/Writing: Custom
-
-Fractal File format: YAML file structure. Can contain one or more documents (called
-jobs)
-
-```yaml
----
-algorithm: zsquare-seed
-parameters:
-    c:
-        real: -0.4
-        imag: 0.6
-transform:
-    translate:
-        x: 20
-        y: 40
-    rotate: 45
-    zoom: 1.3
-postprocessing:
-    colormap: flower
-image:
-    size:
-        x: 1920
-        y: 1080
-    filename: fractal.png
----
-.
-.
-.
-```
-
-Colormap file data structure: A binary file 
-representing an array of colormap objects
-
-```c++
-#define NAME_MAX_LEN 64
-#define MAX_COLORS 256
-#define NUM_CHANNELS 3
-
-struct colormap {
-    char name[NAME_MAX_LEN];
-    unsigned char colors[MAX_COLORS][NUM_CHANNELS];
-};
-```
-
-Algorithms
--------------------------------------------------------------------------------------
-
-The various fractal generation algorithms
-
-- Mandelbrot
-- Julia-set
-    - Parameter: c complex
-- Burning-Ship
-- Parallel Mandelbrot
-- Newton's Method
-    - Parameter: roots array of complex
-
-~~Each algorithm needs a way to execute on either engine... without having to write 
-the algorithm twice~~ Minimum rewriting of code required
-
 Engines
 -------------------------------------------------------------------------------------
 
-- CPU: use OpenMP
-- GPU: use CUDA. Default to CPU if no compatible device available
+Two (or Three) engines will be available. Each engine will have it's own 
+implementation of the fractal algorithms that are better geared towards 
+each system. Each engine will be it's own library.
 
-Each engine handles:
+- Mandelbrot
+- Julia-set
+    - Parameter: c (complex)
+- Burning-Ship
+- Parallel Mandelbrot
+- Newton's Method
+    - Parameter: roots (array of complex)
 
-- Fractal algorithm
-- Post Processing
-- Color mapping
+### ftsp
+
+Will run on single processor. Mainly used to develop algorithms but will remain as
+an option until a later date. It may also be useful for fractal algorithms that
+can't be as easily parallelized
+
+Algorithms 
+
+- [x] Mandelbrot
+- [x] Julia-set
+- [x] Burning-Ship
+- [x] Parallel Mandelbrot
+- [x] Newton's Method
+
+### ftmp
+
+Will be multithreaded using OpenMP. Default to ftsp if need be
+
+Algorithms 
+
+- [x] Mandelbrot
+- [x] Julia-set
+- [x] Burning-Ship
+- [x] Parallel Mandelbrot
+- [x] Newton's Method
+
+### ftgpu
+
+Will use CUDA hardware acceleration library. This will default to ftmp if unavailable
+
+Algorithms 
+
+- [x] Mandelbrot
+- [x] Julia-set
+- [x] Burning-Ship
+- [x] Parallel Mandelbrot
+- [x] Newton's Method
+
 
 Applications
 -------------------------------------------------------------------------------------
@@ -136,3 +110,58 @@ Planning on using wxWidgets lib
 ### Colormap Utility
 
 Can use the same GUI but be used to create and save colormaps
+
+Miscellaneous
+-------------------------------------------------------------------------------------
+
+Originally `ftcore`
+
+A library `ftmisc` containing miscellaneous, shared components across different 
+engines and applications
+
+- Image/Movie Writing: Use OpenCV
+- Fractal File Reading/Writing: Use YAML
+- Colormap File Reading/Writing: Custom
+
+Fractal File format: YAML file structure. Can contain one or more documents (called
+jobs)
+
+```yaml
+---
+algorithm: zsquare-seed
+parameters:
+    c:
+        real: -0.4
+        imag: 0.6
+transform:
+    translate:
+        x: 20
+        y: 40
+    rotate: 45
+    zoom: 1.3
+postprocessing:
+    colormap: flower
+image:
+    size:
+        x: 1920
+        y: 1080
+    filename: fractal.png
+---
+.
+.
+.
+```
+
+Colormap file data structure: A binary file 
+representing an array of colormap objects
+
+```c++
+#define NAME_MAX_LEN 64
+#define MAX_COLORS 256
+#define NUM_CHANNELS 3
+
+struct colormap {
+    char name[NAME_MAX_LEN];
+    unsigned char colors[MAX_COLORS][NUM_CHANNELS];
+};
+```
