@@ -1,9 +1,12 @@
-// Fractool
+// Fractool macros
 #include <fractool/macros.hpp>
+
+// FTCore
 #include <fractool/ftcore/config.hpp>
-#include <fractool/ftcore/generate_mandelbrot.hpp>
 #include <fractool/ftcore/map_color.hpp>
 #include <fractool/ftcore/write_image.hpp>
+#include <fractool/ftcore/generate_mandelbrot.hpp>
+#include <fractool/ftcore/generate_julia.hpp>
 
 // External
 #include <boost/log/core.hpp>
@@ -40,7 +43,7 @@ int main(int argc, char **argv) {
     unsigned char* color_buffer = new unsigned char[conf.image_size_x * conf.image_size_y * NUM_CHANS];
 
     // Run stages
-    generate_mandelbrot(conf.image_size_x, conf.image_size_y, param_buffer);
+    generate_julia(conf.image_size_x, conf.image_size_y, param_buffer);
     map_color(conf.image_size_x, conf.image_size_y, param_buffer, color_buffer);
     write_image(conf.image_size_x, conf.image_size_y, color_buffer, "fractal.png");
 
