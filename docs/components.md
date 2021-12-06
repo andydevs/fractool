@@ -15,7 +15,7 @@ each system. Each engine will be it's own library.
 - Newton's Method
     - Parameter: roots (array of complex)
 
-### ftsp
+### ftensp
 
 Will run on single processor. Mainly used to develop algorithms but will remain as
 an option until a later date. It may also be useful for fractal algorithms that
@@ -29,9 +29,9 @@ Algorithms
 - [x] Parallel Mandelbrot
 - [x] Newton's Method
 
-### ftmp
+### ftenmp
 
-Will be multithreaded using OpenMP. Default to ftsp if need be
+Will be multithreaded using OpenMP. Default to ftensp if need be
 
 Algorithms 
 
@@ -41,9 +41,9 @@ Algorithms
 - [x] Parallel Mandelbrot
 - [x] Newton's Method
 
-### ftgpu
+### ftengpu
 
-Will use CUDA hardware acceleration library. This will default to ftmp if unavailable
+Will use CUDA hardware acceleration library. This will default to ftenmp if unavailable
 
 Algorithms 
 
