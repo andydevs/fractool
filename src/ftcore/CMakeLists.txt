@@ -1,8 +1,10 @@
 add_library(ftcore 
     config.cpp
-    generate_mandelbrot.cpp 
+    cli_parser.cpp
     map_color.cpp
-    write_image.cpp)
+    write_image.cpp
+    generate_mandelbrot.cpp
+    generate_julia.cpp)
 target_include_directories(ftcore PRIVATE 
     ${OpenCV_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS})
