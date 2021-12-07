@@ -1,5 +1,6 @@
 add_library(ftcore 
     config.cpp
+    cli_parser.cpp
     map_color.cpp
     write_image.cpp
     generate_mandelbrot.cpp

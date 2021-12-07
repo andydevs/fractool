@@ -3,6 +3,7 @@
 
 // FTCore
 #include <fractool/ftcore/config.hpp>
+#include <fractool/ftcore/cli_parser.hpp>
 #include <fractool/ftcore/map_color.hpp>
 #include <fractool/ftcore/write_image.hpp>
 #include <fractool/ftcore/generate_mandelbrot.hpp>
@@ -34,9 +35,9 @@ int main(int argc, char **argv) {
     // Initialize logging
     init_logging();
 
-    // Config struct
-    config conf;
-    conf.parse_args(argc, argv);
+    // Generate config struct from cli
+    config conf = config_from_cli(argc, argv);
+    conf.log_config();
 
     // Resources
     unsigned char* param_buffer = new unsigned char[conf.image_size_x * conf.image_size_y];
