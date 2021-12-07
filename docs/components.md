@@ -33,7 +33,6 @@ Will be multithreaded using OpenMP. Default to ftensp if need be
 
 Will use CUDA hardware acceleration library. This will default to ftenmp if unavailable
 
-
 Applications
 -------------------------------------------------------------------------------------
 
