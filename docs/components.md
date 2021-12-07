@@ -1,3 +1,7 @@
+---
+title: 'Components'
+---
+
 [Back](/fractool)
 
 Engines
@@ -21,37 +25,13 @@ Will run on single processor. Mainly used to develop algorithms but will remain 
 an option until a later date. It may also be useful for fractal algorithms that
 can't be as easily parallelized
 
-Algorithms 
-
-- [x] Mandelbrot
-- [x] Julia-set
-- [x] Burning-Ship
-- [x] Parallel Mandelbrot
-- [x] Newton's Method
-
 ### ftenmp
 
 Will be multithreaded using OpenMP. Default to ftensp if need be
 
-Algorithms 
-
-- [x] Mandelbrot
-- [x] Julia-set
-- [x] Burning-Ship
-- [x] Parallel Mandelbrot
-- [x] Newton's Method
-
 ### ftengpu
 
 Will use CUDA hardware acceleration library. This will default to ftenmp if unavailable
-
-Algorithms 
-
-- [x] Mandelbrot
-- [x] Julia-set
-- [x] Burning-Ship
-- [x] Parallel Mandelbrot
-- [x] Newton's Method
 
 
 Applications
@@ -63,7 +43,7 @@ Applications
 $ fractool \
     --use-gpu | --no-use-gpu \
     --algorithm zsquare-seed \
-    --parameter 'c=-0.4 + 0.6j' \
+    --parameter 'c=(-0.4,0.6)' \
     --translate-x 20 \
     --translate-y 40 \
     --rotate 45 \
