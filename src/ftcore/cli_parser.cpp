@@ -107,6 +107,7 @@ config config_from_cli(int argc, char **argv) {
             BOOST_LOG_TRIVIAL(debug) << "Exiting with status 1...";
             exit(1);
         }
+        cfg.algorithm = vm["algorithm"].as<ALGORITHM>();
     }
 
     // Return config

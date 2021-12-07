@@ -44,7 +44,16 @@ int main(int argc, char **argv) {
     unsigned char* color_buffer = new unsigned char[conf.image_size_x * conf.image_size_y * NUM_CHANS];
 
     // Run stages
-    generate_julia(conf.image_size_x, conf.image_size_y, param_buffer);
+    switch(conf.algorithm) {
+        case ALGORITHM::MANDELBROT:
+            generate_mandelbrot(conf.image_size_x, conf.image_size_y, param_buffer);
+            break;
+        case ALGORITHM::JULIA:
+            generate_julia(conf.image_size_x, conf.image_size_y, param_buffer);
+            break;
+        default:
+            break;
+    }
     map_color(conf.image_size_x, conf.image_size_y, param_buffer, color_buffer);
     write_image(conf.image_size_x, conf.image_size_y, color_buffer, "fractal.png");
 
