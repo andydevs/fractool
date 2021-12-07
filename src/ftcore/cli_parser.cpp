@@ -24,12 +24,16 @@ static void print_help(po::options_description desc) {
 };
 
 /**
- * Operator system to pull ALGORITHM type from cli
+ * Map names to algorithm types
  */
 static std::map<std::string, ALGORITHM> const lookup = {
     { "mbrot", ALGORITHM::MANDELBROT },
     { "julia", ALGORITHM::JULIA }
 };
+
+/**
+ * Operator to interpret algorithm from input string
+ */
 std::istream& operator>> (std::istream &in, ALGORITHM &algorithm)
 {
     algorithm = ALGORITHM::_INVALID;
@@ -39,6 +43,10 @@ std::istream& operator>> (std::istream &in, ALGORITHM &algorithm)
     if (it != lookup.end()) { algorithm = it->second; }
     return in;
 };
+
+/**
+ * Representation of algorithm types (for printing in help message)
+ */
 const char* repr_algorithms() {
     std::stringstream sin;
     sin << "Set algorithm type (";
@@ -49,7 +57,6 @@ const char* repr_algorithms() {
     sin << ")";
     return strdup(sin.str().c_str());
 };
-
 
 /**
  * Parse command line arguments and generates config
