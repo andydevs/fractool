@@ -32,15 +32,11 @@ static std::map<std::string, ALGORITHM> const lookup = {
 };
 std::istream& operator>> (std::istream &in, ALGORITHM &algorithm)
 {
-    std::string s;
-    in >> s;
-    auto it = lookup.find(s);
-    if (it != lookup.end()) {
-        algorithm = it->second;
-    }
-    else {
-        algorithm = ALGORITHM::_INVALID;
-    }
+    algorithm = ALGORITHM::_INVALID;
+    std::string str;
+    in >> str;
+    auto it = lookup.find(str);
+    if (it != lookup.end()) { algorithm = it->second; }
     return in;
 };
 const char* repr_algorithms() {
@@ -91,11 +87,11 @@ config config_from_cli(int argc, char **argv) {
     // Set config
     BOOST_LOG_TRIVIAL(debug) << "Setting config";
     config cfg;
-    if (vm.count("image-size-x")) { 
+    if (vm.count("image-size-x")) {
         BOOST_LOG_TRIVIAL(debug) << "image-size-x = " << vm["image-size-x"].as<int>();
-        cfg.image_size_x = vm["image-size-x"].as<int>(); 
+        cfg.image_size_x = vm["image-size-x"].as<int>();
     }
-    if (vm.count("image-size-y")) { 
+    if (vm.count("image-size-y")) {
         BOOST_LOG_TRIVIAL(debug) << "image-size-y = " << vm["image-size-y"].as<int>();
         cfg.image_size_y = vm["image-size-y"].as<int>();
     }
