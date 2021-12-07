@@ -92,7 +92,7 @@ Parameter Groups
 
 ### GUI
 
-![GUI](gui.svg)
+![GUI](/assets/gui.svg)
 
 ~~Should use a generic software or can be a multi-platform system~~
 
