@@ -16,7 +16,7 @@ config::config():
 /**
  * Print config parameters
  */
-void config::print_config() {
+void config::print() {
     std::cout 
         << "config.image_size_x" << " = " << image_size_x << std::endl
         << "config.image_size_y" << " = " << image_size_y << std::endl;
@@ -25,7 +25,7 @@ void config::print_config() {
 /**
  * Log config parameters
  */
-void config::log_config() {
+void config::log() {
     BOOST_LOG_TRIVIAL(debug) << "config.image_size_x = " << image_size_x;
     BOOST_LOG_TRIVIAL(debug) << "config.image_size_y = " << image_size_y;
 };

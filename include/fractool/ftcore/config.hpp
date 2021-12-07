@@ -26,12 +26,12 @@ struct config {
     /**
      * Print config parameters
      */
-    void print_config();
+    void print();
 
     /**
      * Log config parameters
      */
-    void log_config();
+    void log();
 };
 
 #endif // __FRACTOOL_CONFIG_H__

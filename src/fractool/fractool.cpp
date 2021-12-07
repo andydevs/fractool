@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 
     // Generate config struct from cli
     config conf = config_from_cli(argc, argv);
-    conf.log_config();
+    conf.log();
 
     // Resources
     unsigned char* param_buffer = new unsigned char[conf.image_size_x * conf.image_size_y];
