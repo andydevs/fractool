@@ -4,10 +4,12 @@ FracTool
 Fractool is a tool for generating abstract images using various 2D fractal 
 generation algorithms
 
+Check out the [docs](https://andydevs.github.io/fractool)
+
 Build
 ----------------------------------------------------------------------------
 
-_Requirements_
+### Requirements
 
 | Name   | Min Version | Used For                      |
 |:-------|:------------|:------------------------------|
@@ -15,15 +17,17 @@ _Requirements_
 | OpenCV | 4.5         | Image and video file writing  |
 | Boost  | 1.76        | Logging, parsing command line |
 
-_How to Build (Linux/macOS)_
+### How to Build (Linux/macOS)
 
-Open project in terminal. Run following commands
+Open project folder in terminal. Run following commands
 
-    mkdir build
-    cd build
-    cmake ..
-    make
+    cmake -S . -B build
+    cmake --build build
 
-_How to Build (Windows)_
+### How to Build (Windows)
 
-Open project in Visual Studio. Build project using GUI
+Open project in Visual Studio.
+
+Click on "Build" tab
+
+Click on "Build All"
