@@ -10,7 +10,8 @@
  */
 config::config(): 
     image_size_x(600),
-    image_size_y(400) {};
+    image_size_y(400),
+    algorithm(ALGORITHM::MANDELBROT) {};
 
 /**
  * Print config parameters
