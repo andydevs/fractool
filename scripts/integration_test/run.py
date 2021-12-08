@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import unittest
-import subprocess
+from PIL import Image
+import subprocess as sp
+import numpy as np
 import os
 
 
@@ -21,8 +23,15 @@ class CLIIntegrationTestCase(unittest.TestCase):
 
     def test_no_options(self):
         # Run
-        self.result = subprocess.run([self.executable], capture_output=True)
+        self.result = sp.run([self.executable], capture_output=True)
         self.assertEqual(self.result.returncode, 0)
+
+        # Read output image
+        with Image.open('fractal.png') as actual, \
+            Image.open(self.expected + '/no-options.png') as expected:
+            aAct = np.array(actual)
+            aExp = np.array(expected)
+            np.testing.assert_array_equal(aAct, aExp)
 
 
 # Run unittests
