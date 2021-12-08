@@ -22,13 +22,23 @@ class CLIIntegrationTestCase(unittest.TestCase):
         super().setUpClass()
 
     def test_no_options(self):
-        # Run
-        self.result = sp.run([self.executable], capture_output=True)
+        self.expected_file = 'no-options.png'
+        self.args = []
+        self.result = sp.run([self.executable] + self.args, capture_output=True)
         self.assertEqual(self.result.returncode, 0)
-
-        # Read output image
         with Image.open('fractal.png') as actual, \
-            Image.open(self.expected + '/no-options.png') as expected:
+            Image.open(f'{self.expected}/{self.expected_file}') as expected:
+            aAct = np.array(actual)
+            aExp = np.array(expected)
+            np.testing.assert_array_equal(aAct, aExp)
+
+    def test_algorithm_julia(self):
+        self.expected_file = 'algorithm-julia.png'
+        self.args = ['--algorithm', 'julia']
+        self.result = sp.run([self.executable] + self.args, capture_output=True)
+        self.assertEqual(self.result.returncode, 0)
+        with Image.open('fractal.png') as actual, \
+            Image.open(f'{self.expected}/{self.expected_file}') as expected:
             aAct = np.array(actual)
             aExp = np.array(expected)
             np.testing.assert_array_equal(aAct, aExp)
