@@ -13,3 +13,5 @@ build/
 /.vs
 /CMakeSettings.json
 tmp/
+__pycache__/
+.pytest_cache/
