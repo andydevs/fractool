@@ -8,7 +8,7 @@ include_directories(include)
 
 # Packages
 find_package(OpenCV 4.5 REQUIRED)
-find_package(Boost 1.76 COMPONENTS log program_options REQUIRED)
+find_package(Boost 1.73 COMPONENTS log program_options REQUIRED)
 
 # Source directories
 add_subdirectory(src out)
