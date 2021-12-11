@@ -40,8 +40,35 @@ jobs:
         run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
       # Deploy build artifact
-      - name: Upload artifacts
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: fractool-cli
           path: build/out/fractool/fractool
+
+  integration:
+    name: Integration Test
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout Code and setup
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      # Download Artifact
+      - name: Download Fractool CLI
+        uses: actions/download-artifact@v2
+        with:
+          name: fractool-cli
+          path: build/out/fractool/
+
+      # Run Test
+      - name: Change Directory to Integration Test
+        run: cd scripts/integration_test
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+      - name: Run Tests
+        run: python3 ./run.py
