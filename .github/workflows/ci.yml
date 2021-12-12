@@ -66,9 +66,8 @@ jobs:
           path: build/out/fractool/
 
       # Run Test
-      - name: Change Directory to Integration Test
-        run: cd scripts/integration_test
-      - name: Install Dependencies
-        run: pip install -r requirements.txt
+      - name: Install Python Dependencies
+        run: pip install -r scripts/integration_test/requirements.txt
       - name: Run Tests
         run: python3 ./run.py
+        working-directory: scripts/integration_test
