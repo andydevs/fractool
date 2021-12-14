@@ -8,6 +8,15 @@ import os
 expected_rel = 'expected'
 executable_rel = '../../build/out/fractool/fractool'
 
+# Help message
+help_message = b"""$ fractool [options]
+
+Configuration options:
+  -h [ --help ]             Produce help message
+  -a [ --algorithm ] arg    Set algorithm type (julia|mbrot)
+  -u [ --image-size-x ] arg Set horizontal image size
+  -v [ --image-size-y ] arg Set vertical image size"""
+
 
 @pytest.fixture
 def tmp_env(tmp_path):
@@ -43,14 +52,37 @@ def test_cli(tmp_env, expected_file, args):
         np.testing.assert_array_equal(aAct, aExp)
 
 
+@pytest.mark.parametrize('arg', ['--help', '-h'])
+def test_print_help_message(tmp_env, arg):
+    """
+    Test command line prints help message
+    """
+    executable, expected = tmp_env
+    result = sp.run([executable, arg], capture_output=True)
+    assert result.returncode == 0
+    assert help_message in result.stdout
+
+
 def test_invalid_algorithm_type(tmp_env):
     """
     Test command line tool errors when given invalid argument type
     """
     executable, _ = tmp_env
-    result = sp.run([executable, '--algorithm', 'booboo'], capture_output=True)
+    result = sp.run([executable, '--algorithm', 'foobar'], capture_output=True)
     assert result.returncode != 0
-    assert b'Invalid algorithm type: booboo' in result.stdout
+    assert b'Invalid algorithm type: foobar' in result.stdout
+    assert help_message in result.stdout
+
+
+def test_invalid_option(tmp_env):
+    """
+    Test command line tool errors when given invalid option
+    """
+    executable, _ = tmp_env
+    result = sp.run([executable, '--foobar'], capture_output=True)
+    assert result.returncode != 0
+    assert b'Invalid option: --foobar' in result.stdout
+    assert help_message in result.stdout
 
 
 # Run unittests

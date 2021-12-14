@@ -82,8 +82,16 @@ config config_from_cli(int argc, char **argv) {
     po::variables_map vm;
 
     // Run options parsing
-    po::store(po::parse_command_line(argc, argv, desc), vm);
-    po::notify(vm);
+    try {
+        po::store(po::parse_command_line(argc, argv, desc), vm);
+        po::notify(vm);
+    }
+    catch (po::unknown_option& err)
+    {
+        BOOST_LOG_TRIVIAL(error) << "Invalid option: " << err.get_option_name();
+        print_help(desc);
+        exit(1);
+    }
 
     // Exit if printing help
     if (vm.count("help")) {
