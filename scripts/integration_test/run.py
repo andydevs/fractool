@@ -23,10 +23,13 @@ def tmp_env(tmp_path):
 
 
 @pytest.mark.parametrize('expected_file,args', [
-    ('no-options.png',      []),
-    ('algorithm-julia.png', ['--algorithm', 'julia'])
+    ('no-options.png',       []),
+    ('algorithm-julia.png',  ['--algorithm', 'julia']),
+    ('algorithm-mbrot.png',  ['--algorithm', 'mbrot']),
+    ('set-image-size-x.png', ['--image-size-x', '900']),
+    ('set-image-size-y.png', ['--image-size-y', '900'])
 ])
-def test_cli(tmp_env,expected_file,args):
+def test_cli(tmp_env, expected_file, args):
     """
     Test command line tool with various option combinations
     """
