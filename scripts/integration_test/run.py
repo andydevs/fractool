@@ -31,7 +31,7 @@ def tmp_env(tmp_path):
 ])
 def test_cli(tmp_env, expected_file, args):
     """
-    Test command line tool with various option combinations
+    Test command line tool with option combinations
     """
     executable, expected = tmp_env
     result = sp.run([executable] + args, capture_output=True)
@@ -41,6 +41,16 @@ def test_cli(tmp_env, expected_file, args):
         aAct = np.array(actual)
         aExp = np.array(expected)
         np.testing.assert_array_equal(aAct, aExp)
+
+
+def test_invalid_algorithm_type(tmp_env):
+    """
+    Test command line tool errors when given invalid argument type
+    """
+    executable, _ = tmp_env
+    result = sp.run([executable, '--algorithm', 'booboo'], capture_output=True)
+    assert result.returncode != 0
+    assert b'Invalid algorithm type: booboo' in result.stdout
 
 
 # Run unittests
