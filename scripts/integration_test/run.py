@@ -4,6 +4,7 @@ from PIL import Image
 import subprocess as sp
 import numpy as np
 import os
+import sys
 
 expected_rel = 'expected'
 executable_rel = '../../build/out/fractool/fractool'
@@ -87,4 +88,4 @@ def test_invalid_option(tmp_env):
 
 # Run unittests
 if __name__ == '__main__':
-    pytest.main(['--verbose', 'run.py'])
+    sys.exit(pytest.main(['--verbose', 'run.py']))
