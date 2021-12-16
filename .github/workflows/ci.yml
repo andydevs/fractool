@@ -64,6 +64,8 @@ jobs:
         with:
           name: fractool-cli
           path: build/out/fractool/
+      - name: Update Artifact Permissions
+        run: chmod a+x build/out/fractool/fractool
 
       # Run Test
       - name: Install Python Dependencies
