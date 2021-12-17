@@ -26,9 +26,17 @@ jobs:
         id: install-boost
         with:
           boost_version: 1.73.0
-      - name: Install OpenCV
-        uses: Dovyski/setup-opencv-action@v1
+      - name: Cache OpenCV
+        id: opencv-cache
+        uses: actions/cache@v2
         with:
+          path: ./opencv-install
+          key: ${{ runner.os }}-opencv-cache
+      - name: Install OpenCV
+        uses: rayandrews/with-opencv-action@v1
+        with:  
+          dir: ./opencv-install
+          cached: ${{ steps.opencv-cache.outputs.cache-hit }}
           opencv-version: '4.5.0'
 
       # Build using CMake
@@ -51,12 +59,14 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      # Checkout Code and setup
+      # Checkout Code and setup Python
       - uses: actions/checkout@v2
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
+      - name: Install Python Dependencies
+        run: pip install -r scripts/integration_test/requirements.txt
 
       # Download Artifact
       - name: Download Fractool CLI
@@ -68,8 +78,6 @@ jobs:
         run: chmod a+x build/out/fractool/fractool
 
       # Run Test
-      - name: Install Python Dependencies
-        run: pip install -r scripts/integration_test/requirements.txt
-      - name: Run Tests
+      - name: Run Integration Tests
         run: python3 ./run.py
         working-directory: scripts/integration_test
