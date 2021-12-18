@@ -25,6 +25,12 @@ def tmp_env(tmp_path):
     Create temporary environment for each integration tests
     """
     curr = os.getcwd()
+    print(curr)
+    print(os.listdir(os.path.join(curr, '../..')))
+    print(os.listdir(os.path.join(curr, '../../build')))
+    print(os.listdir(os.path.join(curr, '../../build/out')))
+    print(os.listdir(os.path.join(curr, '../../build/out/fractool')))
+    print(os.listdir(os.path.join(curr, 'expected')))
     executable = os.path.join(curr, executable_rel)
     expected = os.path.join(curr, expected_rel)
     os.chdir(tmp_path)
