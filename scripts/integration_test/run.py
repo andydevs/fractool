@@ -59,6 +59,8 @@ def test_cli(tmp_env, expected_file, args):
     """
     executable, expected = tmp_env
     result = sp.run([executable] + args, capture_output=True)
+    print(result.stdout)
+    print(result.stderr)
     assert result.returncode == 0
     with Image.open('fractal.png') as actual, \
         Image.open(os.path.join(expected, expected_file)) as expected:
