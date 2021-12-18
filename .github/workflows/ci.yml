@@ -73,9 +73,9 @@ jobs:
         id: boost
         uses: egor-tensin/build-boost@v1
         with:
-            version: 1.73.0
-            libraries: log program_options
-            configuration: ${{env.BUILD_TYPE}}
+          version: 1.73.0
+          libraries: log program_options
+          configuration: ${{env.BUILD_TYPE}}
       - name: Cache OpenCV
         id: opencv-cache
         uses: actions/cache@v2
