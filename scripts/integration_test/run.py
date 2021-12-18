@@ -32,6 +32,7 @@ def tmp_env(tmp_path):
     print(os.listdir(os.path.join(curr, '../../build/out/fractool')))
     print(os.listdir(os.path.join(curr, 'expected')))
     executable = os.path.join(curr, executable_rel)
+    print(os.stat(executable))
     expected = os.path.join(curr, expected_rel)
     os.chdir(tmp_path)
     yield executable, expected
