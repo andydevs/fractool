@@ -6,6 +6,7 @@ import numpy as np
 import os
 import sys
 
+# Directory environment
 expected_rel = 'expected'
 executable_rel = '../../build/out/fractool/fractool'
 
@@ -32,10 +33,15 @@ def tmp_env(tmp_path):
     print(os.listdir(os.path.join(curr, '../../build/out/fractool')))
     print(os.listdir(os.path.join(curr, 'expected')))
     executable = os.path.join(curr, executable_rel)
+    print(executable)
     print(os.stat(executable).st_mode)
     print(os.access(executable, os.X_OK))
     expected = os.path.join(curr, expected_rel)
+    print(expected)
     os.chdir(tmp_path)
+    print(os.stat(executable).st_mode)
+    print(os.access(executable, os.X_OK))
+    print(os.stat(expected))
     yield executable, expected
     os.chdir(curr)
 
