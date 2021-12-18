@@ -26,7 +26,7 @@ jobs:
         uses: egor-tensin/build-boost@v1
         with:
           version: 1.73.0
-          libraries: log program_options
+          libraries: log program_options thread
           configuration: ${{env.BUILD_TYPE}}
       - name: Cache OpenCV
         id: opencv-cache
@@ -75,7 +75,7 @@ jobs:
         uses: egor-tensin/build-boost@v1
         with:
           version: 1.73.0
-          libraries: log program_options
+          libraries: log program_options thread
           configuration: ${{env.BUILD_TYPE}}
       - name: Cache OpenCV
         id: opencv-cache
