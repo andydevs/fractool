@@ -100,3 +100,5 @@ jobs:
       - name: Run Integration Tests
         run: python3 ./run.py
         working-directory: scripts/integration_test
+        env:
+          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
