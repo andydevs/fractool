@@ -22,7 +22,7 @@ jobs:
 
       # Install Dependencies
       - name: Install Boost
-        run: apt install libboost-all-dev
+        run: sudo apt-get install -y libboost-all-dev
       - name: Cache OpenCV
         id: opencv-cache
         uses: actions/cache@v2
