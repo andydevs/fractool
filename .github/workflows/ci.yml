@@ -22,7 +22,13 @@ jobs:
 
       # Install Dependencies
       - name: Install Boost
-        run: sudo apt-get install -y libboost-all-dev
+        run: |
+          wget https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.gz
+          tar -xzf boost_1_78_0.tar.gz
+          cd boost_1_78_0
+          ./bootstrap.sh --prefix=/usr/
+          ./b2
+          sudo ./b2 install
       - name: Cache OpenCV
         id: opencv-cache
         uses: actions/cache@v2
