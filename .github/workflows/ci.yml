@@ -13,8 +13,8 @@ env:
 
 # Jobs
 jobs:
-  build:
-    name: Build
+  buildandtest:
+    name: Build and Test
     runs-on: ubuntu-latest
     steps:
       # Checkout code
@@ -38,47 +38,6 @@ jobs:
           dir: ./opencv-install
           cached: ${{ steps.opencv-cache.outputs.cache-hit }}
           opencv-version: '4.5.0'
-
-      # Build using CMake
-      - name: Configure CMake
-        run: cmake -B ${{ github.workspace }}/build -S ${{ github.workspace }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
-        env:
-          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
-      - name: Build
-        run: cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }}
-
-  integration:
-    name: Integration Test
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-      # Checkout Code and setup Python
-      - uses: actions/checkout@v2
-      - name: Setup Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-
-      # Install Dependencies
-      - name: Install Boost
-        uses: MarkusJx/install-boost@v2.0.0
-        id: install-boost
-        with:
-          boost_version: 1.73.0
-      - name: Cache OpenCV
-        id: opencv-cache
-        uses: actions/cache@v2
-        with:
-          path: ./opencv-install
-          key: ${{ runner.os }}-opencv-cache
-      - name: Install OpenCV
-        uses: rayandrews/with-opencv-action@v1
-        with:  
-          dir: ./opencv-install
-          cached: ${{ steps.opencv-cache.outputs.cache-hit }}
-          opencv-version: '4.5.0'
-      - name: Install Python Dependencies
-        run: pip install -r scripts/integration_test/requirements.txt
 
       # Build using CMake
       - name: Configure CMake
