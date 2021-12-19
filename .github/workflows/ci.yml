@@ -47,6 +47,14 @@ jobs:
       - name: Build
         run: cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }}
 
+      # Setup Python
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install Python Dependencies
+        run: pip install -r scripts/integration_test/requirements.txt
+        
       # Run Test
       - name: Run Integration Tests
         run: python3 ./run.py
