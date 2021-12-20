@@ -1,10 +1,10 @@
 // Fractool macros
 #include <fractool/macros.hpp>
+#include <fractool/colormap.hpp>
 
 // FTCore
 #include <fractool/ftcore/config.hpp>
 #include <fractool/ftcore/cli_parser.hpp>
-#include <fractool/ftcore/colormap.hpp>
 #include <fractool/ftcore/map_color.hpp>
 #include <fractool/ftcore/write_image.hpp>
 #include <fractool/ftcore/generate_mandelbrot.hpp>
