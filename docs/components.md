@@ -90,13 +90,12 @@ Planning on using wxWidgets lib
 
 Can use the same GUI but be used to create and save colormaps
 
-Miscellaneous
+File
 -------------------------------------------------------------------------------------
 
 Originally `ftcore`
 
-A library `ftmisc` containing miscellaneous, shared components across different 
-engines and applications
+A library `ftfile` containing file reading and writing
 
 - Image/Movie Writing: Use OpenCV
 - Fractal File Reading/Writing: Use YAML
