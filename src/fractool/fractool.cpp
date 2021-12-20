@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
         default:
             break;
     }
-    map_color(conf.image_size_x, conf.image_size_y, COLORMAP, param_buffer, color_buffer);
+    map_color(conf.image_size_x, conf.image_size_y, COLORMAP_INK, param_buffer, color_buffer);
     write_image(conf.image_size_x, conf.image_size_y, color_buffer, "fractal.png");
 
     // Delete resources
