@@ -10,4 +10,6 @@ purposes of creating such images for use in wallpapers,
 banner images for social media, creative image assets, etc.
 
 FracTool will _not_ implement a web solution, and will _not_
-expose an API for use in other programs.
+expose an API for use in other programs. FracTool will also
+_not_ be containerized, and will remain a client-side
+application.
