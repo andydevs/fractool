@@ -27,8 +27,8 @@ def gradient(frm, to):
     """
     Return gradient colormap
     """
-    frma = np.array([frm])
-    toa = np.array([to])
+    frma = np.array([ frm ])
+    toa = np.array([ to ])
     return (frma * (1 - t) + toa * t).astype(np.uint0)
 
 
@@ -44,7 +44,9 @@ def sinusoidal(freqs, phases):
 # Colormaps (EDIT TO MAKE MORE COLORMAPS)
 colormaps = {
     'Ink': gradient(frm=[255, 255, 255], to=[0, 0, 0]),
-    'Flower': sinusoidal(freqs=[0.7, 0.7, 0.7], phases=[-2.0, -2.0, -1.0])
+    'Red2blue': gradient(frm=[0, 0, 255], to=[255, 0, 0]),
+    'Blue2red': gradient(frm=[255, 0, 0], to=[0, 0, 255]),
+    'Flower': sinusoidal(freqs=[0.7, 0.7, 0.7], phases=[-1.0, -2.0, -2.0])
 }
 
 
