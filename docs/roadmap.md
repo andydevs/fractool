@@ -20,6 +20,7 @@ Roadmap is kind of tenative and subject to change
 ### 0.3.0: Demo 3
 - Fractal File System
 - Colormap File System
+- Colormap Utility
 
 ### 0.4.0: Demo 4
 - CPU engine is multi-threaded
