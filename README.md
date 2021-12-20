@@ -6,25 +6,27 @@ generation algorithms
 
 Check out the [docs](https://andydevs.github.io/fractool)
 
+Dependencies
+----------------------------------------------------------------------------
+
+| Name   | Min Version | Used For                         |
+|:-------|:------------|:---------------------------------|
+| CMake  | 3.0         | Building                         |
+| OpenCV | 4.5         | Image and video file writing     |
+| Boost  | 1.73        | Logging, parsing command line    |
+| Python | 3.0         | Integration test running for cli |
+
 Build
 ----------------------------------------------------------------------------
 
-### Requirements
-
-| Name   | Min Version | Used For                      |
-|:-------|:------------|:------------------------------|
-| CMake  | 3.0         | Building                      |
-| OpenCV | 4.5         | Image and video file writing  |
-| Boost  | 1.76        | Logging, parsing command line |
-
-### How to Build (Linux/macOS)
+### Linux/macOS
 
 Open project folder in terminal. Run following commands
 
     cmake -S . -B build
     cmake --build build
 
-### How to Build (Windows)
+### Windows
 
 Open project in Visual Studio.
 

@@ -41,6 +41,7 @@ std::istream& operator>> (std::istream &in, ALGORITHM &algorithm)
     in >> str;
     auto it = lookup.find(str);
     if (it != lookup.end()) { algorithm = it->second; }
+    else { BOOST_LOG_TRIVIAL(error) << "Invalid algorithm type: " << str; }
     return in;
 };
 
@@ -81,8 +82,16 @@ config config_from_cli(int argc, char **argv) {
     po::variables_map vm;
 
     // Run options parsing
-    po::store(po::parse_command_line(argc, argv, desc), vm);
-    po::notify(vm);
+    try {
+        po::store(po::parse_command_line(argc, argv, desc), vm);
+        po::notify(vm);
+    }
+    catch (po::unknown_option& err)
+    {
+        BOOST_LOG_TRIVIAL(error) << "Invalid option: " << err.get_option_name();
+        print_help(desc);
+        exit(1);
+    }
 
     // Exit if printing help
     if (vm.count("help")) {
@@ -103,13 +112,13 @@ config config_from_cli(int argc, char **argv) {
         cfg.image_size_y = vm["image-size-y"].as<int>();
     }
     if (vm.count("algorithm")) {
-        BOOST_LOG_TRIVIAL(debug) << "algorithm = " << vm["algorithm"].as<ALGORITHM>();
-        if (vm["algorithm"].as<ALGORITHM>() == ALGORITHM::_INVALID) {
-            BOOST_LOG_TRIVIAL(error) << "Invalid algorithm type!";
+        ALGORITHM algo = vm["algorithm"].as<ALGORITHM>();
+        if (algo == ALGORITHM::_INVALID) {
             print_help(desc);
             BOOST_LOG_TRIVIAL(debug) << "Exiting with status 1...";
             exit(1);
         }
+        BOOST_LOG_TRIVIAL(debug) << "algorithm = " << algo;
         cfg.algorithm = vm["algorithm"].as<ALGORITHM>();
     }
 
