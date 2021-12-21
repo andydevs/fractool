@@ -19,9 +19,9 @@ void map_color(unsigned size_x, unsigned size_y, const unsigned char colormap[25
             n = param_buffer[ARRAY2D(size_x, i, j)];
 
             // Color image using colormap
-            color_buffer[IMAGE(size_x, i, j, RED_CHAN)] = colormap[n][RED_CHAN];
-            color_buffer[IMAGE(size_x, i, j, GRN_CHAN)] = colormap[n][GRN_CHAN];
             color_buffer[IMAGE(size_x, i, j, BLU_CHAN)] = colormap[n][BLU_CHAN];
+            color_buffer[IMAGE(size_x, i, j, GRN_CHAN)] = colormap[n][GRN_CHAN];
+            color_buffer[IMAGE(size_x, i, j, RED_CHAN)] = colormap[n][RED_CHAN];
         }
     }
 }

@@ -1,10 +1,10 @@
 // Fractool macros
 #include <fractool/macros.hpp>
+#include <fractool/colormap.hpp>
 
 // FTCore
 #include <fractool/ftcore/config.hpp>
 #include <fractool/ftcore/cli_parser.hpp>
-#include <fractool/ftcore/colormap.hpp>
 #include <fractool/ftcore/map_color.hpp>
 #include <fractool/ftcore/write_image.hpp>
 #include <fractool/ftcore/generate_mandelbrot.hpp>
@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
         default:
             break;
     }
-    map_color(conf.image_size_x, conf.image_size_y, COLORMAP, param_buffer, color_buffer);
+    map_color(conf.image_size_x, conf.image_size_y, COLORMAP_FLOWER, param_buffer, color_buffer);
     write_image(conf.image_size_x, conf.image_size_y, color_buffer, "fractal.png");
 
     // Delete resources
