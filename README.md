@@ -9,12 +9,12 @@ Check out the [docs](https://andydevs.github.io/fractool)
 Dependencies
 ----------------------------------------------------------------------------
 
-| Name   | Min Version | Used For                         |
-|:-------|:------------|:---------------------------------|
-| CMake  | 3.0         | Building                         |
-| OpenCV | 4.5         | Image and video file writing     |
-| Boost  | 1.73        | Logging, parsing command line    |
-| Python | 3.0         | Integration test running for cli |
+| Name   | Min Version | Used For                            |
+|:-------|:------------|:------------------------------------|
+| Boost  | 1.77        | Logging, parsing command line       |
+| OpenCV | 4.5         | Image and video file writing        |
+| CMake  | 3.0         | Building                            |
+| Python | 3.0         | Testing/Development support scripts |
 
 Build
 ----------------------------------------------------------------------------
