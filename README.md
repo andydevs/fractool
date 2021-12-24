@@ -13,7 +13,7 @@ Dependencies
 |:-------|:------------|:------------------------------------|
 | Boost  | 1.73        | Logging, parsing command line       |
 | OpenCV | 4.5         | Image and video file writing        |
-| CMake  | 3.0         | Building                            |
+| CMake  | 3.22        | Building                            |
 | Python | 3.0         | Testing/Development support scripts |
 
 Build
