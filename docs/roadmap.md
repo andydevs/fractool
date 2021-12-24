@@ -31,4 +31,4 @@ Roadmap is kind of tenative and subject to change
 ### 2.0.0: Fractal Videos
 - GUI Tab for creating fractal videos (create fractal video file)
 - Read fractal video info file and create fractal video from it
-- Define parameter based on equation
+- Define parameter based on equation (or stitched bezier curves)
