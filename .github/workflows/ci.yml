@@ -16,13 +16,16 @@ env:
 
 # Jobs
 jobs:
-  buildandtest:
-    name: Build and Test
+  integration:
+    name: Integration Test
     runs-on: ubuntu-latest
     steps:
       # Checkout code
       - uses: actions/checkout@v2
-      - run: nproc --all
+
+      # Print info
+      - name: How Many Cores Do We Have?
+        run: nproc --all
 
       # Build and install using CMake
       - name: Configure
