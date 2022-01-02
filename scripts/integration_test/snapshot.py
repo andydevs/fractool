@@ -5,7 +5,7 @@ import subprocess as sp
 from sys import argv
 
 # Config
-executable = '../../build/out/fractool/fractool'
+executable = 'fractool'
 pending_dir = 'pending'
 accepted_dir = 'expected'
 images = [

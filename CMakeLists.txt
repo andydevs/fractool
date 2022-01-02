@@ -34,7 +34,7 @@ set_property(
     TARGET opencv::imgcodecs 
     PROPERTY IMPORTED_LOCATION 
         ${install_dir}/lib/libopencv_imgcodecs${CMAKE_SHARED_LIBRARY_SUFFIX})
-add_dependencies(opencv::core opencv)
+add_dependencies(opencv::imgcodecs opencv)
 
 # Configure boost
 ExternalProject_Add(
@@ -46,6 +46,7 @@ ExternalProject_Add(
     BUILD_IN_SOURCE 1
 )
 ExternalProject_Get_Property(boost install_dir)
+add_definitions(-DBOOST_LOG_DYN_LINK)
 include_directories(${install_dir}/include)
 add_library(boost::log_setup SHARED IMPORTED)
 set_property(
@@ -65,13 +66,6 @@ set_property(
     PROPERTY IMPORTED_LOCATION 
         ${install_dir}/lib/libboost_program_options${CMAKE_SHARED_LIBRARY_SUFFIX})
 add_dependencies(boost::program_options boost)
-add_library(boost::thread SHARED IMPORTED)
-set_property(
-    TARGET boost::thread 
-    PROPERTY IMPORTED_LOCATION 
-        ${install_dir}/lib/libboost_thread${CMAKE_SHARED_LIBRARY_SUFFIX})
-add_dependencies(boost::thread boost)
-add_definitions(-DBOOST_LOG_DYN_LINK)
 
 # Source directory
 add_subdirectory(src out)
