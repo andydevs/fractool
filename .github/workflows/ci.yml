@@ -45,8 +45,6 @@ jobs:
           echo '${{ github.workspace }}/build/boost-prefix/lib' >> $GITHUB_PATH
           echo '${{ github.workspace }}/build/opencv-prefix/bin' >> $GITHUB_PATH
           echo '${{ github.workspace }}/build/opencv-prefix/lib' >> $GITHUB_PATH
-          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/${{ github.workspace }}/build/boost-prefix/lib
-          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/${{ github.workspace }}/build/opencv-prefix/lib
 
       # Setup Python
       - name: Setup Python
@@ -59,6 +57,8 @@ jobs:
       # Run Test
       - name: Run Integration Tests
         run: |
+          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${{ github.workspace }}/build/boost-prefix/lib
+          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${{ github.workspace }}/build/opencv-prefix/lib
           echo $LD_LIBRARY_PATH
           python3 ./run.py
         working-directory: scripts/integration_test
