@@ -28,6 +28,13 @@ jobs:
         run: nproc --all
 
       # Build and install using CMake
+      - name: Cache Dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ github.workspace }}/build/boost-prefix
+            ${{ github.worksapce }}/build/opencv-prefix
+          key: dependencies
       - name: Configure
         run: cmake -B ${{ github.workspace }}/build -S ${{ github.workspace }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
       - name: Build
@@ -38,6 +45,8 @@ jobs:
           echo '${{ github.workspace }}/build/boost-prefix/lib' >> $GITHUB_PATH
           echo '${{ github.workspace }}/build/opencv-prefix/bin' >> $GITHUB_PATH
           echo '${{ github.workspace }}/build/opencv-prefix/lib' >> $GITHUB_PATH
+          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/${{ github.workspace }}/build/boost-prefix/lib
+          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/${{ github.workspace }}/build/opencv-prefix/lib
 
       # Setup Python
       - name: Setup Python
