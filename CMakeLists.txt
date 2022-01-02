@@ -65,6 +65,12 @@ set_property(
     PROPERTY IMPORTED_LOCATION 
         ${install_dir}/lib/libboost_program_options${CMAKE_SHARED_LIBRARY_SUFFIX})
 add_dependencies(boost::program_options boost)
+add_library(boost::thread SHARED IMPORTED)
+set_property(
+    TARGET boost::thread 
+    PROPERTY IMPORTED_LOCATION 
+        ${install_dir}/lib/libboost_thread${CMAKE_SHARED_LIBRARY_SUFFIX})
+add_dependencies(boost::thread boost)
 add_definitions(-DBOOST_LOG_DYN_LINK)
 
 # Source directory

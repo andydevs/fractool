@@ -7,4 +7,5 @@ target_link_libraries(fractool
     PRIVATE 
         ftcore 
         boost::log
-        boost::log_setup)
+        boost::log_setup
+        boost::thread)
