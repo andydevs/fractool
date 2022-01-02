@@ -52,7 +52,7 @@ jobs:
         with:
           python-version: '3.x'
       - name: Install Python Dependencies
-        run: pip install -r scripts/integration_test/requirements.txt
+        run: pip install -r python/requirements.txt
 
       # Run Test
       - name: Run Integration Tests
@@ -61,4 +61,4 @@ jobs:
           export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${{ github.workspace }}/build/opencv-prefix/lib
           echo $LD_LIBRARY_PATH
           python3 ./run.py
-        working-directory: scripts/integration_test
+        working-directory: python/integration_test
