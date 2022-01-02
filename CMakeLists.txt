@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(include)
 link_directories(/usr/local/lib)
 add_compile_options(-pthread)
+add_link_options(-pthread)
 
 # External Project
 include(ExternalProject)
