@@ -5,9 +5,10 @@ add_library(ftcore
     write_image.cpp
     generate_mandelbrot.cpp
     generate_julia.cpp)
-target_include_directories(ftcore PRIVATE 
-    ${OpenCV_INCLUDE_DIRS}
-    ${Boost_INCLUDE_DIRS})
-target_link_libraries(ftcore PRIVATE
-    ${OpenCV_LIBS}
-    ${Boost_LIBRARIES})
+target_link_libraries(ftcore 
+    PRIVATE 
+        opencv::core 
+        opencv::imgcodecs 
+        boost::log 
+        boost::log_setup
+        boost::program_options)

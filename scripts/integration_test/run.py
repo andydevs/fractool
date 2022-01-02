@@ -8,7 +8,7 @@ import sys
 
 # Directory environment
 expected_rel = 'expected'
-executable_rel = '../../build/out/fractool/fractool'
+executable = 'fractool'
 
 # Help message
 help_message = b"""$ fractool [options]
@@ -26,23 +26,9 @@ def tmp_env(tmp_path):
     Create temporary environment for each integration tests
     """
     curr = os.getcwd()
-    print(curr)
-    print(os.listdir(os.path.join(curr, '../..')))
-    print(os.listdir(os.path.join(curr, '../../build')))
-    print(os.listdir(os.path.join(curr, '../../build/out')))
-    print(os.listdir(os.path.join(curr, '../../build/out/fractool')))
-    print(os.listdir(os.path.join(curr, 'expected')))
-    executable = os.path.join(curr, executable_rel)
-    print(executable)
-    print(os.stat(executable).st_mode)
-    print(os.access(executable, os.X_OK))
     expected = os.path.join(curr, expected_rel)
-    print(expected)
     os.chdir(tmp_path)
-    print(os.stat(executable).st_mode)
-    print(os.access(executable, os.X_OK))
-    print(os.stat(expected))
-    yield executable, expected
+    yield expected
     os.chdir(curr)
 
 
@@ -57,7 +43,7 @@ def test_cli(tmp_env, expected_file, args):
     """
     Test command line tool with option combinations
     """
-    executable, expected = tmp_env
+    expected = tmp_env
     result = sp.run([executable] + args, capture_output=True)
     print(result.stdout)
     print(result.stderr)
@@ -74,7 +60,7 @@ def test_print_help_message(tmp_env, arg):
     """
     Test command line prints help message
     """
-    executable, expected = tmp_env
+    expected = tmp_env
     result = sp.run([executable, arg], capture_output=True)
     assert result.returncode == 0
     assert help_message in result.stdout
@@ -84,7 +70,6 @@ def test_invalid_algorithm_type(tmp_env):
     """
     Test command line tool errors when given invalid argument type
     """
-    executable, _ = tmp_env
     result = sp.run([executable, '--algorithm', 'foobar'], capture_output=True)
     assert result.returncode != 0
     assert b'Invalid algorithm type: foobar' in result.stdout
@@ -95,7 +80,6 @@ def test_invalid_option(tmp_env):
     """
     Test command line tool errors when given invalid option
     """
-    executable, _ = tmp_env
     result = sp.run([executable, '--foobar'], capture_output=True)
     assert result.returncode != 0
     assert b'Invalid option: --foobar' in result.stdout
