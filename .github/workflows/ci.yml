@@ -59,11 +59,9 @@ jobs:
         with:
           python-version: '3.x'
       - name: Install Python Dependencies
-        run: pip install -r scripts/integration_test/requirements.txt
+        run: pip install -r python/requirements.txt
 
       # Run Test
       - name: Run Integration Tests
-        run: python3 ./run.py
-        working-directory: scripts/integration_test
-        env:
-          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+        run: python3 run.py
+        working-directory: python/integration_test
