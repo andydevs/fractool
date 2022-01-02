@@ -16,42 +16,35 @@ env:
 
 # Jobs
 jobs:
-  buildandtest:
-    name: Build and Test
+  integration:
+    name: Integration Test
     runs-on: ubuntu-latest
     steps:
       # Checkout code
       - uses: actions/checkout@v2
 
-      # Install Dependencies
-      - name: Install Boost
-        run: |
-          wget https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.gz
-          tar -xzf boost_1_78_0.tar.gz
-          cd boost_1_78_0
-          ./bootstrap.sh --prefix=/usr/
-          ./b2
-          sudo ./b2 install
-      - name: Cache OpenCV
-        id: opencv-cache
+      # Print info
+      - name: How Many Cores Do We Have?
+        run: nproc --all
+
+      # Build and install using CMake
+      - name: Cache Dependencies
         uses: actions/cache@v2
         with:
-          path: ./opencv-install
-          key: ${{ runner.os }}-opencv-cache
-      - name: Install OpenCV
-        uses: rayandrews/with-opencv-action@v1
-        with:  
-          dir: ./opencv-install
-          cached: ${{ steps.opencv-cache.outputs.cache-hit }}
-          opencv-version: '4.5.0'
-
-      # Build using CMake
-      - name: Configure CMake
+          path: |
+            ${{ github.workspace }}/build/boost-prefix
+            ${{ github.worksapce }}/build/opencv-prefix
+          key: dependencies
+      - name: Configure
         run: cmake -B ${{ github.workspace }}/build -S ${{ github.workspace }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
-        env:
-          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
       - name: Build
-        run: cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }}
+        run: cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }} --parallel $(nproc --all)
+      - name: Add System Paths
+        run: |
+          echo '${{ github.workspace }}/build/out/fractool' >> $GITHUB_PATH
+          echo '${{ github.workspace }}/build/boost-prefix/lib' >> $GITHUB_PATH
+          echo '${{ github.workspace }}/build/opencv-prefix/bin' >> $GITHUB_PATH
+          echo '${{ github.workspace }}/build/opencv-prefix/lib' >> $GITHUB_PATH
 
       # Setup Python
       - name: Setup Python
@@ -63,5 +56,9 @@ jobs:
 
       # Run Test
       - name: Run Integration Tests
-        run: python3 run.py
+        run: |
+          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${{ github.workspace }}/build/boost-prefix/lib
+          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${{ github.workspace }}/build/opencv-prefix/lib
+          echo $LD_LIBRARY_PATH
+          python3 ./run.py
         working-directory: python/integration_test
