@@ -33,7 +33,7 @@ jobs:
         with:
           path: |
             ${{ github.workspace }}/build/boost-prefix
-            ${{ github.worksapce }}/build/opencv-prefix
+            ${{ github.workspace }}/build/opencv-prefix
           key: dependencies
       - name: Configure
         run: cmake -B ${{ github.workspace }}/build -S ${{ github.workspace }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
