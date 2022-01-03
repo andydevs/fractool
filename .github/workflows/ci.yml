@@ -23,10 +23,6 @@ jobs:
       # Checkout code
       - uses: actions/checkout@v2
 
-      # Print info
-      - name: How Many Cores Do We Have?
-        run: nproc --all
-
       # Build and install using CMake
       - name: Cache Dependencies
         uses: actions/cache@v2
@@ -40,9 +36,7 @@ jobs:
       - name: Build
         run: cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }} --parallel $(nproc --all)
       - name: Install
-        run: |
-          ls -l ${{ github.workspace }}/build/boost-prefix/lib
-          sudo cmake --install ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }}
+        run: sudo cmake --install ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }}
 
       # Setup Python
       - name: Setup Python
