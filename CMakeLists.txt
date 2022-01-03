@@ -9,6 +9,7 @@ link_directories(/usr/local/lib)
 add_compile_options(-pthread)
 add_link_options(-pthread)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+set(BUILD_SHARED_LIBS ON)
 
 # External Modules
 include(ImportBoost)
