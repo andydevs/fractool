@@ -40,7 +40,7 @@ jobs:
       - name: Build
         run: cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }} --parallel $(nproc --all)
       - name: Install
-        run: cmake --install ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }}
+        run: sudo cmake --install ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }}
 
       # Setup Python
       - name: Setup Python
