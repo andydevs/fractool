@@ -39,5 +39,5 @@ set_property(
 add_dependencies(boost::program_options boost)
 
 # Install libraries with binary
-file(GLOB boost_libs ${install_dir}/lib/libboost_*${CMAKE_SHARED_LIBRARY_SUFFIX}*)
+file(GLOB boost_libs ${install_dir}/lib/libboost_*${CMAKE_SHARED_LIBRARY_SUFFIX})
 install(FILES ${boost_libs} DESTINATION lib)
