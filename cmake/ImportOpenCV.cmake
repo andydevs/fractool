@@ -28,3 +28,11 @@ set_property(
     PROPERTY IMPORTED_LOCATION 
         ${install_dir}/lib/libopencv_imgcodecs${CMAKE_SHARED_LIBRARY_SUFFIX})
 add_dependencies(opencv::imgcodecs opencv)
+
+# Install targets
+get_property(opencv_core_loc TARGET opencv::core PROPERTY IMPORTED_LOCATION)
+get_property(opencv_imgcodecs_loc TARGET opencv::imgcodecs PROPERTY IMPORTED_LOCATION)
+install(
+    FILES ${opencv_core_loc} ${opencv_imgcodecs_loc}
+    DESTINATION lib
+)

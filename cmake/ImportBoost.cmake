@@ -37,3 +37,12 @@ set_property(
     PROPERTY IMPORTED_LOCATION 
         ${install_dir}/lib/libboost_program_options${CMAKE_SHARED_LIBRARY_SUFFIX})
 add_dependencies(boost::program_options boost)
+
+# Install targets
+get_property(boost_log_setup_loc TARGET boost::log_setup PROPERTY IMPORTED_LOCATION)
+get_property(boost_log_loc TARGET boost::log PROPERTY IMPORTED_LOCATION)
+get_property(boost_program_options_loc TARGET boost::program_options PROPERTY IMPORTED_LOCATION)
+install(
+    FILES ${boost_log_setup_loc} ${boost_log_loc} ${boost_program_options_loc}
+    DESTINATION lib
+)

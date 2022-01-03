@@ -12,3 +12,6 @@ target_link_libraries(ftcore
         boost::log 
         boost::log_setup
         boost::program_options)
+install(
+    TARGETS ftcore
+    LIBRARY DESTINATION lib)
