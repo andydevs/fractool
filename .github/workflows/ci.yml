@@ -52,5 +52,9 @@ jobs:
 
       # Run Test
       - name: Run Integration Tests
-        run: python3 ./run.py
+        run: |
+          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib
+          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/share/lib
+          python3 ./run.py
         working-directory: python/integration_test
