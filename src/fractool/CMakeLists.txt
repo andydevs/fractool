@@ -8,3 +8,7 @@ target_link_libraries(fractool
         ftcore 
         boost::log
         boost::log_setup)
+install(
+    TARGETS fractool
+    RUNTIME DESTINATION bin
+)
