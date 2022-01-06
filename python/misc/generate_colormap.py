@@ -2,12 +2,15 @@ import numpy as np
 
 # File format parts
 header = """#ifndef __FRACTOOL_COLORMAP_H__
-#define __FRACTOOL_COLORMAP_H__"""
+#define __FRACTOOL_COLORMAP_H__
+
+// Colormap struct
+#include <fractool/macros.hpp>"""
 wrapper_fmt = """// {name} Colormap
-const unsigned char COLORMAP_{uname}[256][3] = {{
+const colormap COLORMAP_{uname} = {{
 {array}
 }};"""
-element_fmt = '\t{{{0:3d}, {1:3d}, {2:3d}}}'
+element_fmt = '\t{0:3d}, {1:3d}, {2:3d}'
 footer = "#endif // __FRACTOOL_COLORMAP_H__"
 
 
