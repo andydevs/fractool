@@ -1,8 +1,10 @@
 #ifndef __FRACTOOL_COLORMAP_H__
 #define __FRACTOOL_COLORMAP_H__
 
-// Colormap struct
+// Includes
 #include <fractool/macros.hpp>
+#include <map>
+#include <string>
 
 // Ink Colormap
 const colormap COLORMAP_INK = {
@@ -1042,6 +1044,14 @@ const colormap COLORMAP_FLOWER = {
 	100, 217, 217,
 	 97, 215, 215,
 	 95, 213, 213
+};
+
+// Colormap lookup table
+const std::map<std::string, colormap> cmap_lookup = {
+	{ "ink", COLORMAP_INK },
+	{ "red2blue", COLORMAP_RED2BLUE },
+	{ "blue2red", COLORMAP_BLUE2RED },
+	{ "flower", COLORMAP_FLOWER }    
 };
 
 #endif // __FRACTOOL_COLORMAP_H__

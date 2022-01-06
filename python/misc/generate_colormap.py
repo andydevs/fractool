@@ -4,13 +4,20 @@ import numpy as np
 header = """#ifndef __FRACTOOL_COLORMAP_H__
 #define __FRACTOOL_COLORMAP_H__
 
-// Colormap struct
-#include <fractool/macros.hpp>"""
-wrapper_fmt = """// {name} Colormap
+// Includes
+#include <fractool/macros.hpp>
+#include <map>
+#include <string>"""
+cmap_wrapper_fmt = """// {name} Colormap
 const colormap COLORMAP_{uname} = {{
 {array}
 }};"""
-element_fmt = '\t{0:3d}, {1:3d}, {2:3d}'
+cmap_element_fmt = '\t{0:3d}, {1:3d}, {2:3d}'
+lookup_wrapper_fmt = """// Colormap lookup table
+const std::map<std::string, colormap> cmap_lookup = {{
+{array}    
+}};"""
+lookup_element_fmt = '\t{{ "{name}", COLORMAP_{uname} }}'
 footer = "#endif // __FRACTOOL_COLORMAP_H__"
 
 
@@ -18,8 +25,16 @@ def format_cmap(cmap, name):
     """
     Format colormap into c++ representation
     """
-    fmt_colors = ',\n'.join(element_fmt.format(*color) for color in cmap)
-    return wrapper_fmt.format(name=name, uname=name.upper(), array=fmt_colors)
+    fmt_colors = ',\n'.join(cmap_element_fmt.format(*color) for color in cmap)
+    return cmap_wrapper_fmt.format(name=name, uname=name.upper(), array=fmt_colors)
+
+
+def format_lookup(names):
+    """
+    Generate lookup table
+    """
+    fmt_elements = ',\n'.join(lookup_element_fmt.format(name=name.lower(), uname=name.upper()) for name in names)
+    return lookup_wrapper_fmt.format(array=fmt_elements)
 
 
 # Input space
@@ -61,4 +76,6 @@ if __name__ == '__main__':
         for name, cmap in colormaps.items():
             file.write(format_cmap(cmap, name))
             file.write('\n\n')
+        file.write(format_lookup(colormaps.keys()))
+        file.write('\n\n')
         file.write(footer)
