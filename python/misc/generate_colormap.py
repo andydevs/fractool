@@ -1,4 +1,5 @@
 import numpy as np
+import yaml
 
 # File format parts
 header = """#ifndef __FRACTOOL_COLORMAP_H__
@@ -8,7 +9,7 @@ header = """#ifndef __FRACTOOL_COLORMAP_H__
 #include <fractool/macros.hpp>
 #include <map>
 #include <string>"""
-cmap_wrapper_fmt = """// {name} Colormap
+cmap_wrapper_fmt = """// Colormap {name}
 const colormap COLORMAP_{uname} = {{
 {array}
 }};"""
@@ -59,23 +60,32 @@ def sinusoidal(freqs, phases):
     return (127 * np.sin(t * freq * 2 * np.pi + phase) + 128).astype(np.uint8)
 
 
-# Colormaps (EDIT TO MAKE MORE COLORMAPS)
-colormaps = {
-    'Ink': gradient(frm=[255, 255, 255], to=[0, 0, 0]),
-    'Red2blue': gradient(frm=[0, 0, 255], to=[255, 0, 0]),
-    'Blue2red': gradient(frm=[255, 0, 0], to=[0, 0, 255]),
-    'Flower': sinusoidal(freqs=[0.7, 0.7, 0.7], phases=[-1.0, -2.0, -2.0])
-}
+def parse_colormap(doc):
+    """
+    Parse colormap from document
+    """
+    name = doc['name']
+    if doc['type'] == 'gradient':
+        cmap = gradient(doc['from'], doc['to'])
+    elif doc['type'] == 'sinusoidal':
+        cmap = sinusoidal(doc['freqs'], doc['phases'])
+    else:
+        print('Invalid type for colormap {name}: {type}'.format(**doc))
+        cmap = gradient([0, 0, 0], [255, 255, 255])
+    return cmap, name
 
 
 # Write colormap
 if __name__ == '__main__':
-    with open('colormap.hpp', 'w+') as file:
+    with open('colormap.hpp', 'w+') as file, \
+        open('../../colormaps.yml', 'r') as cmapfile:
+        colormaps = yaml.safe_load(cmapfile)['colormaps']
         file.write(header)
         file.write('\n\n')
-        for name, cmap in colormaps.items():
+        for doc in colormaps:
+            cmap, name = parse_colormap(doc)
             file.write(format_cmap(cmap, name))
             file.write('\n\n')
-        file.write(format_lookup(colormaps.keys()))
+        file.write(format_lookup([ doc['name'] for doc in colormaps]))
         file.write('\n\n')
         file.write(footer)

@@ -6,7 +6,7 @@
 #include <map>
 #include <string>
 
-// Ink Colormap
+// Colormap ink
 const colormap COLORMAP_INK = {
 	255, 255, 255,
 	254, 254, 254,
@@ -266,7 +266,7 @@ const colormap COLORMAP_INK = {
 	  0,   0,   0
 };
 
-// Red2blue Colormap
+// Colormap red2blue
 const colormap COLORMAP_RED2BLUE = {
 	  0,   0, 255,
 	  1,   0, 254,
@@ -526,7 +526,7 @@ const colormap COLORMAP_RED2BLUE = {
 	255,   0,   0
 };
 
-// Blue2red Colormap
+// Colormap blue2red
 const colormap COLORMAP_BLUE2RED = {
 	255,   0,   0,
 	254,   0,   1,
@@ -786,7 +786,7 @@ const colormap COLORMAP_BLUE2RED = {
 	  0,   0, 255
 };
 
-// Flower Colormap
+// Colormap flower
 const colormap COLORMAP_FLOWER = {
 	 21,  12,  12,
 	 22,  11,  11,

@@ -5,6 +5,7 @@ import subprocess as sp
 import numpy as np
 import os
 import sys
+import yaml
 
 # Directory environment
 expected_rel = 'expected'
@@ -21,13 +22,11 @@ Configuration options:
   -v [ --image-size-y ] arg Set vertical image size
   -C [ --colormap ] arg     Set colormap"""
 
-# Colormaps list (from generate_colormaps.py)
-colormaps = [
-    'ink',
-    'red2blue',
-    'blue2red',
-    'flower'
-]
+# Colormap names list from yaml
+colormaps = []
+with open('../../colormaps.yml', 'r') as cmapfile:
+    documents = yaml.safe_load(cmapfile)['colormaps']
+    colormaps = [ doc['name'] for doc in documents ]
 
 
 @pytest.fixture
