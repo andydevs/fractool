@@ -18,7 +18,8 @@ Configuration options:
   -m [ --colormaps ]        List colormaps
   -a [ --algorithm ] arg    Set algorithm type (julia|mbrot)
   -u [ --image-size-x ] arg Set horizontal image size
-  -v [ --image-size-y ] arg Set vertical image size"""
+  -v [ --image-size-y ] arg Set vertical image size
+  -C [ --colormap ] arg     Set colormap"""
 
 # Colormaps list (from generate_colormaps.py)
 colormaps = [
@@ -42,11 +43,15 @@ def tmp_env(tmp_path):
 
 
 @pytest.mark.parametrize('expected_file,args', [
-    ('no-options.png',       []),
-    ('algorithm-julia.png',  ['--algorithm', 'julia']),
-    ('algorithm-mbrot.png',  ['--algorithm', 'mbrot']),
-    ('set-image-size-x.png', ['--image-size-x', '900']),
-    ('set-image-size-y.png', ['--image-size-y', '900'])
+    ('no-options.png',        []),
+    ('algorithm-julia.png',   ['--algorithm', 'julia']),
+    ('algorithm-mbrot.png',   ['--algorithm', 'mbrot']),
+    ('set-image-size-x.png',  ['--image-size-x', '900']),
+    ('set-image-size-y.png',  ['--image-size-y', '900']),
+    ('colormap-blue2red.png', ['--colormap', 'blue2red']),
+    ('colormap-flower.png',   ['--colormap', 'flower']),
+    ('colormap-ink.png',      ['--colormap', 'ink']),
+    ('colormap-red2blue.png', ['--colormap', 'red2blue']),
 ])
 def test_generator_output(tmp_env, expected_file, args):
     """
@@ -87,6 +92,16 @@ def test_list_colormaps(tmp_env, arg):
         assert bytes(colormap, 'utf-8') in result.stdout
 
 
+def test_invalid_option(tmp_env):
+    """
+    Test command line tool errors when given invalid option
+    """
+    result = sp.run([executable, '--foobar'], capture_output=True)
+    assert result.returncode != 0
+    assert b'Invalid option: --foobar' in result.stdout
+    assert help_message in result.stdout
+
+
 def test_invalid_algorithm_type(tmp_env):
     """
     Test command line tool errors when given invalid argument type
@@ -97,14 +112,21 @@ def test_invalid_algorithm_type(tmp_env):
     assert help_message in result.stdout
 
 
-def test_invalid_option(tmp_env):
+def test_invalid_colormap_name(tmp_env):
     """
-    Test command line tool errors when given invalid option
+    Test command line tool prints message given invalid colormap type
+    but generates default colormap
     """
-    result = sp.run([executable, '--foobar'], capture_output=True)
-    assert result.returncode != 0
-    assert b'Invalid option: --foobar' in result.stdout
-    assert help_message in result.stdout
+    expected = tmp_env
+    expected_file = 'invalid-colormap.png'
+    result = sp.run([executable, '--colormap', 'foobar'], capture_output=True)
+    assert result.returncode == 0
+    assert b'Invalid colormap name: foobar. Defaulting to flower.' in result.stdout
+    with Image.open('fractal.png') as actual, \
+        Image.open(os.path.join(expected, expected_file)) as expected:
+        aAct = np.array(actual)
+        aExp = np.array(expected)
+        np.testing.assert_array_equal(aAct, aExp)
 
 
 # Run unittests

@@ -11,7 +11,8 @@
 config::config(): 
     image_size_x(600),
     image_size_y(400),
-    algorithm(ALGORITHM::MANDELBROT) {};
+    algorithm(ALGORITHM::MANDELBROT),
+    cmap(COLORMAP_FLOWER) {};
 
 /**
  * Print config parameters
