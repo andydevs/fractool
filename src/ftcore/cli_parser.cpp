@@ -1,3 +1,4 @@
+#include <fractool/colormap.hpp>
 #include <fractool/ftcore/cli_parser.hpp>
 
 // External
@@ -22,6 +23,21 @@ static void print_help(po::options_description desc) {
         << desc 
         << std::endl;
 };
+
+/**
+ * Print colormaps list
+ */
+static void print_cmaps() {
+    BOOST_LOG_TRIVIAL(debug) << "Printing colormaps list";
+    std::cout << std::endl 
+        << "Colormaps list:" 
+        << std::endl 
+        << std::endl;
+    for (auto it = cmap_lookup.begin(); it != cmap_lookup.end(); ++it) {
+        std::cout << "\t- " << it->first << std::endl;
+    }
+    std::cout << std::endl;
+}
 
 /**
  * Map names to algorithm types
@@ -56,7 +72,7 @@ const char* repr_algorithms() {
         if (it != --lookup.end()) sin << "|";
     }
     sin << ")";
-    return strdup(sin.str().c_str());
+    return strdup(sin.str().c_str()); // SECURITY RISK
 };
 
 /**
@@ -74,6 +90,7 @@ config config_from_cli(int argc, char **argv) {
     po::options_description desc("Configuration options");
     desc.add_options()
         ("help,h", "Produce help message")
+        ("colormaps,m", "List colormaps")
         ("algorithm,a", po::value<ALGORITHM>(), repr_algorithms())
         ("image-size-x,u", po::value<int>(), "Set horizontal image size")
         ("image-size-y,v", po::value<int>(), "Set vertical image size");
@@ -93,9 +110,14 @@ config config_from_cli(int argc, char **argv) {
         exit(1);
     }
 
-    // Exit if printing help
+    // Exit if printing any help message
     if (vm.count("help")) {
         print_help(desc);
+        BOOST_LOG_TRIVIAL(debug) << "Exiting with status 0...";
+        exit(0);
+    }
+    else if (vm.count("colormaps")) {
+        print_cmaps();
         BOOST_LOG_TRIVIAL(debug) << "Exiting with status 0...";
         exit(0);
     }
