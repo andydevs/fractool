@@ -1,6 +1,9 @@
 #ifndef __FRACTOOL_CONFIG_H__
 #define __FRACTOOL_CONFIG_H__
 
+// Colormap
+#include <fractool/colormap.hpp>
+
 enum ALGORITHM {
     _INVALID,
 
@@ -17,6 +20,7 @@ struct config {
     unsigned image_size_x;
     unsigned image_size_y;
     ALGORITHM algorithm;
+    colormap cmap;
 
     /**
      * Initialize with default parameters
