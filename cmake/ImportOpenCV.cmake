@@ -9,6 +9,7 @@ ExternalProject_Add(
     CMAKE_ARGS
         -DOPENCV_FORCE_3RDPARTY_BUILD=ON
         -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
+        -DBUILD_LIST=core,imgcodecs
 )
 ExternalProject_Get_Property(opencv install_dir)
 include_directories(${install_dir}/include/opencv4)
