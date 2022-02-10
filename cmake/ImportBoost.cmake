@@ -21,6 +21,7 @@ set_property(
     PROPERTY IMPORTED_LOCATION 
         ${install_dir}/lib/libboost_log_setup${CMAKE_SHARED_LIBRARY_SUFFIX})
 add_dependencies(boost::log_setup boost)
+install(IMPORTED_RUNTIME_ARTIFACTS boost::log_setup LIBRARY DESTINATION lib)
 
 # Log library
 add_library(boost::log SHARED IMPORTED)
@@ -29,6 +30,7 @@ set_property(
     PROPERTY IMPORTED_LOCATION 
         ${install_dir}/lib/libboost_log${CMAKE_SHARED_LIBRARY_SUFFIX})
 add_dependencies(boost::log boost)
+install(IMPORTED_RUNTIME_ARTIFACTS boost::log LIBRARY DESTINATION lib)
 
 # Program Options library
 add_library(boost::program_options SHARED IMPORTED)
@@ -37,8 +39,4 @@ set_property(
     PROPERTY IMPORTED_LOCATION 
         ${install_dir}/lib/libboost_program_options${CMAKE_SHARED_LIBRARY_SUFFIX})
 add_dependencies(boost::program_options boost)
-
-# Install libraries with binary
-file(GLOB boost_lib_links ${install_dir}/lib/libboost_*${CMAKE_SHARED_LIBRARY_SUFFIX})
-file(GLOB boost_libs ${install_dir}/lib/libboost_*${CMAKE_SHARED_LIBRARY_SUFFIX}.*.*.*)
-install(FILES ${boost_libs} ${boost_lib_links} DESTINATION lib)
+install(IMPORTED_RUNTIME_ARTIFACTS boost::program_options LIBRARY DESTINATION lib)

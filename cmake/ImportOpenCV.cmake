@@ -21,6 +21,7 @@ set_property(
     PROPERTY IMPORTED_LOCATION 
         ${install_dir}/lib/libopencv_core${CMAKE_SHARED_LIBRARY_SUFFIX})
 add_dependencies(opencv::core opencv)
+install(IMPORTED_RUNTIME_ARTIFACTS opencv::core LIBRARY DESTINATION lib)
 
 # Image Codecs library
 add_library(opencv::imgcodecs SHARED IMPORTED)
@@ -29,8 +30,4 @@ set_property(
     PROPERTY IMPORTED_LOCATION 
         ${install_dir}/lib/libopencv_imgcodecs${CMAKE_SHARED_LIBRARY_SUFFIX})
 add_dependencies(opencv::imgcodecs opencv)
-
-# Install targets
-file(GLOB opencv_lib_links ${install_dir}/lib/libopencv_*${CMAKE_SHARED_LIBRARY_SUFFIX})
-file(GLOB opencv_libs ${install_dir}/lib/libopencv_*${CMAKE_SHARED_LIBRARY_SUFFIX}.*)
-install(FILES ${opencv_lib_links} ${opencv_libs} DESTINATION lib)
+install(IMPORTED_RUNTIME_ARTIFACTS opencv::imgcodecs LIBRARY DESTINATION lib)
