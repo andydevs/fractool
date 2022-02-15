@@ -15,7 +15,7 @@ add_definitions(-DBOOST_LOG_DYN_LINK)
 include_directories(${install_dir}/include)
 
 # ADD VERSION NUMBER IF WE'RE ON LINUX AAAAA!!!!!!!!!!!!
-if(${CMAKE_SHARED_LIBRARY_SUFFIX} EQUAL ".so")
+if(CMAKE_SHARED_LIBRARY_SUFFIX STREQUAL ".so")
     set(SUFF ${CMAKE_SHARED_LIBRARY_SUFFIX}.1.78.0)
 else()
     set(SUFF ${CMAKE_SHARED_LIBRARY_SUFFIX})
@@ -46,4 +46,22 @@ set_property(TARGET boost::program_options
                 ${install_dir}/lib/libboost_program_options${SUFF})
 add_dependencies(boost::program_options boost)
 install(IMPORTED_RUNTIME_ARTIFACTS boost::program_options 
+        RUNTIME DESTINATION lib)
+
+# Thread library
+add_library(boost::thread SHARED IMPORTED)
+set_property(TARGET boost::thread 
+             PROPERTY IMPORTED_LOCATION 
+                ${install_dir}/lib/libboost_thread${SUFF})
+add_dependencies(boost::thread boost)
+install(IMPORTED_RUNTIME_ARTIFACTS boost::thread 
+        RUNTIME DESTINATION lib)
+
+# Filesystem library
+add_library(boost::filesystem SHARED IMPORTED)
+set_property(TARGET boost::filesystem 
+             PROPERTY IMPORTED_LOCATION 
+                ${install_dir}/lib/libboost_filesystem${SUFF})
+add_dependencies(boost::filesystem boost)
+install(IMPORTED_RUNTIME_ARTIFACTS boost::filesystem 
         RUNTIME DESTINATION lib)

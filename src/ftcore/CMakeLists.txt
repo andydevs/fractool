@@ -11,7 +11,9 @@ target_link_libraries(ftcore
         opencv::imgcodecs 
         boost::log 
         boost::log_setup
-        boost::program_options)
+        boost::program_options
+        boost::thread
+        boost::filesystem)
 install(
     TARGETS ftcore
     LIBRARY DESTINATION lib)

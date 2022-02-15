@@ -7,7 +7,9 @@ target_link_libraries(fractool
     PRIVATE 
         ftcore 
         boost::log
-        boost::log_setup)
+        boost::log_setup
+        boost::thread
+        boost::filesystem)
 install(
     TARGETS fractool
     RUNTIME DESTINATION bin
