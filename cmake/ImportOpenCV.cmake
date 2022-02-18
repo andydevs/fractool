@@ -11,26 +11,44 @@ ExternalProject_Add(
         -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
         -DBUILD_LIST=core,imgcodecs
 )
-ExternalProject_Get_Property(opencv install_dir)
-include_directories(${install_dir}/include/opencv4)
+ExternalProject_Get_Property(opencv INSTALL_DIR)
+ExternalProject_Get_Property(opencv SOURCE_DIR)
+include_directories(BEFORE
+    ${INSTALL_DIR}/include/opencv4
+    ${SOURCE_DIR}/3rdparty)
+
+# ADD VERSION NUMBER DIFFERENTLY IF WE'RE ON WINDOWS 
+# OMGOMGOMGOMGOMGOMGOMGOMGOMG!!!!! ALSO DYNAMIC LIBS 
+# ARE IN DIFFERENT LOCATION THAN STATIC LIBS OOOOOOOOOO!!!!!
+# (also the names are slightly different between mac, 
+# linux, and windows because my life is a cruel joke)
+if (WIN32)
+    set(SUFF 455${CMAKE_SHARED_LIBRARY_SUFFIX})
+    set(LDIR bin)
+elseif(CMAKE_SHARED_LIBRARY_SUFFIX STREQUAL ".so")
+    set(SUFF ${CMAKE_SHARED_LIBRARY_SUFFIX}.4.5.5)
+    set(LDIR lib)
+else()
+    set(SUFF .405${CMAKE_SHARED_LIBRARY_SUFFIX})
+    set(LDIR lib)
+endif()
 
 # Core library
 add_library(opencv::core SHARED IMPORTED)
-set_property(
-    TARGET opencv::core 
-    PROPERTY IMPORTED_LOCATION 
-        ${install_dir}/lib/libopencv_core${CMAKE_SHARED_LIBRARY_SUFFIX})
+set_property(TARGET opencv::core 
+             PROPERTY IMPORTED_LOCATION 
+                ${INSTALL_DIR}/${LDIR}/libopencv_core${SUFF})
+set_property(TARGET opencv::core 
+	     PROPERTY IMPORTED_SONAME libopencv_core${SUFF})
 add_dependencies(opencv::core opencv)
+install(IMPORTED_RUNTIME_ARTIFACTS opencv::core 
+	LIBRARY DESTINATION ${LDIR})
 
 # Image Codecs library
 add_library(opencv::imgcodecs SHARED IMPORTED)
-set_property(
-    TARGET opencv::imgcodecs 
-    PROPERTY IMPORTED_LOCATION 
-        ${install_dir}/lib/libopencv_imgcodecs${CMAKE_SHARED_LIBRARY_SUFFIX})
+set_property(TARGET opencv::imgcodecs 
+             PROPERTY IMPORTED_LOCATION 
+                ${INSTALL_DIR}/${LDIR}/libopencv_imgcodecs${SUFF})
 add_dependencies(opencv::imgcodecs opencv)
-
-# Install targets
-file(GLOB opencv_lib_links ${install_dir}/lib/libopencv_*${CMAKE_SHARED_LIBRARY_SUFFIX})
-file(GLOB opencv_libs ${install_dir}/lib/libopencv_*${CMAKE_SHARED_LIBRARY_SUFFIX}.*)
-install(FILES ${opencv_lib_links} ${opencv_libs} DESTINATION lib)
+install(IMPORTED_RUNTIME_ARTIFACTS opencv::imgcodecs 
+	LIBRARY DESTINATION ${LDIR})

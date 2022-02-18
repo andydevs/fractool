@@ -11,7 +11,13 @@ target_link_libraries(ftcore
         opencv::imgcodecs 
         boost::log 
         boost::log_setup
-        boost::program_options)
+        boost::program_options
+        boost::thread
+        boost::filesystem)
+set_target_properties(ftcore
+    PROPERTIES
+    VERSION ${CMAKE_PROJECT_VERSION}
+    SOVERSION ${CMAKE_PROJECT_VERSION})
 install(
     TARGETS ftcore
     LIBRARY DESTINATION lib)

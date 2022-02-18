@@ -58,7 +58,9 @@ def test_generator_output(tmp_env, expected_file, args):
     """
     expected = tmp_env
     result = sp.run([executable] + args, capture_output=True)
+    print('STDOUT:')
     print(result.stdout)
+    print('STDERR')
     print(result.stderr)
     assert result.returncode == 0
     with Image.open('fractal.png') as actual, \
@@ -75,6 +77,10 @@ def test_print_help_message(tmp_env, arg):
     """
     expected = tmp_env
     result = sp.run([executable, arg], capture_output=True)
+    print('STDOUT:')
+    print(result.stdout)
+    print('STDERR')
+    print(result.stderr)
     assert result.returncode == 0
     assert help_message in result.stdout
 
@@ -86,6 +92,10 @@ def test_list_colormaps(tmp_env, arg):
     """
     expected = tmp_env
     result = sp.run([executable, arg], capture_output=True)
+    print('STDOUT:')
+    print(result.stdout)
+    print('STDERR')
+    print(result.stderr)
     assert result.returncode == 0
     for colormap in colormaps:
         assert bytes(colormap, 'utf-8') in result.stdout
@@ -96,6 +106,10 @@ def test_invalid_option(tmp_env):
     Test command line tool errors when given invalid option
     """
     result = sp.run([executable, '--foobar'], capture_output=True)
+    print('STDOUT:')
+    print(result.stdout)
+    print('STDERR')
+    print(result.stderr)
     assert result.returncode != 0
     assert b'Invalid option: --foobar' in result.stdout
     assert help_message in result.stdout
@@ -106,6 +120,10 @@ def test_invalid_algorithm_type(tmp_env):
     Test command line tool errors when given invalid argument type
     """
     result = sp.run([executable, '--algorithm', 'foobar'], capture_output=True)
+    print('STDOUT:')
+    print(result.stdout)
+    print('STDERR')
+    print(result.stderr)
     assert result.returncode != 0
     assert b'Invalid algorithm type: foobar' in result.stdout
     assert help_message in result.stdout
@@ -119,6 +137,10 @@ def test_invalid_colormap_name(tmp_env):
     expected = tmp_env
     expected_file = 'invalid-colormap.png'
     result = sp.run([executable, '--colormap', 'foobar'], capture_output=True)
+    print('STDOUT:')
+    print(result.stdout)
+    print('STDERR')
+    print(result.stderr)
     assert result.returncode == 0
     assert b'Invalid colormap name: foobar. Defaulting to flower.' in result.stdout
     with Image.open('fractal.png') as actual, \

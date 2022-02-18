@@ -1,6 +1,6 @@
 # Root
-cmake_minimum_required(VERSION 3.0)
-project(FracTool)
+cmake_minimum_required(VERSION 3.22)
+project(FracTool VERSION 0.1.0)
 
 # Configure Project
 set(CMAKE_CXX_STANDARD 14)
@@ -17,3 +17,8 @@ include(ImportOpenCV)
 
 # Source directory
 add_subdirectory(src out)
+
+# After install
+if(NOT WIN32)
+    install(CODE "execute_process(COMMAND ldconfig)")
+endif()
