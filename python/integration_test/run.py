@@ -152,5 +152,4 @@ def test_invalid_colormap_name(tmp_env):
 
 # Run unittests
 if __name__ == '__main__':
-    print(os.environ['LD_LIBRARY_PATH'])
     sys.exit(pytest.main(['--verbose', 'run.py']))

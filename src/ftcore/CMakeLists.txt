@@ -14,6 +14,10 @@ target_link_libraries(ftcore
         boost::program_options
         boost::thread
         boost::filesystem)
+set_target_properties(ftcore
+    PROPERTIES
+    VERSION ${CMAKE_PROJECT_VERSION}
+    SOVERSION ${CMAKE_PROJECT_VERSION})
 install(
     TARGETS ftcore
     LIBRARY DESTINATION lib)

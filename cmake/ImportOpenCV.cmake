@@ -23,10 +23,10 @@ include_directories(BEFORE
 # (also the names are slightly different between mac, 
 # linux, and windows because my life is a cruel joke)
 if (WIN32)
-    set(SUFF 405${CMAKE_SHARED_LIBRARY_SUFFIX})
+    set(SUFF 455${CMAKE_SHARED_LIBRARY_SUFFIX})
     set(LDIR bin)
 elseif(CMAKE_SHARED_LIBRARY_SUFFIX STREQUAL ".so")
-    set(SUFF ${CMAKE_SHARED_LIBRARY_SUFFIX}.405)
+    set(SUFF ${CMAKE_SHARED_LIBRARY_SUFFIX}.4.5.5)
     set(LDIR lib)
 else()
     set(SUFF .405${CMAKE_SHARED_LIBRARY_SUFFIX})
@@ -38,9 +38,11 @@ add_library(opencv::core SHARED IMPORTED)
 set_property(TARGET opencv::core 
              PROPERTY IMPORTED_LOCATION 
                 ${INSTALL_DIR}/${LDIR}/libopencv_core${SUFF})
+set_property(TARGET opencv::core 
+	     PROPERTY IMPORTED_SONAME libopencv_core${SUFF})
 add_dependencies(opencv::core opencv)
 install(IMPORTED_RUNTIME_ARTIFACTS opencv::core 
-        RUNTIME DESTINATION ${LDIR})
+	LIBRARY DESTINATION ${LDIR})
 
 # Image Codecs library
 add_library(opencv::imgcodecs SHARED IMPORTED)
@@ -49,4 +51,4 @@ set_property(TARGET opencv::imgcodecs
                 ${INSTALL_DIR}/${LDIR}/libopencv_imgcodecs${SUFF})
 add_dependencies(opencv::imgcodecs opencv)
 install(IMPORTED_RUNTIME_ARTIFACTS opencv::imgcodecs 
-        RUNTIME DESTINATION ${LDIR})
+	LIBRARY DESTINATION ${LDIR})
