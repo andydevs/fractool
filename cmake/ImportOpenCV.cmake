@@ -38,8 +38,6 @@ add_library(opencv::core SHARED IMPORTED)
 set_property(TARGET opencv::core 
              PROPERTY IMPORTED_LOCATION 
                 ${INSTALL_DIR}/${LDIR}/libopencv_core${SUFF})
-set_property(TARGET opencv::core 
-	     PROPERTY IMPORTED_SONAME libopencv_core${SUFF})
 add_dependencies(opencv::core opencv)
 install(IMPORTED_RUNTIME_ARTIFACTS opencv::core 
 	LIBRARY DESTINATION ${LDIR})
