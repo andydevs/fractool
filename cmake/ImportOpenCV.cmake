@@ -12,10 +12,7 @@ ExternalProject_Add(
         -DBUILD_LIST=core,imgcodecs
 )
 ExternalProject_Get_Property(opencv INSTALL_DIR)
-ExternalProject_Get_Property(opencv SOURCE_DIR)
-include_directories(BEFORE
-    ${INSTALL_DIR}/include/opencv4
-    ${SOURCE_DIR}/3rdparty)
+include_directories(BEFORE ${INSTALL_DIR}/include/opencv4)
 
 # ADD VERSION NUMBER DIFFERENTLY IF WE'RE ON WINDOWS 
 # OMGOMGOMGOMGOMGOMGOMGOMGOMG!!!!! ALSO DYNAMIC LIBS 
