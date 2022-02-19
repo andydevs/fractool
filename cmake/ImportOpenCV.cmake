@@ -13,6 +13,7 @@ ExternalProject_Add(
 )
 ExternalProject_Get_Property(opencv INSTALL_DIR)
 include_directories(BEFORE ${INSTALL_DIR}/include/opencv4)
+set(CMAKE_BUILD_RPATH "${CMAKE_BUILD_RPATH};${INSTALL_DIR}/lib")
 
 # ADD VERSION NUMBER DIFFERENTLY IF WE'RE ON WINDOWS 
 # OMGOMGOMGOMGOMGOMGOMGOMGOMG!!!!! ALSO DYNAMIC LIBS 

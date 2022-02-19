@@ -4,6 +4,7 @@ project(FracTool VERSION 0.1.0)
 
 # Configure Project
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_FIND_FRAMEWORK LAST)
 include_directories(include)
 link_directories(/usr/local/lib)
 add_compile_options(-pthread)

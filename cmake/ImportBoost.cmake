@@ -13,6 +13,7 @@ ExternalProject_Add(
 ExternalProject_Get_Property(boost install_dir)
 add_definitions(-DBOOST_LOG_DYN_LINK)
 include_directories(${install_dir}/include)
+set(CMAKE_BUILD_RPATH "${CMAKE_BUILD_RPATH};${install_dir}/lib")
 
 # ADD VERSION NUMBER IF WE'RE ON LINUX AAAAA!!!!!!!!!!!!
 if(CMAKE_SHARED_LIBRARY_SUFFIX STREQUAL ".so")
