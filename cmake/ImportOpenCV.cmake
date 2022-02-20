@@ -28,7 +28,7 @@ elseif(CMAKE_SHARED_LIBRARY_SUFFIX STREQUAL ".so")
     set(SUFF ${CMAKE_SHARED_LIBRARY_SUFFIX}.4.5.5)
     set(LDIR lib)
 else()
-    set(SUFF .405${CMAKE_SHARED_LIBRARY_SUFFIX})
+    set(SUFF .4.5.5${CMAKE_SHARED_LIBRARY_SUFFIX})
     set(LDIR lib)
 endif()
 
@@ -37,6 +37,11 @@ add_library(opencv::core SHARED IMPORTED)
 set_property(TARGET opencv::core 
              PROPERTY IMPORTED_LOCATION 
                 ${INSTALL_DIR}/${LDIR}/libopencv_core${SUFF})
+if(APPLE)
+    set_property(TARGET opencv::core
+                PROPERTY IMPORTED_SONAME
+                    "@rpath/libopencv_core.405.dylib")
+endif()
 add_dependencies(opencv::core opencv)
 install(IMPORTED_RUNTIME_ARTIFACTS opencv::core 
 	LIBRARY DESTINATION ${LDIR})
@@ -46,6 +51,11 @@ add_library(opencv::imgcodecs SHARED IMPORTED)
 set_property(TARGET opencv::imgcodecs 
              PROPERTY IMPORTED_LOCATION 
                 ${INSTALL_DIR}/${LDIR}/libopencv_imgcodecs${SUFF})
+if(APPLE)
+    set_property(TARGET opencv::imgcodecs
+                PROPERTY IMPORTED_SONAME
+                    "@rpath/libopencv_imgcodecs.405.dylib")
+endif()
 add_dependencies(opencv::imgcodecs opencv)
 install(IMPORTED_RUNTIME_ARTIFACTS opencv::imgcodecs 
 	LIBRARY DESTINATION ${LDIR})

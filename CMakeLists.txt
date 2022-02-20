@@ -11,6 +11,7 @@ add_compile_options(-pthread)
 add_link_options(-pthread)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(BUILD_SHARED_LIBS ON)
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 
 # External Modules
 include(ImportBoost)
@@ -20,6 +21,8 @@ include(ImportOpenCV)
 add_subdirectory(src out)
 
 # After install
-if(NOT WIN32)
+if(APPLE)
+    install(CODE "execute_process(COMMAND update_dyld_shared_cache)")
+elseif(NOT WIN32)
     install(CODE "execute_process(COMMAND ldconfig)")
 endif()
