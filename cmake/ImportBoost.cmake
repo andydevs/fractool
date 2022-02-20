@@ -66,3 +66,12 @@ set_property(TARGET boost::filesystem
 add_dependencies(boost::filesystem boost)
 install(IMPORTED_RUNTIME_ARTIFACTS boost::filesystem 
         RUNTIME DESTINATION lib)
+
+# Regex library
+add_library(boost::regex SHARED IMPORTED)
+set_property(TARGET boost::regex 
+             PROPERTY IMPORTED_LOCATION 
+                ${install_dir}/lib/libboost_regex${SUFF})
+add_dependencies(boost::regex boost)
+install(IMPORTED_RUNTIME_ARTIFACTS boost::regex 
+        RUNTIME DESTINATION lib)
