@@ -2,12 +2,19 @@
 include(ExternalProject)
 
 # Configure boost
+if(WIN32)
+    set(BOOTSTRAP "<SOURCE_DIR>/bootstrap.sh")
+    set(B2 "<SOURCE_DIR>/b2")
+else()
+    set(BOOTSTRAP "<SOURCE_DIR>\\bootstrap.bat")
+    set(B2 "<SOURCE_DIR>\\b2.exe")
+endif()
 ExternalProject_Add(
     boost
     URL "https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.gz"
-    CONFIGURE_COMMAND <SOURCE_DIR>/bootstrap.sh
-    BUILD_COMMAND <SOURCE_DIR>/b2
-    INSTALL_COMMAND <SOURCE_DIR>/b2 install --prefix=<INSTALL_DIR>
+    CONFIGURE_COMMAND ${BOOTSTRAP}
+    BUILD_COMMAND ${B2}
+    INSTALL_COMMAND ${B2} install --prefix=<INSTALL_DIR>
     BUILD_IN_SOURCE 1
 )
 ExternalProject_Get_Property(boost install_dir)
