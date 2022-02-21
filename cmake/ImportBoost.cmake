@@ -3,11 +3,11 @@ include(ExternalProject)
 
 # Configure boost
 if(WIN32)
-    set(BOOTSTRAP "<SOURCE_DIR>/bootstrap.sh")
-    set(B2 "<SOURCE_DIR>/b2")
-else()
     set(BOOTSTRAP "<SOURCE_DIR>\\bootstrap.bat")
     set(B2 "<SOURCE_DIR>\\b2.exe")
+else()
+    set(BOOTSTRAP "<SOURCE_DIR>/bootstrap.sh")
+    set(B2 "<SOURCE_DIR>/b2")
 endif()
 ExternalProject_Add(
     boost
