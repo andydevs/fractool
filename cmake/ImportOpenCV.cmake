@@ -32,30 +32,23 @@ else()
     set(LDIR lib)
 endif()
 
-# Core library
-add_library(opencv::core SHARED IMPORTED)
-set_property(TARGET opencv::core 
-             PROPERTY IMPORTED_LOCATION 
-                ${INSTALL_DIR}/${LDIR}/libopencv_core${SUFF})
-if(APPLE)
-    set_property(TARGET opencv::core
-                PROPERTY IMPORTED_SONAME
-                    "@rpath/libopencv_core.405.dylib")
-endif()
-add_dependencies(opencv::core opencv)
-install(IMPORTED_RUNTIME_ARTIFACTS opencv::core 
-	LIBRARY DESTINATION ${LDIR})
+# Setup library macro
+macro(import_opencv_library libname)
+    add_library(opencv::${libname} SHARED IMPORTED)
+    set_property(TARGET opencv::${libname} 
+                PROPERTY IMPORTED_LOCATION 
+                    ${INSTALL_DIR}/${LDIR}/libopencv_${libname}${SUFF})
+    if(APPLE)
+        set_property(TARGET opencv::${libname}
+                    PROPERTY IMPORTED_SONAME
+                        "@rpath/libopencv_${libname}.405.dylib")
+    endif()
+    add_dependencies(opencv::${libname} opencv)
+    install(IMPORTED_RUNTIME_ARTIFACTS opencv::${libname} 
+            LIBRARY DESTINATION ${LDIR})
+endmacro()
 
-# Image Codecs library
-add_library(opencv::imgcodecs SHARED IMPORTED)
-set_property(TARGET opencv::imgcodecs 
-             PROPERTY IMPORTED_LOCATION 
-                ${INSTALL_DIR}/${LDIR}/libopencv_imgcodecs${SUFF})
-if(APPLE)
-    set_property(TARGET opencv::imgcodecs
-                PROPERTY IMPORTED_SONAME
-                    "@rpath/libopencv_imgcodecs.405.dylib")
-endif()
-add_dependencies(opencv::imgcodecs opencv)
-install(IMPORTED_RUNTIME_ARTIFACTS opencv::imgcodecs 
-	LIBRARY DESTINATION ${LDIR})
+# Import libraries
+import_opencv_library(core)
+import_opencv_library(imgcodecs)
+import_opencv_library(imgproc)
