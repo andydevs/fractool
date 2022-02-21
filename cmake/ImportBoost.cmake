@@ -28,6 +28,11 @@ macro(import_boost_library libname)
     set_property(TARGET boost::${libname}
                  PROPERTY IMPORTED_LOCATION
                     ${install_dir}/lib/libboost_${libname}${SUFF})
+    if(WIN32)
+        set_property(TARGET boost::${libname}
+                     PROPERTY IMPORTED_IMPLIB
+                        ${install_dir}/lib/libboost_${libname}.lib)
+    endif()
     add_dependencies(boost::${libname} boost)
     install(IMPORTED_RUNTIME_ARTIFACTS boost::${libname}
             RUNTIME DESTINATION lib)
