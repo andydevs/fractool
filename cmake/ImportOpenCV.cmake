@@ -43,6 +43,11 @@ macro(import_opencv_library libname)
                     PROPERTY IMPORTED_SONAME
                         "@rpath/libopencv_${libname}.405.dylib")
     endif()
+    if(WIN32)
+        set_property(TARGET opencv::${libname}
+                    PROPERTY IMPORTED_IMPLIB
+                        ${INSTALL_DIR}/lib/libopencv_${libname}355.lib)
+    endif()
     add_dependencies(opencv::${libname} opencv)
     install(IMPORTED_RUNTIME_ARTIFACTS opencv::${libname} 
             LIBRARY DESTINATION ${LDIR})
