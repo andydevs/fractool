@@ -18,7 +18,10 @@ env:
 jobs:
   integration:
     name: Integration Test
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       # Checkout code
       - uses: actions/checkout@v2
