@@ -13,7 +13,15 @@ ExternalProject_Add(
         -DCMAKE_FIND_FRAMEWORK=LAST
 )
 ExternalProject_Get_Property(opencv INSTALL_DIR)
-include_directories(BEFORE ${INSTALL_DIR}/include/opencv4)
+
+# Include directories
+if(WIN32)
+    include_directories(BEFORE ${INSTALL_DIR}\include)
+else()
+    include_directories(BEFORE ${INSTALL_DIR}/include/opencv4)
+endif()
+
+# Set cmake build rpath
 set(CMAKE_BUILD_RPATH "${CMAKE_BUILD_RPATH};${INSTALL_DIR}/lib")
 
 # ADD VERSION NUMBER DIFFERENTLY IF WE'RE ON WINDOWS 

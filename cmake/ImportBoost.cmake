@@ -9,6 +9,8 @@ else()
     set(BOOTSTRAP "<SOURCE_DIR>/bootstrap.sh")
     set(B2 "<SOURCE_DIR>/b2")
 endif()
+
+# Add external projecct
 ExternalProject_Add(
     boost
     URL "https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.gz"
@@ -17,10 +19,18 @@ ExternalProject_Add(
     INSTALL_COMMAND ${B2} install --prefix=<INSTALL_DIR>
     BUILD_IN_SOURCE 1
 )
-ExternalProject_Get_Property(boost install_dir)
 add_definitions(-DBOOST_LOG_DYN_LINK)
-include_directories(${install_dir}/include)
-set(CMAKE_BUILD_RPATH "${CMAKE_BUILD_RPATH};${install_dir}/lib")
+ExternalProject_Get_Property(boost INSTALL_DIR)
+
+# Include directories
+if(WIN32)
+    include_directories(${INSTALL_DIR}\include\boost-1_78)
+else()
+    include_directories(${INSTALL_DIR}/include)
+endif()
+
+# Set cmake build rpath
+set(CMAKE_BUILD_RPATH "${CMAKE_BUILD_RPATH};${INSTALL_DIR}/lib")
 
 # ADD VERSION NUMBER IF WE'RE ON LINUX AAAAA!!!!!!!!!!!!
 if(CMAKE_SHARED_LIBRARY_SUFFIX STREQUAL ".so")
@@ -34,11 +44,11 @@ macro(import_boost_library libname)
     add_library(boost::${libname} SHARED IMPORTED)
     set_property(TARGET boost::${libname}
                  PROPERTY IMPORTED_LOCATION
-                    ${install_dir}/lib/libboost_${libname}${SUFF})
+                    ${INSTALL_DIR}/lib/libboost_${libname}${SUFF})
     if(WIN32)
         set_property(TARGET boost::${libname}
                      PROPERTY IMPORTED_IMPLIB
-                        ${install_dir}/lib/libboost_${libname}.lib)
+                        ${INSTALL_DIR}/lib/libboost_${libname}.lib)
     endif()
     add_dependencies(boost::${libname} boost)
     install(IMPORTED_RUNTIME_ARTIFACTS boost::${libname}
