@@ -16,7 +16,7 @@ ExternalProject_Get_Property(opencv INSTALL_DIR)
 
 # Include directories
 if(WIN32)
-    include_directories(BEFORE ${INSTALL_DIR}\include)
+    include_directories(BEFORE ${INSTALL_DIR}/include)
 else()
     include_directories(BEFORE ${INSTALL_DIR}/include/opencv4)
 endif()

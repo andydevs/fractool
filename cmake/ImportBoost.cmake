@@ -24,7 +24,7 @@ ExternalProject_Get_Property(boost INSTALL_DIR)
 
 # Include directories
 if(WIN32)
-    include_directories(${INSTALL_DIR}\include\boost-1_78)
+    include_directories(${INSTALL_DIR}/include/boost-1_78)
 else()
     include_directories(${INSTALL_DIR}/include)
 endif()
