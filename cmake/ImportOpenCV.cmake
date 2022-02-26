@@ -13,6 +13,7 @@ ExternalProject_Add(
         -DCMAKE_FIND_FRAMEWORK=LAST
 )
 ExternalProject_Get_Property(opencv INSTALL_DIR)
+message("BOOSTINSTALLDIR: ${INSTALL_DIR}")
 
 # Include directories
 if(WIN32)
