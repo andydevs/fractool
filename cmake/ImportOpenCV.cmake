@@ -54,7 +54,7 @@ macro(import_opencv_library libname)
     if(WIN32)
         set_property(TARGET opencv::${libname}
                     PROPERTY IMPORTED_IMPLIB
-                        ${INSTALL_DIR}/lib/libopencv_${libname}355.lib)
+                        ${INSTALL_DIR}/lib/libopencv_${libname}455.lib)
     endif()
     add_dependencies(opencv::${libname} opencv)
     install(IMPORTED_RUNTIME_ARTIFACTS opencv::${libname} 
