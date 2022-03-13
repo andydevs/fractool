@@ -13,7 +13,6 @@ ExternalProject_Add(
         -DCMAKE_FIND_FRAMEWORK=LAST
 )
 ExternalProject_Get_Property(opencv INSTALL_DIR)
-message("BOOSTINSTALLDIR: ${INSTALL_DIR}")
 
 # Include directories
 if(WIN32)
@@ -25,38 +24,28 @@ endif()
 # Set cmake build rpath
 set(CMAKE_BUILD_RPATH "${CMAKE_BUILD_RPATH};${INSTALL_DIR}/lib")
 
-# ADD VERSION NUMBER DIFFERENTLY IF WE'RE ON WINDOWS 
-# OMGOMGOMGOMGOMGOMGOMGOMGOMG!!!!! ALSO DYNAMIC LIBS 
-# ARE IN DIFFERENT LOCATION THAN STATIC LIBS OOOOOOOOOO!!!!!
-# (also the names are slightly different between mac, 
-# linux, and windows because my life is a cruel joke)
-if (WIN32)
-    set(SUFF 455${CMAKE_SHARED_LIBRARY_SUFFIX})
-    set(LDIR bin)
-elseif(CMAKE_SHARED_LIBRARY_SUFFIX STREQUAL ".so")
-    set(SUFF ${CMAKE_SHARED_LIBRARY_SUFFIX}.4.5.5)
-    set(LDIR lib)
-else()
-    set(SUFF .4.5.5${CMAKE_SHARED_LIBRARY_SUFFIX})
-    set(LDIR lib)
-endif()
-
 # Setup library macro
 macro(import_opencv_library libname)
     add_library(opencv::${libname} SHARED IMPORTED)
-    set_property(TARGET opencv::${libname} 
-                PROPERTY IMPORTED_LOCATION 
-                    ${INSTALL_DIR}/${LDIR}/libopencv_${libname}${SUFF})
-    if(APPLE)
-        set_property(TARGET opencv::${libname}
-                    PROPERTY IMPORTED_SONAME
-                        "@rpath/libopencv_${libname}.405.dylib")
-    endif()
+    
+    # Set properties depending on operating system
     if(WIN32)
-        set_property(TARGET opencv::${libname}
-                    PROPERTY IMPORTED_IMPLIB
-                        ${INSTALL_DIR}/lib/libopencv_${libname}455.lib)
+        set_target_properties(opencv::${libname}
+            PROPERTIES
+                IMPORTED_LOCATION ${INSTALL_DIR}/x64/vc16/bin/opencv_${libname}455d.dll
+                IMPORTED_IMPLIB ${INSTALL_DIR}/x64/vc16/lib/opencv_${libname}455d.lib)
+    elseif(APPLE)
+        set_target_properties(opencv::${libname}
+            PROPERTIES
+                IMPORTED_LOCATION ${INSTALL_DIR}/lib/libopencv_${libname}.dylib.4.5.5
+                IMPORTED_SONAME "@rpath/libopencv_${libname}.405.dylib")                
+    else()
+        set_target_properties(opencv::${libname}
+            PROPERTIES
+                IMPORTED_LOCATION ${INSTALL_DIR}/lib/libopencv_${libname}.4.5.5.so)
     endif()
+
+    # Add dependencies to external project and create install config
     add_dependencies(opencv::${libname} opencv)
     install(IMPORTED_RUNTIME_ARTIFACTS opencv::${libname} 
             LIBRARY DESTINATION ${LDIR})
