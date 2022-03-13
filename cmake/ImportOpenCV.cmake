@@ -42,7 +42,7 @@ macro(import_opencv_library libname)
     else()
         set_target_properties(opencv::${libname}
             PROPERTIES
-                IMPORTED_LOCATION ${INSTALL_DIR}/lib/libopencv_${libname}.4.5.5.so)
+                IMPORTED_LOCATION ${INSTALL_DIR}/lib/libopencv_${libname}.so.4.5.5)
     endif()
 
     # Add dependencies to external project and create install config
