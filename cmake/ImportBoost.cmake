@@ -15,43 +15,47 @@ ExternalProject_Add(
     boost
     URL "https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.gz"
     CONFIGURE_COMMAND ${BOOTSTRAP}
-    BUILD_COMMAND ${B2} link=shared
-    INSTALL_COMMAND ${B2} link=shared install --prefix=<INSTALL_DIR>
+    BUILD_COMMAND ${B2} link=shared --without-graph_parallel --without-mpi --without-python
+    INSTALL_COMMAND ${B2} link=shared install --without-graph_parallel --without-mpi --without-python --prefix=<INSTALL_DIR>
     BUILD_IN_SOURCE 1
 )
 ExternalProject_Get_Property(boost INSTALL_DIR)
 
-# Include directories
+# Configure build
 if(WIN32)
     include_directories(${INSTALL_DIR}/include/boost-1_78)
-    add_definitions(/BOOST_ALL_DYN_LINK)
+    add_definitions(/DBOOST_ALL_DYN_LINK)
 else()
     include_directories(${INSTALL_DIR}/include)
     add_definitions(-DBOOST_ALL_DYN_LINK)
 endif()
+if(APPLE)
+    set(CMAKE_BUILD_RPATH "${CMAKE_BUILD_RPATH};${INSTALL_DIR}/lib")
+endif()
 
-# Set cmake build rpath
-set(CMAKE_BUILD_RPATH "${CMAKE_BUILD_RPATH};${INSTALL_DIR}/lib")
-
-# Setup library macro
+# Import library macro
 macro(import_boost_library libname)
+    # Create target
     add_library(boost::${libname} SHARED IMPORTED)
 
+    # Set target properties
     if(WIN32)
         set_target_properties(boost::${libname}
             PROPERTIES
-                IMPORTED_LOCATION ${INSTALL_DIR}/lib/boost_${libname}.dll
-                IMPORTED_IMPLIB ${INSTALL_DIR}/lib/boost_${libname}.lib)
+                IMPORTED_LOCATION ${INSTALL_DIR}/lib/boost_${libname}-vc142-mt-gd-x64-1_78.dll
+                IMPORTED_IMPLIB ${INSTALL_DIR}/lib/boost_${libname}-vc142-mt-gd-x64-1_78.lib)
+        install(IMPORTED_RUNTIME_ARTIFACTS boost::${libname}
+            LIBRARY DESTINATION bin)
     else()
         set_target_properties(boost::${libname}
             PROPERTIES
                 IMPORTED_LOCATION ${INSTALL_DIR}/lib/libboost_${libname}.so.1.78.0)
+        install(IMPORTED_RUNTIME_ARTIFACTS boost::${libname}
+            LIBRARY DESTINATION lib)
     endif()
 
-    # Add dependencies and set install
+    # Add dependency to external project and set install
     add_dependencies(boost::${libname} boost)
-    install(IMPORTED_RUNTIME_ARTIFACTS boost::${libname}
-            RUNTIME DESTINATION lib)
 endmacro()
 
 # Import libraries

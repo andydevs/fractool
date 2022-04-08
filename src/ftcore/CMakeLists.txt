@@ -14,6 +14,9 @@ target_link_libraries(ftcore
         boost::program_options
         boost::thread
         boost::filesystem)
+if(WIN32)
+    target_compile_definitions(ftcore PRIVATE COMP_FTCORE)
+endif()
 install(
     TARGETS ftcore
     LIBRARY DESTINATION lib)

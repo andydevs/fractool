@@ -4,7 +4,7 @@
 // Colormap
 #include <fractool/colormap.hpp>
 
-enum ALGORITHM {
+enum EXPORT ALGORITHM {
     _INVALID,
 
     // Algorithms
@@ -15,7 +15,7 @@ enum ALGORITHM {
 /**
  * Configuration object for tool
  */
-struct config {
+struct EXPORT config {
     // Config parameters
     unsigned image_size_x;
     unsigned image_size_y;

@@ -1,6 +1,7 @@
 #ifndef __FRACTOOL_PARSER_H__
 #define __FRACTOOL_PARSER_H__
 
+#include <fractool/macros.hpp>
 #include <fractool/ftcore/config.hpp>
 
 /**
@@ -11,6 +12,6 @@
  *
  * @return generated config file
  */
-config config_from_cli(int argc, char **argv);
+config EXPORT config_from_cli(int argc, char **argv);
 
 #endif // __FRACTOOL_PARSER_H__

@@ -34,21 +34,26 @@ macro(import_opencv_library libname)
             PROPERTIES
                 IMPORTED_LOCATION ${INSTALL_DIR}/x64/vc16/bin/opencv_${libname}455d.dll
                 IMPORTED_IMPLIB ${INSTALL_DIR}/x64/vc16/lib/opencv_${libname}455d.lib)
+        install(IMPORTED_RUNTIME_ARTIFACTS opencv::${libname}
+            RUNTIME DESTINATION bin
+            LIBRARY DESTINATION lib)
     elseif(APPLE)
         set_target_properties(opencv::${libname}
             PROPERTIES
                 IMPORTED_LOCATION ${INSTALL_DIR}/lib/libopencv_${libname}.dylib.4.5.5
-                IMPORTED_SONAME "@rpath/libopencv_${libname}.405.dylib")                
+                IMPORTED_SONAME "@rpath/libopencv_${libname}.405.dylib")
+        install(IMPORTED_RUNTIME_ARTIFACTS opencv::${libname}
+            LIBRARY DESTINATION lib)
     else()
         set_target_properties(opencv::${libname}
             PROPERTIES
                 IMPORTED_LOCATION ${INSTALL_DIR}/lib/libopencv_${libname}.so.4.5.5)
+        install(IMPORTED_RUNTIME_ARTIFACTS opencv::${libname}
+            LIBRARY DESTINATION lib)
     endif()
 
     # Add dependencies to external project and create install config
     add_dependencies(opencv::${libname} opencv)
-    install(IMPORTED_RUNTIME_ARTIFACTS opencv::${libname} 
-            LIBRARY DESTINATION ${LDIR})
 endmacro()
 
 # Import libraries

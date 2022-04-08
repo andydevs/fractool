@@ -8,6 +8,7 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 build/
+out/
 .DS_Store
 **/.DS_Store
 /.vs
