@@ -8,6 +8,8 @@
 #else
 #define EXPORT __declspec(dllimport)
 #endif
+#else
+#define EXPORT
 #endif
 
 // 2D Array index computation
