@@ -40,7 +40,7 @@ macro(import_opencv_library libname)
     elseif(APPLE)
         set_target_properties(opencv::${libname}
             PROPERTIES
-                IMPORTED_LOCATION ${INSTALL_DIR}/lib/libopencv_${libname}.dylib.4.5.5
+                IMPORTED_LOCATION ${INSTALL_DIR}/lib/libopencv_${libname}.4.5.5.dylib
                 IMPORTED_SONAME "@rpath/libopencv_${libname}.405.dylib")
         install(IMPORTED_RUNTIME_ARTIFACTS opencv::${libname}
             LIBRARY DESTINATION lib)

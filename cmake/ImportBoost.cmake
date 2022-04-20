@@ -46,6 +46,12 @@ macro(import_boost_library libname)
                 IMPORTED_IMPLIB ${INSTALL_DIR}/lib/boost_${libname}-vc142-mt-gd-x64-1_78.lib)
         install(IMPORTED_RUNTIME_ARTIFACTS boost::${libname}
             LIBRARY DESTINATION bin)
+    elseif(APPLE)
+        set_target_properties(boost::${libname}
+            PROPERTIES
+                IMPORTED_LOCATION ${INSTALL_DIR}/lib/libboost_${libname}.dylib)
+        install(IMPORTED_RUNTIME_ARTIFACTS boost::${libname}
+            LIBRARY DESTINATION lib)
     else()
         set_target_properties(boost::${libname}
             PROPERTIES
