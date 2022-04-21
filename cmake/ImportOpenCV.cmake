@@ -30,10 +30,11 @@ macro(import_opencv_library libname)
     
     # Set properties depending on operating system
     if(WIN32)
+        string(${MSVC_VERSION} 0 2 VCVER)
         set_target_properties(opencv::${libname}
             PROPERTIES
-                IMPORTED_LOCATION ${INSTALL_DIR}/x64/vc16/bin/opencv_${libname}455d.dll
-                IMPORTED_IMPLIB ${INSTALL_DIR}/x64/vc16/lib/opencv_${libname}455d.lib)
+                IMPORTED_LOCATION ${INSTALL_DIR}/x64/vc${VCVER}/bin/opencv_${libname}455d.dll
+                IMPORTED_IMPLIB ${INSTALL_DIR}/x64/vc${VCVER}/lib/opencv_${libname}455d.lib)
         install(IMPORTED_RUNTIME_ARTIFACTS opencv::${libname}
             RUNTIME DESTINATION bin
             LIBRARY DESTINATION lib)

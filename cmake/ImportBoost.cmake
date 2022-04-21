@@ -42,8 +42,8 @@ macro(import_boost_library libname)
     if(WIN32)
         set_target_properties(boost::${libname}
             PROPERTIES
-                IMPORTED_LOCATION ${INSTALL_DIR}/lib/boost_${libname}-vc142-mt-gd-x64-1_78.dll
-                IMPORTED_IMPLIB ${INSTALL_DIR}/lib/boost_${libname}-vc142-mt-gd-x64-1_78.lib)
+                IMPORTED_LOCATION ${INSTALL_DIR}/lib/boost_${libname}-vc${MSVC_TOOLSET_VERSION}-mt-gd-x64-1_78.dll
+                IMPORTED_IMPLIB ${INSTALL_DIR}/lib/boost_${libname}-vc${MSVC_TOOLSET_VERSION}-mt-gd-x64-1_78.lib)
         install(IMPORTED_RUNTIME_ARTIFACTS boost::${libname}
             LIBRARY DESTINATION bin)
     elseif(APPLE)
