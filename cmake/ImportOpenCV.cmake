@@ -30,7 +30,7 @@ macro(import_opencv_library libname)
     
     # Set properties depending on operating system
     if(WIN32)
-        string(${MSVC_VERSION} 0 2 VCVER)
+        string(SUBSTRING ${MSVC_VERSION} 0 2 VCVER)
         set_target_properties(opencv::${libname}
             PROPERTIES
                 IMPORTED_LOCATION ${INSTALL_DIR}/x64/vc${VCVER}/bin/opencv_${libname}455d.dll
