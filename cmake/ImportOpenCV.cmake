@@ -101,8 +101,8 @@ macro(import_opencv_library libname)
     if(WIN32)
         set_target_properties(opencv::${libname}
             PROPERTIES
-                IMPORTED_LOCATION ${INSTALL_DIR}/x64/vc${OCVINST}/bin/opencv_${libname}455d.dll
-                IMPORTED_IMPLIB ${INSTALL_DIR}/x64/vc${OCVINST}/lib/opencv_${libname}455d.lib)
+                IMPORTED_LOCATION ${INSTALL_DIR}/x64/${OCVINST}/bin/opencv_${libname}455d.dll
+                IMPORTED_IMPLIB ${INSTALL_DIR}/x64/${OCVINST}/lib/opencv_${libname}455d.lib)
         install(IMPORTED_RUNTIME_ARTIFACTS opencv::${libname}
             RUNTIME DESTINATION bin
             LIBRARY DESTINATION lib)
