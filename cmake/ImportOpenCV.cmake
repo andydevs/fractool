@@ -63,34 +63,10 @@ elseif(MSVC_VERSION EQUAL 1900)
     set(OCVINST vc14)
 elseif(MSVC_VERSION MATCHES "^191[0-9]$")
     set(OCVINST vc15)
-    check_one_config(has_VS2017)
-    if(NOT has_VS2017)
-        set(OCVINST vc14) # selecting previous compatible runtime version
-    endif()
 elseif(MSVC_VERSION MATCHES "^192[0-9]$")
     set(OCVINST vc16)
-    check_one_config(has_VS2019)
-    if(NOT has_VS2019)
-        set(OCVINST vc15) # selecting previous compatible runtime version
-        check_one_config(has_VS2017)
-        if(NOT has_VS2017)
-            set(OCVINST vc14) # selecting previous compatible runtime version
-        endif()
-    endif()
 elseif(MSVC_VERSION MATCHES "^193[0-9]$")
     set(OCVINST vc17)
-    check_one_config(has_VS2022)
-    if(NOT has_VS2022)
-        set(OCVINST vc16)
-        check_one_config(has_VS2019)
-        if(NOT has_VS2019)
-            set(OCVINST vc15) # selecting previous compatible runtime version
-            check_one_config(has_VS2017)
-            if(NOT has_VS2017)
-                set(OCVINST vc14) # selecting previous compatible runtime version
-            endif()
-        endif()
-    endif()
 endif()
 
 # Setup library macro
