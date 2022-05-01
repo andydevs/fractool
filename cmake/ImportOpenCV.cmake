@@ -51,7 +51,10 @@ macro(import_opencv_library libname)
     
     # Set properties depending on operating system
     if(WIN32)
-        set(SUFF "$<$<CONFIG:DEBUG>:d>")
+        set(SUFF "")
+        if (CMAKE_BUILD_TYPE EQUAL Debug)
+            set(SUFF "d")
+        endif()
         set_target_properties(opencv::${libname}
             PROPERTIES
                 IMPORTED_LOCATION ${INSTALL_DIR}/x64/${OCVINST}/bin/opencv_${libname}455${SUFF}.dll
