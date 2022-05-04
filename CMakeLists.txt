@@ -5,19 +5,15 @@ project(FracTool VERSION 0.1.0)
 # Configure Project
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_FIND_FRAMEWORK LAST)
-include_directories(include)
+include_directories(include
+    extern/opencv/include
+    extern/boost/boost)
 link_directories(/usr/local/lib)
 add_compile_options(-pthread)
 add_link_options(-pthread)
-list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-set(BUILD_SHARED_LIBS ON)
-set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 
-# External Modules
-include(ImportBoost)
-include(ImportOpenCV)
-
-# Source directory
+# Subdirectories
+add_subdirectory(extern)
 add_subdirectory(src out)
 
 # After install
