@@ -29,7 +29,8 @@ jobs:
           submodules: recursive
 
       # Build and install dependencies
-      - name: Install Dependencies (Linux/macOS)
+      - name: Install Dependencies
+        shell: bash
         run: env/build-deps.sh
 
       # Build and install using CMake
