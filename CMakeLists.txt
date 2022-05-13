@@ -12,11 +12,11 @@ add_link_options(-pthread)
 
 # External packages
 find_package(OpenCV 4.5 REQUIRED 
-    PATHS extern/opencv/install 
+    PATHS extern/opencv/opencv-install
     NO_DEFAULT_PATH)
 find_package(Boost 1.78 REQUIRED 
     COMPONENTS log log_setup program_options 
-    PATHS extern/boost/install 
+    PATHS extern/boost/boost-install 
     NO_DEFAULT_PATH)
 
 # Subdirectories

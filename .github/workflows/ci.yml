@@ -20,20 +20,23 @@ jobs:
     name: Integration Test
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       # Checkout code
       - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      # Build and install dependencies
+      - name: Install Dependencies (Linux/macOS)
+        if: ${{ runner.os == 'Linux' || runner.os == 'macOS' }}
+        run: env/build-deps.sh
+      - name: Install Dependencies (Windows)
+        if: ${{ runner.os == 'Windows' }}
+        run: env\build-deps.bat
 
       # Build and install using CMake
-      - name: Cache Dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            ${{ github.workspace }}/build/boost-prefix
-            ${{ github.workspace }}/build/opencv-prefix
-          key: dependencies
       - name: Configure
         run: cmake -B ${{ github.workspace }}/build -S ${{ github.workspace }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
       - name: Build
