@@ -31,9 +31,11 @@ jobs:
       # Build and install dependencies
       - name: Install Dependencies (Linux/macOS)
         if: ${{ runner.os == 'Linux' || runner.os == 'macOS' }}
+        shell: bash
         run: env/build-deps.sh
       - name: Install Dependencies (Windows)
         if: ${{ runner.os == 'Windows' }}
+        shell: cmd
         run: env\build-deps.bat
 
       # Build and install using CMake
