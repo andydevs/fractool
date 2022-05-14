@@ -40,9 +40,9 @@ jobs:
         if: runner.os == 'Linux' || runner.os == 'macOS'
         run: |
           cd ${{ github.workspace }}/extern/boost
-          .\bootstrap.bat
-          .\b2.exe link=static
-          .\b2.exe install --prefix=boost-install
+          ./bootstrap.sh
+          ./b2 link=static
+          ./b2 install --prefix=boost-install
       - name: Install OpenCV
         run: |
           cd ${{ github.workspace }}/extern/opencv
