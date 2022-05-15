@@ -9,6 +9,7 @@ include_directories(include)
 link_directories(/usr/local/lib)
 add_compile_options(-pthread)
 add_link_options(-pthread)
+set(Boost_USE_STATIC_LIBS ON)
 
 # External packages
 find_package(OpenCV 4.5 REQUIRED 
