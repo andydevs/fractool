@@ -12,7 +12,8 @@ add_link_options(-pthread)
 set(Boost_USE_STATIC_LIBS ON)
 
 # External packages
-find_package(OpenCV 4.5 REQUIRED 
+find_package(OpenCV 4.5 REQUIRED
+    COMPONENTS core imgcodecs imgproc
     PATHS extern/opencv/opencv-install
     NO_DEFAULT_PATH)
 find_package(Boost 1.78 REQUIRED 
