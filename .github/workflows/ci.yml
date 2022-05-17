@@ -46,7 +46,7 @@ jobs:
       - name: Install OpenCV
         run: |
           cd ${{ github.workspace }}/extern/opencv
-          cmake -S . -B build -DBUILD_LIST=core,imgcodecs -DCMAKE_INSTALL_PREFIX=opencv-install -DOPENCV_FORCE_3RDPARTY_BUILD=ON -DWITH_EIGEN=OFF -DBUILD_SHARED_LIBS=OFF -DCMAKE_FIND_FRAMEWORK=LAST -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+          cmake -S . -B build -DBUILD_LIST=core,imgcodecs -DCMAKE_INSTALL_PREFIX=opencv-install -DOPENCV_FORCE_3RDPARTY_BUILD=ON -DWITH_PROTOBUF=OFF -DWITH_EIGEN=OFF -DBUILD_SHARED_LIBS=OFF -DCMAKE_FIND_FRAMEWORK=LAST -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
           cmake --build build --config ${{ env.BUILD_TYPE }} -j $(nproc --all)
           cmake --install build --config ${{ env.BUILD_TYPE }}
           
