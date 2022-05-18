@@ -7,8 +7,7 @@ add_library(ftcore
     generate_julia.cpp)
 target_link_libraries(ftcore 
     PUBLIC 
-        opencv_core 
-        opencv_imgcodecs 
+        png_static
         Boost::log 
         Boost::log_setup
         Boost::program_options
