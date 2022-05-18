@@ -12,14 +12,8 @@ add_link_options(-pthread)
 set(Boost_USE_STATIC_LIBS ON)
 
 # External packages
-find_package(OpenCV 4.5 REQUIRED
-    COMPONENTS core imgcodecs imgproc
-    PATHS extern/opencv/opencv-install
-    NO_DEFAULT_PATH)
-find_package(Boost 1.78 REQUIRED 
-    COMPONENTS log log_setup program_options 
-    PATHS extern/boost/boost-install 
-    NO_DEFAULT_PATH)
+include(${PROJECT_SOURCE_DIR}/extern/libpng/libpng-install/lib/libpng/libpng16.cmake)
+find_package(Boost 1.78 REQUIRED COMPONENTS log log_setup program_options PATHS extern/boost/boost-install NO_DEFAULT_PATH)
 
 # Subdirectories
 add_subdirectory(src out)
