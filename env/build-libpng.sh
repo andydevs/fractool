@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Building libpng..."
 cd extern/libpng
 ZLIBLIB=/path/to/lib export ZLIBLIB
 ZLIBINC=/path/to/include export ZLIBINC

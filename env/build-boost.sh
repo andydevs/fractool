@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Building boost..."
 cd extern/boost
 ./bootstrap.sh
 ./b2 link=static
