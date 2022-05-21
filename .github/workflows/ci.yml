@@ -28,6 +28,14 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: recursive
+
+      # Build dependencies
+      - name: Build Deps
+        shell: bash
+        run: |
+          env/build-boost.sh
+          env/build-zlib.sh
+          env/build-libpng.sh
           
       # Build and install using CMake
       - name: Configure
@@ -37,22 +45,19 @@ jobs:
       - name: Install
         run: sudo cmake --install ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }}
 
-      # Setup Python
-      - name: Setup Python
-        if: false
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-      - name: Install Python Dependencies
-        if: false
-        run: pip install -r python/requirements.txt
+      # # Setup Python
+      # - name: Setup Python
+      #   uses: actions/setup-python@v2
+      #   with:
+      #     python-version: '3.x'
+      # - name: Install Python Dependencies
+      #   run: pip install -r python/requirements.txt
 
-      # Run Test
-      - name: Run Integration Tests
-        if: false
-        run: |
-          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib
-          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/share/lib
-          python3 ./run.py
-        working-directory: python/integration_test
+      # # Run Test
+      # - name: Run Integration Tests
+      #   run: |
+      #     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib
+      #     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+      #     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/share/lib
+      #     python3 ./run.py
+      #   working-directory: python/integration_test

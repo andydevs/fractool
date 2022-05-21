@@ -2,6 +2,7 @@
 
 // External
 #include <boost/log/trivial.hpp>
+#include <png.h>
 
 /**
  * Write image to file
