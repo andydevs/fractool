@@ -5,17 +5,27 @@ project(FracTool VERSION 0.1.0)
 # Configure Project
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_FIND_FRAMEWORK LAST)
-include_directories(include extern/libpng/libpng-install/include)
+include_directories(include)
 link_directories(/usr/local/lib)
 add_compile_options(-pthread)
 add_link_options(-pthread)
 set(Boost_USE_STATIC_LIBS ON)
+set(BOOST_INCLUDE_LIBRARIES "log;program_options")
+set(PNG_BUILD_ZLIB ON)
+set(PNG_BUILD_DLL OFF)
+set(PNG_SHARED OFF)
+set(ASM686 ON)
+set(AMD64 ON)
 
 # External packages
-include(${PROJECT_SOURCE_DIR}/extern/libpng/libpng-install/lib/libpng/libpng16.cmake)
-find_package(Boost 1.78 REQUIRED COMPONENTS log log_setup program_options PATHS extern/boost/boost-install NO_DEFAULT_PATH)
+add_subdirectory(extern/boost)
+add_subdirectory(extern/zlib)
+add_subdirectory(extern/libpng)
 
-# Subdirectories
+# Disable targets except the ones we need
+
+
+# Source code
 add_subdirectory(src out)
 
 # After install

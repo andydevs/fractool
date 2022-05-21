@@ -1,9 +1,7 @@
 #include <fractool/ftcore/write_image.hpp>
 
 // External
-#include <png.h>
 #include <boost/log/trivial.hpp>
-
 
 /**
  * Write image to file

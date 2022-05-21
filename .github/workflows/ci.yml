@@ -28,28 +28,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: recursive
-
-      # Build and install dependencies
-      - name: Install Boost (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          cd ${{ github.workspace }}\extern\boost
-          .\bootstrap.bat
-          .\b2.exe link=static
-          .\b2.exe install --prefix=boost-install
-      - name: Install Boost (Linux)
-        if: runner.os == 'Linux' || runner.os == 'macOS'
-        run: |
-          cd ${{ github.workspace }}/extern/boost
-          ./bootstrap.sh
-          ./b2 link=static
-          ./b2 install --prefix=boost-install
-      - name: Install libpng
-        run: |
-          cd extern/libpng
-          cmake -S . -B build -DCMAKE_INSTALL_PREFIX=libpng-install -DPNG_SHARED=OFF -DPNG_TESTS=OFF -DPNG_BUILD_ZLIB=ON
-          cmake --build build
-          cmake --install build
           
       # Build and install using CMake
       - name: Configure
