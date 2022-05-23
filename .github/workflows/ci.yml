@@ -33,10 +33,27 @@ jobs:
       - name: Build Deps
         shell: bash
         run: |
-          env/build-boost.sh
-          env/build-zlib.sh
-          env/build-libpng.sh
-          
+          echo "Building boost..."
+          cd ${{ github.workspace }}/extern/boost
+          ./bootstrap.sh
+          ./b2 link=static
+          ./b2 install --prefix=boost-install
+          echo "Building zlib..."
+          cd ${{ github.workspace }}/extern/zlib
+          cmake -S . -B build -DCMAKE_INSTALL_PREFIX=zlib-install -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+          cmake --build build --config ${{ env.BUILD_TYPE }} --parallel $(nproc --all)
+          cmake --install build --config ${{ env.BUILD_TYPE }}
+          echo "Building libpng..."
+          cd ${{ github.workspace }}/extern/libpng
+          ZLIBLIB=/path/to/lib export ZLIBLIB
+          ZLIBINC=/path/to/include export ZLIBINC
+          CPPFLAGS="-I$ZLIBINC" export CPPFLAGS
+          LDFLAGS="-L$ZLIBLIB" export LDFLAGS
+          LD_LIBRARY_PATH="$ZLIBLIB:$LD_LIBRARY_PATH" export LD_LIBRARY_PATH
+          cmake -S . -B build -DCMAKE_INSTALL_PREFIX=libpng-install -DPNG_BUILD_ZLIB=ON -DPNG_SHARED=OFF -DPNG_TESTS=OFF -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+          cmake --build build
+          cmake --install build
+
       # Build and install using CMake
       - name: Configure
         run: cmake -B ${{ github.workspace }}/build -S ${{ github.workspace }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
