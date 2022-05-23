@@ -34,17 +34,17 @@ jobs:
         shell: bash
         run: |
           echo "Building boost..."
-          cd ${{ github.workspace }}/extern/boost
+          cd extern\boost
           ./bootstrap.sh
           ./b2 link=static
           ./b2 install --prefix=boost-install
           echo "Building zlib..."
-          cd ${{ github.workspace }}/extern/zlib
+          cd ..\zlib
           cmake -S . -B build -DCMAKE_INSTALL_PREFIX=zlib-install -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
           cmake --build build --config ${{ env.BUILD_TYPE }} --parallel $(nproc --all)
           cmake --install build --config ${{ env.BUILD_TYPE }}
           echo "Building libpng..."
-          cd ${{ github.workspace }}/extern/libpng
+          cd ..\libpng
           ZLIBLIB=/path/to/lib export ZLIBLIB
           ZLIBINC=/path/to/include export ZLIBINC
           CPPFLAGS="-I$ZLIBINC" export CPPFLAGS
