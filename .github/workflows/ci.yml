@@ -34,10 +34,14 @@ jobs:
         if: runner.os == 'Linux' || runner.os == 'macOS'
         shell: bash
         run: env/build-deps.sh
+        env:
+           ROOT_DIR: ${{ github.workspace }}
       - name: Build Dependencies (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: env\build-deps.ps1
+        env:
+           ROOT_DIR: ${{ github.workspace }}
 
       # Build and install using CMake
       - name: Configure
