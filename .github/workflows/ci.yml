@@ -30,29 +30,14 @@ jobs:
           submodules: recursive
 
       # Build dependencies
-      - name: Build Deps
+      - name: Build Dependencies (Linux/macOS)
+        if: runner.os == "Linux" || runner.os == "macOS"
         shell: bash
-        run: |
-          echo "Building boost..."
-          cd extern\boost
-          ./bootstrap.sh
-          ./b2 link=static
-          ./b2 install --prefix=boost-install
-          echo "Building zlib..."
-          cd ..\zlib
-          cmake -S . -B build -DCMAKE_INSTALL_PREFIX=zlib-install -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
-          cmake --build build --config ${{ env.BUILD_TYPE }} --parallel $(nproc --all)
-          cmake --install build --config ${{ env.BUILD_TYPE }}
-          echo "Building libpng..."
-          cd ..\libpng
-          ZLIBLIB=/path/to/lib export ZLIBLIB
-          ZLIBINC=/path/to/include export ZLIBINC
-          CPPFLAGS="-I$ZLIBINC" export CPPFLAGS
-          LDFLAGS="-L$ZLIBLIB" export LDFLAGS
-          LD_LIBRARY_PATH="$ZLIBLIB:$LD_LIBRARY_PATH" export LD_LIBRARY_PATH
-          cmake -S . -B build -DCMAKE_INSTALL_PREFIX=libpng-install -DPNG_BUILD_ZLIB=ON -DPNG_SHARED=OFF -DPNG_TESTS=OFF -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
-          cmake --build build
-          cmake --install build
+        run: env/build-deps.sh
+      - name: Build Dependencies (Windows)
+        if: runner.os == "Windows"
+        shell: pwsh
+        run: env\build-deps.ps1
 
       # Build and install using CMake
       - name: Configure
