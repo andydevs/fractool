@@ -31,11 +31,11 @@ jobs:
 
       # Build dependencies
       - name: Build Dependencies (Linux/macOS)
-        if: runner.os == "Linux" || runner.os == "macOS"
+        if: runner.os == 'Linux' || runner.os == 'macOS'
         shell: bash
         run: env/build-deps.sh
       - name: Build Dependencies (Windows)
-        if: runner.os == "Windows"
+        if: runner.os == 'Windows'
         shell: pwsh
         run: env\build-deps.ps1
 
