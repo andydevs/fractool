@@ -10,22 +10,20 @@ cd $ROOT_DIR/extern/boost
 # Build zlib
 echo "Building zlib..."
 cd $ROOT_DIR/extern/zlib
-cmake -S . -B build -DCMAKE_INSTALL_PREFIX=zlib-install
-cmake --build build
-cmake --install build
+cmake -S . -B build \
+    -DCMAKE_INSTALL_PREFIX=zlib-install \
+    -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+cmake --build build --config $BUILD_TYPE
+cmake --install build --config $BUILD_TYPE
 
 # Build libpng
 echo "Building libpng..."
 cd $ROOT_DIR/extern/libpng
-export ZLIBINC=$ROOT_DIR/extern/zlib/zlib-install/include
-export ZLIBLIB=$ROOT_DIR/extern/zlib/zlib-install/lib
-export CPPFLAGS="-I$ZLIBINC"
-export LDFLAGS="-L$ZLIBLIB"
-export LD_LIBRARY_PATH="$ZLIBLIB:$LD_LIBRARY_PATH"
 cmake -S . -B build \
-    -DPNG_BUILD_ZLIB=ON \
+    -DCMAKE_INSTALL_PREFIX=libpng-install \
+    -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+    -DZLIB_ROOT="$ROOT_DIR/extern/zlib/zlib-install"
     -DPNG_SHARED=OFF \
-    -DPNG_TESTS=OFF \
-    -DCMAKE_INSTALL_PREFIX=libpng-install
-cmake --build build
-cmake --install build
+    -DPNG_TESTS=OFF
+cmake --build build --config $BUILD_TYPE
+cmake --install build --config $BUILD_TYPE
