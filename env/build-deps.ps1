@@ -17,10 +17,13 @@ cmake --install build --config $Env:BUILD_TYPE
 # Build libpng
 echo "Building libpng..."
 Set-Location -Path "$Env:ROOT_DIR\extern\libpng"
+Copy-Item -Path "$Env:ROOT_DIR\env\FindZLIB.cmake" -Destination "."
+bash -c "git apply ../../env/libpng-changes.patch"
 cmake -S . -B build `
     -DCMAKE_INSTALL_PREFIX=libpng-install `
     -DCMAKE_BUILD_TYPE=$Env:BUILD_TYPE `
     -DZLIB_ROOT="$Env:ROOT_DIR\extern\zlib\zlib-install" `
+    -DZLIB_USE_STATIC_LIBS=ON `
     -DPNG_SHARED=OFF `
     -DPNG_TESTS=OFF
 cmake --build build --config $Env:BUILD_TYPE

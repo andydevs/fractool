@@ -16,3 +16,4 @@ build/
 tmp/
 __pycache__/
 .pytest_cache/
+/out/install/x64-Debug
