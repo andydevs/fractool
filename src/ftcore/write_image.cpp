@@ -46,9 +46,9 @@ void write_image(const unsigned size_x, const unsigned size_y, unsigned char* co
     PNG_ERROR_IF(!row, "failed to create png row");
     for (int y = 0; y < size_y; ++y) {
         for (int x = 0; x < size_x; ++x) {
-            row[x * NUM_CHANS + BLU_CHAN] = color_buffer[IMAGE(size_x, x, y, BLU_CHAN)];
-            row[x * NUM_CHANS + GRN_CHAN] = color_buffer[IMAGE(size_x, x, y, GRN_CHAN)];
-            row[x * NUM_CHANS + RED_CHAN] = color_buffer[IMAGE(size_x, x, y, RED_CHAN)];
+            row[ARRAY2D(NUM_CHANS, RED_CHAN, x)] = color_buffer[IMAGE(size_x, x, y, RED_INDX)];
+            row[ARRAY2D(NUM_CHANS, GRN_CHAN, x)] = color_buffer[IMAGE(size_x, x, y, GRN_INDX)];
+            row[ARRAY2D(NUM_CHANS, BLU_CHAN, x)] = color_buffer[IMAGE(size_x, x, y, BLU_INDX)];
         }
         png_write_row(png_ptr, row);
     }

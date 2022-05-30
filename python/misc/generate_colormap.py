@@ -1,6 +1,7 @@
 import numpy as np
 import yaml
 
+
 # File format parts
 header = """#ifndef __FRACTOOL_COLORMAP_H__
 #define __FRACTOOL_COLORMAP_H__
