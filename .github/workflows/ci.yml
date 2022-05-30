@@ -62,7 +62,9 @@ jobs:
         run: pip install -r python/requirements.txt
 
       # Run Test
-      - name: Run Integration Tests
+      - name: Run Integration Tests (Windows)
+        run: python3 ./run.py
+      - name: Run Integration Tests (macOS/Linux)
         run: |
           export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib
           export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib

@@ -5,13 +5,14 @@
 #include <boost/log/trivial.hpp>
 #include <png.h>
 #include <cstdio>
+#include <stdexcept>
 
 // Helper macro
 #define PNG_ERROR_IF(condition, error_message) \
     if (condition) { \
         BOOST_LOG_TRIVIAL(debug) << error_message; \
         BOOST_LOG_TRIVIAL(info) << "Failed to create png image"; \
-        throw std::exception("Failed to create png image"); \
+        throw std::logic_error("Failed to create png image"); \
     }
 
 /**
