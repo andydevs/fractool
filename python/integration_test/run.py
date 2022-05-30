@@ -152,4 +152,7 @@ def test_invalid_colormap_name(tmp_env):
 
 # Run unittests
 if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        filepath = sys.argv[1]
+        os.environ.set('PATH', filepath + ';' + os.environ.get('PATH', ''))
     sys.exit(pytest.main(['--verbose', 'run.py']))
