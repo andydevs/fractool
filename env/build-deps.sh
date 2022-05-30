@@ -32,4 +32,4 @@ cmake --build build --config $BUILD_TYPE
 cmake --install build --config $BUILD_TYPE
 
 # Go back to root
-cp $ROOT_DIR
+cd $ROOT_DIR
