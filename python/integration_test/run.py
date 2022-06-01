@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import pytest
 from PIL import Image
+from platform import system
 import subprocess as sp
 import numpy as np
 import os
@@ -130,5 +131,6 @@ def test_invalid_colormap_name(tmp_env):
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         filepath = sys.argv[1]
-        os.environ['PATH'] = filepath + ';' + os.environ.get('PATH', '')
+        separator = ';' if system() == 'Windows' else ':'
+        os.environ['PATH'] = filepath + separator + os.environ.get('PATH', '')
     sys.exit(pytest.main(['--verbose', 'run.py']))
