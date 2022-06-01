@@ -1,0 +1,12 @@
+[submodule "extern/boost"]
+	path = extern/boost
+	url = https://github.com/boostorg/boost.git
+[submodule "extern/opencv"]
+	path = extern/opencv
+	url = https://github.com/opencv/opencv.git
+[submodule "extern/libpng"]
+	path = extern/libpng
+	url = https://github.com/glennrp/libpng.git
+[submodule "extern/zlib"]
+	path = extern/zlib
+	url = https://github.com/madler/zlib.git

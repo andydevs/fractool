@@ -6,14 +6,13 @@ add_library(ftcore
     generate_mandelbrot.cpp
     generate_julia.cpp)
 target_link_libraries(ftcore 
-    PRIVATE 
-        opencv::core 
-        opencv::imgcodecs 
-        boost::log 
-        boost::log_setup
-        boost::program_options
-        boost::thread
-        boost::filesystem)
+    PUBLIC 
+        png_static
+        Boost::log 
+        Boost::log_setup
+        Boost::program_options
+        Boost::thread
+        Boost::filesystem)
 install(
     TARGETS ftcore
     LIBRARY DESTINATION lib)

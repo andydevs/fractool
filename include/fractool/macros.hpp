@@ -5,9 +5,12 @@
 #define ARRAY2D(w, x, y) y*w + x
 
 // Image/color macros
-#define BLU_CHAN 0
+#define RED_INDX 0
+#define GRN_INDX 1
+#define BLU_INDX 2
+#define RED_CHAN 0
 #define GRN_CHAN 1
-#define RED_CHAN 2
+#define BLU_CHAN 2
 #define NUM_CHANS 3
 #define COLORMAP_SIZE 256
 struct colormap {
