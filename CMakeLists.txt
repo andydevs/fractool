@@ -12,6 +12,7 @@ if (NOT WIN32)
     add_link_options(-pthread)
 endif()
 set(Boost_USE_STATIC_LIBS ON)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
 # External packages
 include(${PROJECT_SOURCE_DIR}/extern/libpng/libpng-install/lib/libpng/libpng16.cmake)
