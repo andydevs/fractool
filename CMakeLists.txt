@@ -12,11 +12,14 @@ if (NOT WIN32)
     add_link_options(-pthread)
 endif()
 set(Boost_USE_STATIC_LIBS ON)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
 # External packages
 include(${PROJECT_SOURCE_DIR}/extern/libpng/libpng-install/lib/libpng/libpng16.cmake)
 include_directories(${PROJECT_SOURCE_DIR}/extern/libpng/libpng-install/include)
-find_package(Boost REQUIRED COMPONENTS log log_setup program_options PATHS "${PROJECT_SOURCE_DIR}/extern/boost/boost-install")
+set(BOOST_ROOT "${PROJECT_SOURCE_DIR}/extern/boost/boost-install")
+find_package(Boost REQUIRED COMPONENTS log log_setup program_options)
+include_directories(${Boost_INCLUDE_DIRS})
 
 # Source code
 add_subdirectory(src out)
