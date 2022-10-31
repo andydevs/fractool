@@ -74,12 +74,12 @@ jobs:
       # Publish installer
       - name: Run CPack (Windows)
         if: runner.os == 'Windows'
-        run: cd ${{ github.workspace }}/build && cpack
+        run: cd ${{ github.workspace }}/build && cpack -P FracTool-${{ github.ref_name }}-${{ runner.os }}
       - name: Run CPack (Linux/macOS)
         if: runner.os != 'Windows'
-        run: cd ${{ github.workspace }}/build && sudo cpack
+        run: cd ${{ github.workspace }}/build && sudo cpack -P FracTool-${{ github.ref_name }}-${{ runner.os }}
       - name: Publish installer
         uses: actions/upload-artifact@v3
         with:
           name: FracTool-${{ runner.os }}
-          path: ${{ github.workspace }}/build/FracTool-*.*.*-*.${{ runner.os == 'Windows' && 'exe' || 'sh' }}
+          path: ${{ github.workspace }}/build/FracTool-${{ github.ref_name }}-${{ runner.os }}.${{ runner.os == 'Windows' && 'exe' || 'sh' }}
