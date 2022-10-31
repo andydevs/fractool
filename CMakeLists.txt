@@ -31,3 +31,6 @@ if(APPLE)
 elseif(NOT WIN32)
     install(CODE "execute_process(COMMAND ldconfig)")
 endif()
+
+# Add CPack
+include(CPack)
