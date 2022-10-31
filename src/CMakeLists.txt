@@ -1,2 +1,0 @@
-add_subdirectory(ftcore)
-add_subdirectory(fractool)

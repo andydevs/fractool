@@ -22,7 +22,8 @@ find_package(Boost REQUIRED COMPONENTS log log_setup program_options)
 include_directories(${Boost_INCLUDE_DIRS})
 
 # Source code
-add_subdirectory(src out)
+add_subdirectory(src/fractool fractool)
+add_subdirectory(src/ftcore ftcore)
 
 # After install
 if(APPLE)
