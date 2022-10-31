@@ -81,5 +81,5 @@ jobs:
       - name: Publish installer
         uses: actions/upload-artifact@v3
         with:
-          name: FracTool-${{ runner.os }}
+          name: FracTool-${{ github.ref_name }}-${{ runner.os }}
           path: ${{ github.workspace }}/build/FracTool-${{ github.ref_name }}-${{ runner.os }}.${{ runner.os == 'Windows' && 'exe' || 'sh' }}
