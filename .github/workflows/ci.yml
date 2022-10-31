@@ -70,3 +70,12 @@ jobs:
         if: runner.os != 'Windows'
         run: python3 ./run.py
         working-directory: python/integration_test
+
+      # Publish installer
+      - name: Run CPack
+        run: cd ${{ github.workspace }}/build && cpack
+      - name: Publish installer
+        uses: actions/upload-artifact@v3
+        with:
+          name: FracTool-${{ runner.os }}
+          path: ${{ github.workspace }}/build/Fractool-*.*.*-*.sh
