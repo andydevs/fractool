@@ -82,4 +82,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: FracTool-${{ runner.os }}
-          path: ${{ github.workspace }}/build/Fractool-*.*.*-*.${{ runner.os == 'Windows' && 'ps1' || 'sh' }}
+          path: ${{ github.workspace }}/build/Fractool-*.*.*-*.${{ runner.os == 'Windows' && 'exe' || 'sh' }}
