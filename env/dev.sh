@@ -1,4 +1,4 @@
-ROOT_DIR=$(pwd)
+export ROOT_DIR=$(pwd)
 export PATH="$PATH:$ROOT_DIR/build/test-install/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$ROOT_DIR/build/test-install/lib"
 export BUILD_TYPE="Debug"
