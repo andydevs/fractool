@@ -106,6 +106,7 @@ jobs:
         run: |
           ${{ matrix.sudo }} ./FracTool-${{ github.ref_name }}-${{ runner.os }}.${{ matrix.installer }} ${{ matrix.installer_switch }}=${{ matrix.installer_prefix }}
           echo ${{ matrix.installer_prefix }}/bin >> $GITHUB_PATH
+          cat $GITHUB_PATH
 
       # Setup Python
       - name: Setup Python
