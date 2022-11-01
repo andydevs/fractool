@@ -70,7 +70,7 @@ jobs:
 
       # Publish installer
       - name: Run CPack
-        run: ${{ runner.sudo }} cpack
+        run: ${{ matrix.sudo }} cpack
         working-directory: ${{ github.workspace }}/build
       - name: Publish installer
         uses: actions/upload-artifact@v3
