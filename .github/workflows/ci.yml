@@ -43,7 +43,10 @@ jobs:
 
       # Build and install using CMake
       - name: Configure
-        run: cmake -B ${{ github.workspace }}/build -S ${{ github.workspace }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+        run: |
+          cmake -B ${{ github.workspace }}/build -S ${{ github.workspace }} \
+            -DCPACK_PACKAGE_FILE_NAME=FracTool-${{ github.ref_name }}-${{ runner.os }} \
+            -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
       - name: Build
         run: cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }} --parallel $(nproc --all)
       - name: Install (Windows)
@@ -74,11 +77,11 @@ jobs:
       # Publish installer
       - name: Run CPack (Windows)
         if: runner.os == 'Windows'
-        run: cpack -DCPACK_PACKAGE_FILE_NAME=FracTool-${{ github.ref_name }}-${{ runner.os }}
+        run: cpack
         working-directory: ${{ github.workspace }}/build
       - name: Run CPack (Linux/macOS)
         if: runner.os != 'Windows'
-        run: sudo cpack -DCPACK_PACKAGE_FILE_NAME=FracTool-${{ github.ref_name }}-${{ runner.os }}
+        run: sudo cpack
         working-directory: ${{ github.workspace }}/build
       - name: Publish installer
         uses: actions/upload-artifact@v3
