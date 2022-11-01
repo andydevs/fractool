@@ -89,11 +89,17 @@ jobs:
             sudo: ''
     runs-on: ${{ matrix.os }}
     steps:
+      # Checkout code
+      - uses: actions/checkout@v3
+
       # Download appropriate artifact
       - name: Download Installer
         uses: actions/download-artifact@v3
         with:
           name: FracTool-${{ github.ref_name }}-${{ runner.os }}
+      - name: Change Permissions (Linux/MacOS)
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod a+x FracTool-${{ github.ref_name }}-${{ runner.os }}.${{ matrix.installer }}
 
       # Run installer
       - name: Install
