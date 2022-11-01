@@ -17,8 +17,8 @@ env:
 
 # Jobs
 jobs:
-  integration:
-    name: Integration Test
+  build:
+    name: Build
     strategy:
       fail-fast: false
       matrix:
@@ -46,13 +46,60 @@ jobs:
       - name: Build Dependencies
         run: ${{ github.workspace }}/env/build-deps.${{ matrix.script }}
 
-      # Build and install using CMake
+      # Build package using CMake and cpack
       - name: Configure
         run: cmake -B ${{ github.workspace }}/build -S ${{ github.workspace }} -DCPACK_PACKAGE_FILE_NAME=FracTool-${{ github.ref_name }}-${{ runner.os }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
       - name: Build
         run: cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }} --parallel $(nproc --all)
+      - name: Run CPack
+        run: ${{ matrix.sudo }} cpack
+        working-directory: ${{ github.workspace }}/build
+
+      # Upload installer artifact
+      - name: Publish installer
+        uses: actions/upload-artifact@v3
+        with:
+          name: FracTool-${{ github.ref_name }}-${{ runner.os }}
+          path: ${{ github.workspace }}/build/FracTool-${{ github.ref_name }}-${{ runner.os }}.${{ matrix.installer }}
+
+  integration:
+    name: Integration Test
+    needs: [ build ]
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            script: sh
+            installer: sh
+            installer_switch: --prefix
+            installer_prefix: /usr/local
+            sudo: sudo
+          - os: macos-latest
+            script: sh
+            installer: sh
+            installer_switch: --prefix
+            installer_prefix: /usr/local
+            sudo: sudo
+          - os: windows-latest
+            script: ps1
+            installer: exe
+            installer_switch: /D
+            installer_prefix: "C:\\Program Files\\FracTool"
+            sudo: ''
+    runs-on: ${{ matrix.os }}
+    steps:
+      # Download appropriate artifact
+      - name: Download Installer
+        uses: actions/download-artifact@v3
+        with:
+          name: FracTool-${{ github.ref_name }}-${{ runner.os }}
+
+      # Run installer
       - name: Install
-        run: ${{ matrix.sudo }} cmake --install ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }}
+        run: |
+          ${{ matrix.sudo }} ./FracTool-${{ github.ref_name }}-${{ runner.os }}.${{ matrix.installer }} ${{ matrix.installer_switch }}=${{ matrix.installer_prefix }}
+          echo ${{ matrix.installer_prefix }}/bin >> $GITHUB_PATH
 
       # Setup Python
       - name: Setup Python
@@ -64,15 +111,5 @@ jobs:
 
       # Run Test
       - name: Run Integration Tests
-        run: python3 ./run.py ${{ runner.os == 'Windows' && '"C:/Program Files (x86)/Fractool/bin"' || '' }}
+        run: python3 ./run.py
         working-directory: python/integration_test
-
-      # Publish installer
-      - name: Run CPack
-        run: ${{ matrix.sudo }} cpack
-        working-directory: ${{ github.workspace }}/build
-      - name: Publish installer
-        uses: actions/upload-artifact@v3
-        with:
-          name: FracTool-${{ github.ref_name }}-${{ runner.os }}
-          path: ${{ github.workspace }}/build/FracTool-${{ github.ref_name }}-${{ runner.os }}.${{ matrix.installer }}
