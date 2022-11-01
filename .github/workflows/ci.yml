@@ -75,11 +75,11 @@ jobs:
       - name: Run CPack (Windows)
         if: runner.os == 'Windows'
         run: cpack -DCPACK_PACKAGE_FILE_NAME=FracTool-${{ github.ref_name }}-${{ runner.os }}
-        working_directory: ${{ github.workspace }}/build
+        working-directory: ${{ github.workspace }}/build
       - name: Run CPack (Linux/macOS)
         if: runner.os != 'Windows'
         run: sudo cpack -DCPACK_PACKAGE_FILE_NAME=FracTool-${{ github.ref_name }}-${{ runner.os }}
-        working_directory: cd ${{ github.workspace }}/build
+        working-directory: cd ${{ github.workspace }}/build
       - name: Publish installer
         uses: actions/upload-artifact@v3
         with:
