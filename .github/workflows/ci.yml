@@ -63,9 +63,8 @@ jobs:
         run: pip install -r python/requirements.txt
 
       # Run Test
-      - name: Run Integration Tests (Windows)
-        if: runner.os == 'Windows'
-        run: python3 ./run.py ${{ runner.os == 'Windows' && 'C:/Program Files (x86)/Fractool/bin' || '' }}
+      - name: Run Integration Tests
+        run: python3 ./run.py ${{ runner.os == 'Windows' && '"C:/Program Files (x86)/Fractool/bin"' || '' }}
         working-directory: python/integration_test
 
       # Publish installer
