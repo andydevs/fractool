@@ -72,20 +72,17 @@ jobs:
           - os: ubuntu-latest
             script: sh
             installer: sh
-            installer_switch: --skip-license --prefix
-            installer_prefix: /usr/local
+            installer_args: --skip-license
             sudo: sudo
           - os: macos-latest
             script: sh
             installer: sh
-            installer_switch: --skip-license --prefix
-            installer_prefix: /usr/local
+            installer_args: --skip-license
             sudo: sudo
           - os: windows-latest
             script: ps1
             installer: exe
-            installer_switch: /D
-            installer_prefix: '"C:\\Program Files\\FracTool"'
+            installer_args: ''
             sudo: ''
     runs-on: ${{ matrix.os }}
     steps:
@@ -103,9 +100,7 @@ jobs:
 
       # Run installer
       - name: Install
-        run: |
-          ${{ matrix.sudo }} ./FracTool-${{ github.ref_name }}-${{ runner.os }}.${{ matrix.installer }} ${{ matrix.installer_switch }}=${{ matrix.installer_prefix }}
-          echo ${{ matrix.installer_prefix }}/bin >> $GITHUB_PATH
+        run: ${{ matrix.sudo }} ./FracTool-${{ github.ref_name }}-${{ runner.os }}.${{ matrix.installer }} ${{ matrix.installer_args }}
 
       # Setup Python
       - name: Setup Python
