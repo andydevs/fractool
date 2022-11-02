@@ -117,5 +117,5 @@ jobs:
 
       # Run Test
       - name: Run Integration Tests
-        run: python3 ./run.py
+        run: python3 ./run.py ${{ matrix.installer_prefix }}/bin
         working-directory: python/integration_test
