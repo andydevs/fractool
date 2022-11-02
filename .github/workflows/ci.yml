@@ -85,7 +85,7 @@ jobs:
             script: ps1
             installer: exe
             installer_switch: /D
-            installer_prefix: 'C:\\Program Files\\FracTool'
+            installer_prefix: 'C:\Program Files\FracTool'
             sudo: ''
     runs-on: ${{ matrix.os }}
     steps:
