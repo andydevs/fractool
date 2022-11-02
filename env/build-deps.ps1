@@ -1,9 +1,8 @@
 # Build boost
 echo "Building boost..."
 Set-Location -Path "$Env:ROOT_DIR\extern\boost"
-& ".\bootstrap.bat"
-& ".\b2.exe" "link=static"
-& ".\b2.exe" "install" "--prefix=boost-install"
+& ".\bootstrap.bat" "--with-libraries=log,program_options"
+& ".\b2.exe" "link=static" "--prefix=boost-install" "install"
 
 # Build zlib
 echo "Building zlib..."
