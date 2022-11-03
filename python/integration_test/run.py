@@ -138,11 +138,14 @@ if __name__ == '__main__':
             + os.environ.get('PATH', '')
 
     # Debug path stuff
-    print(os.environ['PATH'])
-    for path in os.environ['PATH'].split(separator):
-        print(path)
-        print(os.listdir(path))
-    print(os.listdir())
+    print(os.environ['PATH'].split(separator))
+    try:
+        for path in os.environ['PATH'].split(separator):
+            print(path)
+            print(os.listdir(path))
+        print(os.listdir())
+    except OSError as e:
+        pass
 
     # Run tests
     sys.exit(pytest.main(['--verbose', 'run.py']))
