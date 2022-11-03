@@ -129,8 +129,20 @@ def test_invalid_colormap_name(tmp_env):
 
 # Run unittests
 if __name__ == '__main__':
+    # Path mod
+    separator = ';' if system() == 'Windows' else ':'
     if len(sys.argv) > 1:
         filepath = sys.argv[1]
-        separator = ';' if system() == 'Windows' else ':'
-        os.environ['PATH'] = filepath + separator + os.environ.get('PATH', '')
+        os.environ['PATH'] = sys.argv[1] \
+            + separator \
+            + os.environ.get('PATH', '')
+
+    # Debug path stuff
+    print(os.environ['PATH'])
+    for path in os.environ['PATH'].split(separator):
+        print(path)
+        print(os.listdir(path))
+    print(os.listdir())
+
+    # Run tests
     sys.exit(pytest.main(['--verbose', 'run.py']))
