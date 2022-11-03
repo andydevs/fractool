@@ -85,7 +85,7 @@ jobs:
             script: ps1
             installer: exe
             installer_switch: /S /D
-            installer_prefix: '"C:\Program Files\FracTool"'
+            installer_prefix: 'C:\Program Files\FracTool'
             sudo: ''
     runs-on: ${{ matrix.os }}
     steps:
@@ -104,7 +104,7 @@ jobs:
       # Run installer
       - name: Install
         run: |
-          ${{ matrix.sudo }} ./FracTool-${{ github.ref_name }}-${{ runner.os }}.${{ matrix.installer }} ${{ matrix.installer_switch }}=${{ matrix.installer_prefix }}
+          ${{ matrix.sudo }} ./FracTool-${{ github.ref_name }}-${{ runner.os }}.${{ matrix.installer }} ${{ matrix.installer_switch }}="${{ matrix.installer_prefix }}"
           echo ${{ matrix.installer_prefix }} >> $GITHUB_PATH
 
       # Setup Python
@@ -117,5 +117,5 @@ jobs:
 
       # Run Test
       - name: Run Integration Tests
-        run: python3 ./run.py ${{ matrix.installer_prefix }}/bin
+        run: python3 ./run.py "${{ matrix.installer_prefix }}/bin"
         working-directory: python/integration_test
