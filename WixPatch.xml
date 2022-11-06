@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CPackWiXPatch>
+    <CPackWiXFragment Id="CM_CP_bin.fractool.exe">
+        <Environment Id="AddToPath"
+                     Name="Path"
+                     Value="[CM_DP_bin]"
+                     Action="set"
+                     System="yes"
+                     Part="last"
+                     Separator=";"
+                     Permanent="no"/>
+    </CPackWiXFragment>
+</CPackWiXPatch>
