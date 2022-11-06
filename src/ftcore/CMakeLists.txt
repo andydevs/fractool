@@ -13,6 +13,4 @@ target_link_libraries(ftcore
         Boost::program_options
         Boost::thread
         Boost::filesystem)
-install(
-    TARGETS ftcore
-    LIBRARY DESTINATION lib)
+install(TARGETS ftcore LIBRARY)

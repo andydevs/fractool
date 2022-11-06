@@ -3,9 +3,8 @@
 # Build boost
 echo "Building boost..."
 cd $ROOT_DIR/extern/boost
-./bootstrap.sh
-./b2 link=static
-./b2 install --prefix=boost-install
+./bootstrap.sh --with-libraries=log,program_options
+./b2 --prefix=boost-install link=static install
 
 # Build zlib
 echo "Building zlib..."

@@ -22,7 +22,7 @@ find_package(Boost REQUIRED COMPONENTS log log_setup program_options)
 include_directories(${Boost_INCLUDE_DIRS})
 
 # Source code
-add_subdirectory(src out)
+add_subdirectory(src modules)
 
 # After install
 if(APPLE)
@@ -30,3 +30,18 @@ if(APPLE)
 elseif(NOT WIN32)
     install(CODE "execute_process(COMMAND ldconfig)")
 endif()
+
+# CPack
+set(CPACK_PACKAGE_NAME "FracTool")
+set(CPACK_PACKAGE_VENDOR "Andydevs")
+set(CPACK_PACKAGE_DIRECTORY packages/${CMAKE_BUILD_TYPE}/)
+set(CPACK_PACKAGE_FILE_NAME ${PROJECT_NAME}-${CMAKE_BUILD_TYPE}-${PROJECT_VERSION}-${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR})
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "${PROJECT_NAME}")
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE.txt")
+set(CPACK_WIX_PATCH_FILE "${PROJECT_SOURCE_DIR}/WixPatch.xml")
+if(WIN32)
+    set(CPACK_GENERATOR "WIX;ZIP")
+else()
+    set(CPACK_GENERATOR "STGZ;TGZ")
+endif()
+include(CPack)
