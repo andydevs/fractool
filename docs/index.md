@@ -1,5 +1,6 @@
 [Components](/fractool/components)
 [Roadmap](/fractool/roadmap)
+[Development](/fractool/development)
 
 Current Features
 -------------------------------------------------------------
