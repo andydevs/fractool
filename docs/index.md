@@ -1,6 +1,18 @@
 [Components](/fractool/components)
 [Roadmap](/fractool/roadmap)
 
+Current Features
+-------------------------------------------------------------
+
+### Fractool CLI
+
+- Can generate Mandelbrot and Jula fractal images
+    - Both algorithms use `z = z^2 + c`
+    - Julia sets `c` to `-0.4 + 0.6i`
+    - Set algorithm with `--algorithm`
+- Set image dimensions and preset colormaps
+    - List colormaps using `--colormaps`
+
 Project Scope
 -------------------------------------------------------------
 
