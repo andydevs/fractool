@@ -4,11 +4,13 @@
 
 // FTCore
 #include <fractool/ftcore/config.hpp>
-#include <fractool/ftcore/cli_parser.hpp>
 #include <fractool/ftcore/map_color.hpp>
 #include <fractool/ftcore/write_image.hpp>
 #include <fractool/ftcore/generate_mandelbrot.hpp>
 #include <fractool/ftcore/generate_julia.hpp>
+
+// Fractool
+#include <fractool/fractool/cli_parser.hpp>
 
 // External
 #include <boost/log/core.hpp>

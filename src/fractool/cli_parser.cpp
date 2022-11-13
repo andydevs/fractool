@@ -1,5 +1,6 @@
+// Fractool
 #include <fractool/colormap.hpp>
-#include <fractool/ftcore/cli_parser.hpp>
+#include <fractool/fractool/cli_parser.hpp>
 
 // External
 #include <boost/program_options.hpp>
