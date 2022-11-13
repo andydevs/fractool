@@ -47,15 +47,31 @@ def tmp_env(tmp_path):
     ('algorithm-julia.png',   ['--algorithm', 'julia']),
     ('algorithm-mbrot.png',   ['--algorithm', 'mbrot']),
     ('set-image-size-x.png',  ['--image-size-x', '900']),
-    ('set-image-size-y.png',  ['--image-size-y', '900']),
-    ('colormap-blue2red.png', ['--colormap', 'blue2red']),
-    ('colormap-flower.png',   ['--colormap', 'flower']),
-    ('colormap-ink.png',      ['--colormap', 'ink']),
-    ('colormap-red2blue.png', ['--colormap', 'red2blue']),
+    ('set-image-size-y.png',  ['--image-size-y', '900'])
 ])
 def test_generator_output(tmp_env, expected_file, args):
     """
     Test command line tool with option combinations
+    """
+    expected = tmp_env
+    result = sp.run([executable] + args, capture_output=True)
+    assert result.returncode == 0
+    with Image.open('fractal.png') as actual, \
+        Image.open(os.path.join(expected, expected_file)) as expected:
+        aAct = np.array(actual)
+        aExp = np.array(expected)
+        np.testing.assert_array_equal(aAct, aExp)
+
+
+@pytest.mark.parametrize('expected_file,args', [
+    ('colormap-blue2red.png', ['--colormap', 'blue2red']),
+    ('colormap-flower.png',   ['--colormap', 'flower']),
+    ('colormap-ink.png',      ['--colormap', 'ink']),
+    ('colormap-red2blue.png', ['--colormap', 'red2blue'])
+])
+def test_colormap_output(tmp_env, expected_file, args):
+    """
+    Test various colormaps with command line tool
     """
     expected = tmp_env
     result = sp.run([executable] + args, capture_output=True)
