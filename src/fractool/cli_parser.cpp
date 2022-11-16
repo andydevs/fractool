@@ -95,12 +95,17 @@ namespace std {
     /**
      * Operator to interpret pair values
      */
-    istream& operator>> (std::istream &in, pair<float, float> &mpair)
+    template <typename T>
+    istream& operator>> (std::istream &in, pair<T,T> &mpair)
     {
         char c;
-        float a, b;
-        in >> a;
-        in >> c; if (c != ',') { BOOST_LOG_TRIVIAL(error) << "Invalid character processing pair: \"" << c << "\" expecting \",\""; }
+        T a, b;
+        in >> a; 
+        in >> c; 
+        if (c != ',') { 
+            BOOST_LOG_TRIVIAL(error) << "Invalid character processing pair: \"" << c << "\" expecting \",\""; 
+            return in; 
+        }
         in >> b;
         mpair.first = a;
         mpair.second = b;
@@ -128,7 +133,7 @@ config config_from_cli(int argc, char **argv) {
         ("image-size-x,u", po::value<int>(), "Set horizontal image size")
         ("image-size-y,v", po::value<int>(), "Set vertical image size")
         ("colormap,C", po::value<colormap>(), "Set colormap")
-        ("parameter,p", po::value<std::pair<float,float>>(), "Set parameter");
+        ("parameter,p", po::value<std::pair<int,int>>(), "Set parameter");
 
     // Parse options
     po::variables_map vm;
