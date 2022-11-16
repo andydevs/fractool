@@ -21,7 +21,8 @@ Configuration options:\\r?\n\
 \\s*\\-a \\[ \\-\\-algorithm \\] arg\\s*Set algorithm type \\(julia\\|mbrot\\)\\r?\n\
 \\s*\\-u \\[ \\-\\-image\\-size\\-x \\] arg\\s*Set horizontal image size\\r?\n\
 \\s*\\-v \\[ \\-\\-image\\-size\\-y \\] arg\\s*Set vertical image size\\r?\n\
-\\s*\\-C \\[ \\-\\-colormap \\] arg\\s*Set colormap""", re.M)
+\\s*\\-C \\[ \\-\\-colormap \\] arg\\s*Set colormap\\r?\n\
+\\s*\\-p \\[ \\-\\-parameter \\] arg\\s*Set parameter\\(s\\)""", re.M)
 
 # Colormap names list from yaml
 colormaps = []
@@ -43,11 +44,12 @@ def tmp_env(tmp_path):
 
 
 @pytest.mark.parametrize('expected_file,args', [
-    ('no-options.png',        []),
-    ('algorithm-julia.png',   ['--algorithm', 'julia']),
-    ('algorithm-mbrot.png',   ['--algorithm', 'mbrot']),
-    ('set-image-size-x.png',  ['--image-size-x', '900']),
-    ('set-image-size-y.png',  ['--image-size-y', '900'])
+    ('no-options.png',                          []),
+    ('algorithm-julia.png',                     ['--algorithm', 'julia']),
+    ('algorithm-mbrot.png',                     ['--algorithm', 'mbrot']),
+    ('set-image-size-x.png',                    ['--image-size-x', '900']),
+    ('set-image-size-y.png',                    ['--image-size-y', '900']),
+    ('algorithm-julia-parameter-c-p38-p20.png', ['--algorithm', 'julia', '--parameter', 'c=0.38,0.2'])
 ])
 def test_generator_output(tmp_env, expected_file, args):
     """
