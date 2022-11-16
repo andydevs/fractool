@@ -49,6 +49,20 @@ static std::map<std::string, ALGORITHM> const algo_lookup = {
 };
 
 /**
+ * Representation of algorithm types (for printing in help message)
+ */
+static const char* repr_algorithms() {
+    std::stringstream sin;
+    sin << "Set algorithm type (";
+    for (auto it = algo_lookup.begin(); it != algo_lookup.end(); ++it) {
+        sin << it->first;
+        if (it != --algo_lookup.end()) sin << "|";
+    }
+    sin << ")";
+    return strdup(sin.str().c_str()); // SECURITY RISK
+};
+
+/**
  * Operator to interpret algorithm from input string
  */
 std::istream& operator>> (std::istream &in, ALGORITHM &algorithm)
@@ -76,19 +90,23 @@ std::istream& operator>> (std::istream &in, colormap &colormap)
     return in;
 }
 
-/**
- * Representation of algorithm types (for printing in help message)
- */
-const char* repr_algorithms() {
-    std::stringstream sin;
-    sin << "Set algorithm type (";
-    for (auto it = algo_lookup.begin(); it != algo_lookup.end(); ++it) {
-        sin << it->first;
-        if (it != --algo_lookup.end()) sin << "|";
+// Pair operators
+namespace std {
+    /**
+     * Operator to interpret pair values
+     */
+    istream& operator>> (std::istream &in, pair<float, float> &mpair)
+    {
+        char c;
+        float a, b;
+        in >> a;
+        in >> c; if (c != ',') { BOOST_LOG_TRIVIAL(error) << "Invalid character processing pair: \"" << c << "\" expecting \",\""; }
+        in >> b;
+        mpair.first = a;
+        mpair.second = b;
+        return in;
     }
-    sin << ")";
-    return strdup(sin.str().c_str()); // SECURITY RISK
-};
+}
 
 /**
  * Parse command line arguments and generates config
@@ -109,7 +127,8 @@ config config_from_cli(int argc, char **argv) {
         ("algorithm,a", po::value<ALGORITHM>(), repr_algorithms())
         ("image-size-x,u", po::value<int>(), "Set horizontal image size")
         ("image-size-y,v", po::value<int>(), "Set vertical image size")
-        ("colormap,C", po::value<colormap>(), "Set colormap");
+        ("colormap,C", po::value<colormap>(), "Set colormap")
+        ("parameter,p", po::value<std::pair<float,float>>(), "Set parameter");
 
     // Parse options
     po::variables_map vm;
@@ -158,6 +177,10 @@ config config_from_cli(int argc, char **argv) {
         }
         BOOST_LOG_TRIVIAL(debug) << "algorithm = " << algo;
         cfg.algorithm = algo;
+    }
+    if (vm.count("parameter")) {
+        std::pair<float, float> param = vm["parameter"].as<std::pair<float, float>>();
+        BOOST_LOG_TRIVIAL(debug) << "Read pair (" << param.first << "," << param.second << ")";
     }
     if (vm.count("colormap")) {
         cfg.cmap = vm["colormap"].as<colormap>();
