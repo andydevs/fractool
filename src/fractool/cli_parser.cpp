@@ -113,6 +113,25 @@ namespace std {
     }
 }
 
+// Parameter type
+struct parameter {
+    std::string name;
+    std::string value;
+};
+
+/**
+ * Operator to interpret parameter
+ */
+std::istream& operator>> (std::istream &in, parameter &param)
+{
+    std::string name, value;
+    std::getline(in, name, '=');
+    std::getline(in, value, '=');
+    param.name = name;
+    param.value = value;
+    return in;
+}
+
 /**
  * Parse command line arguments and generates config
  *
@@ -133,7 +152,7 @@ config config_from_cli(int argc, char **argv) {
         ("image-size-x,u", po::value<int>(), "Set horizontal image size")
         ("image-size-y,v", po::value<int>(), "Set vertical image size")
         ("colormap,C", po::value<colormap>(), "Set colormap")
-        ("parameter,p", po::value<std::pair<int,int>>(), "Set parameter");
+        ("parameter,p", po::value<parameter>(), "Set parameter(s)");
 
     // Parse options
     po::variables_map vm;
@@ -184,8 +203,8 @@ config config_from_cli(int argc, char **argv) {
         cfg.algorithm = algo;
     }
     if (vm.count("parameter")) {
-        std::pair<float, float> param = vm["parameter"].as<std::pair<float, float>>();
-        BOOST_LOG_TRIVIAL(debug) << "Read pair (" << param.first << "," << param.second << ")";
+        parameter p = vm["parameter"].as<parameter>();
+        BOOST_LOG_TRIVIAL(debug) << "Parameter " << p.name << " = " << p.value;
     }
     if (vm.count("colormap")) {
         cfg.cmap = vm["colormap"].as<colormap>();
