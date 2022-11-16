@@ -14,15 +14,15 @@ expected_rel = 'expected'
 executable = 'fractool'
 
 # Help message
-help_message = re.compile(b"""\\$ fractool \\[options\\](\\r?\n){2}\
-Configuration options:\\r?\n\
-\\s*\\-h \\[ \\-\\-help \\]\\s*Produce help message\\r?\n\
-\\s*\\-m \\[ \\-\\-colormaps \\]\\s*List colormaps\\r?\n\
-\\s*\\-a \\[ \\-\\-algorithm \\] arg\\s*Set algorithm type \\(julia\\|mbrot\\)\\r?\n\
-\\s*\\-u \\[ \\-\\-image\\-size\\-x \\] arg\\s*Set horizontal image size\\r?\n\
-\\s*\\-v \\[ \\-\\-image\\-size\\-y \\] arg\\s*Set vertical image size\\r?\n\
-\\s*\\-C \\[ \\-\\-colormap \\] arg\\s*Set colormap\\r?\n\
-\\s*\\-p \\[ \\-\\-parameter \\] arg\\s*Set parameter\\(s\\)""", re.M)
+help_options = [
+    ('h', 'help', ''),
+    ('m', 'colormaps', ''),
+    ('a', 'algorithm', 'arg'),
+    ('i', 'image-size', 'width,height'),
+    ('C', 'colormap', 'arg'),
+    ('p', 'parameter', 'param=value')
+]
+option_template = "\\s*\\-{0} \\[ \\-\\-{1} \\] ?{2}"
 
 # Colormap names list from yaml
 colormaps = []
@@ -47,8 +47,7 @@ def tmp_env(tmp_path):
     ('no-options.png',                          []),
     ('algorithm-julia.png',                     ['--algorithm', 'julia']),
     ('algorithm-mbrot.png',                     ['--algorithm', 'mbrot']),
-    ('set-image-size-x.png',                    ['--image-size-x', '900']),
-    ('set-image-size-y.png',                    ['--image-size-y', '900']),
+    ('set-image-size.png',                      ['--image-size', '1600,900']),
     ('algorithm-julia-parameter-c-p38-p20.png', ['--algorithm', 'julia', '--parameter', 'c=0.38,0.2'])
 ])
 def test_generator_output(tmp_env, expected_file, args):
@@ -93,7 +92,9 @@ def test_print_help_message(tmp_env, arg):
     expected = tmp_env
     result = sp.run([executable, arg], capture_output=True)
     assert result.returncode == 0
-    assert help_message.search(result.stdout)
+    for short, long, value in help_options:
+        option_check = option_template.format(short, long, value)
+        assert re.search(option_check.encode('utf-8'), result.stdout)
 
 
 @pytest.mark.parametrize('arg', ['--colormaps', '-m'])
@@ -115,7 +116,9 @@ def test_invalid_option(tmp_env):
     result = sp.run([executable, '--foobar'], capture_output=True)
     assert result.returncode != 0
     assert b'Invalid option: --foobar' in result.stdout
-    assert help_message.search(result.stdout)
+    for short, long, value in help_options:
+        option_check = option_template.format(short, long, value)
+        assert re.search(option_check.encode('utf-8'), result.stdout)
 
 
 def test_invalid_algorithm_type(tmp_env):
@@ -125,7 +128,9 @@ def test_invalid_algorithm_type(tmp_env):
     result = sp.run([executable, '--algorithm', 'foobar'], capture_output=True)
     assert result.returncode != 0
     assert b'Invalid algorithm type: foobar' in result.stdout
-    assert help_message.search(result.stdout)
+    for short, long, value in help_options:
+        option_check = option_template.format(short, long, value)
+        assert re.search(option_check.encode('utf-8'), result.stdout)
 
 
 def test_invalid_colormap_name(tmp_env):

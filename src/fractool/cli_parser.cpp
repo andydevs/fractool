@@ -150,10 +150,10 @@ config config_from_cli(int argc, char **argv) {
         ("help,h", "Produce help message")
         ("colormaps,m", "List colormaps")
         ("algorithm,a", po::value<ALGORITHM>(), repr_algorithms())
-        ("image-size-x,u", po::value<int>(), "Set horizontal image size")
-        ("image-size-y,v", po::value<int>(), "Set vertical image size")
+        ("image-size,i", po::value<std::pair<unsigned,unsigned>>()->value_name("width,height"), "Set image size")
         ("colormap,C", po::value<colormap>(), "Set colormap")
-        ("parameter,p", po::value<std::vector<parameter>>(), "Set parameter(s)");
+        ("parameter,p", po::value<std::vector<parameter>>()->value_name("param=value"), 
+            "Set parameter. Set this option multiple times to set multiple parameters");
 
     // Parse options
     po::variables_map vm;
@@ -185,13 +185,11 @@ config config_from_cli(int argc, char **argv) {
     // Set config
     BOOST_LOG_TRIVIAL(debug) << "Setting config";
     config cfg;
-    if (vm.count("image-size-x")) {
-        BOOST_LOG_TRIVIAL(debug) << "image-size-x = " << vm["image-size-x"].as<int>();
-        cfg.image_size_x = vm["image-size-x"].as<int>();
-    }
-    if (vm.count("image-size-y")) {
-        BOOST_LOG_TRIVIAL(debug) << "image-size-y = " << vm["image-size-y"].as<int>();
-        cfg.image_size_y = vm["image-size-y"].as<int>();
+    if (vm.count("image-size")) {
+        std::pair<unsigned,unsigned> size = vm["image-size"].as<std::pair<unsigned,unsigned>>();
+        BOOST_LOG_TRIVIAL(debug) << "image-size = " << size.first << "," << size.second;
+        cfg.image_size_x = size.first;
+        cfg.image_size_y = size.second;
     }
     if (vm.count("algorithm")) {
         ALGORITHM algo = vm["algorithm"].as<ALGORITHM>();
