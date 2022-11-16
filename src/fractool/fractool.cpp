@@ -49,10 +49,10 @@ int main(int argc, char **argv) {
     // Run stages
     switch(conf.algorithm) {
         case ALGORITHM::MANDELBROT:
-            generate_mandelbrot(conf.image_size_x, conf.image_size_y, param_buffer);
+            generate_mandelbrot(conf, conf.image_size_x, conf.image_size_y, param_buffer);
             break;
         case ALGORITHM::JULIA:
-            generate_julia(conf.image_size_x, conf.image_size_y, param_buffer);
+            generate_julia(conf, conf.image_size_x, conf.image_size_y, param_buffer);
             break;
         default:
             break;

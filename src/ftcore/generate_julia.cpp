@@ -5,20 +5,48 @@
 // Internal
 #include <algorithm>
 #include <complex>
+#include <string>
+#include <iostream>
+#include <sstream>
 
 // External
 #include <boost/log/trivial.hpp>
 
 /**
+ * Operator to read complex numbers
+ */
+std::istream& operator>> (std::istream &in, std::complex<float> &c) {
+    float real; float imag;
+    char cm;
+    in >> real;
+    in >> cm;
+    if (cm != ',') { 
+        BOOST_LOG_TRIVIAL(error) << "Invalid character processing pair: \"" << cm << "\" expecting \",\""; 
+        return in;
+    }
+    in >> imag;
+    c = std::complex<float>(real, imag);
+    return in;
+}
+
+/**
  * Run julia set generation algorithm
  */
-void generate_julia(unsigned size_x, unsigned size_y, unsigned char* param_buffer)
+void generate_julia(config cfg, unsigned size_x, unsigned size_y, unsigned char* param_buffer)
 {
     // Print message
     BOOST_LOG_TRIVIAL(info) << "Generating julia...";
 
     // Parameter
     std::complex<float> c(-0.4, 0.6);
+
+    // Set c parameter if available
+    auto it = cfg.parameters.find("c");
+    if (it != cfg.parameters.end()) {
+        std::istringstream css(it->second);
+        css >> c;
+    }
+    BOOST_LOG_TRIVIAL(debug) << "c parameter: " << c;
 
     // Helper variables
     float gsc = 4.0;                            // Grid scale

@@ -206,7 +206,7 @@ config config_from_cli(int argc, char **argv) {
     if (vm.count("parameter")) {
         std::vector<parameter> ps = vm["parameter"].as<std::vector<parameter>>();
         for (parameter p : ps) {
-            BOOST_LOG_TRIVIAL(debug) << "Parameter " << p.name << " = " << p.value;
+            BOOST_LOG_TRIVIAL(debug) << "parameter " << p.name << " = " << p.value;
             cfg.parameters[p.name] = p.value;
         }
     }
