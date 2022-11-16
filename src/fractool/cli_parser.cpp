@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <sstream>
+#include <vector>
 #include <map>
 
 // Program options namespace
@@ -113,7 +114,7 @@ namespace std {
     }
 }
 
-// Parameter type
+// Intermediary parameter type
 struct parameter {
     std::string name;
     std::string value;
@@ -152,7 +153,7 @@ config config_from_cli(int argc, char **argv) {
         ("image-size-x,u", po::value<int>(), "Set horizontal image size")
         ("image-size-y,v", po::value<int>(), "Set vertical image size")
         ("colormap,C", po::value<colormap>(), "Set colormap")
-        ("parameter,p", po::value<parameter>(), "Set parameter(s)");
+        ("parameter,p", po::value<std::vector<parameter>>(), "Set parameter(s)");
 
     // Parse options
     po::variables_map vm;
@@ -203,8 +204,10 @@ config config_from_cli(int argc, char **argv) {
         cfg.algorithm = algo;
     }
     if (vm.count("parameter")) {
-        parameter p = vm["parameter"].as<parameter>();
-        BOOST_LOG_TRIVIAL(debug) << "Parameter " << p.name << " = " << p.value;
+        std::vector<parameter> ps = vm["parameter"].as<std::vector<parameter>>();
+        for (parameter p : ps) {
+            BOOST_LOG_TRIVIAL(debug) << "Parameter " << p.name << " = " << p.value;
+        }
     }
     if (vm.count("colormap")) {
         cfg.cmap = vm["colormap"].as<colormap>();
