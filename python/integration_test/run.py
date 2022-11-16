@@ -21,7 +21,8 @@ Configuration options:\\r?\n\
 \\s*\\-a \\[ \\-\\-algorithm \\] arg\\s*Set algorithm type \\(julia\\|mbrot\\)\\r?\n\
 \\s*\\-u \\[ \\-\\-image\\-size\\-x \\] arg\\s*Set horizontal image size\\r?\n\
 \\s*\\-v \\[ \\-\\-image\\-size\\-y \\] arg\\s*Set vertical image size\\r?\n\
-\\s*\\-C \\[ \\-\\-colormap \\] arg\\s*Set colormap""", re.M)
+\\s*\\-C \\[ \\-\\-colormap \\] arg\\s*Set colormap\\r?\n\
+\\s*\\-p \\[ \\-\\-parameter \\] arg\\s*Set parameter\\(s\\)""", re.M)
 
 # Colormap names list from yaml
 colormaps = []
@@ -43,19 +44,36 @@ def tmp_env(tmp_path):
 
 
 @pytest.mark.parametrize('expected_file,args', [
-    ('no-options.png',        []),
-    ('algorithm-julia.png',   ['--algorithm', 'julia']),
-    ('algorithm-mbrot.png',   ['--algorithm', 'mbrot']),
-    ('set-image-size-x.png',  ['--image-size-x', '900']),
-    ('set-image-size-y.png',  ['--image-size-y', '900']),
-    ('colormap-blue2red.png', ['--colormap', 'blue2red']),
-    ('colormap-flower.png',   ['--colormap', 'flower']),
-    ('colormap-ink.png',      ['--colormap', 'ink']),
-    ('colormap-red2blue.png', ['--colormap', 'red2blue']),
+    ('no-options.png',                          []),
+    ('algorithm-julia.png',                     ['--algorithm', 'julia']),
+    ('algorithm-mbrot.png',                     ['--algorithm', 'mbrot']),
+    ('set-image-size-x.png',                    ['--image-size-x', '900']),
+    ('set-image-size-y.png',                    ['--image-size-y', '900']),
+    ('algorithm-julia-parameter-c-p38-p20.png', ['--algorithm', 'julia', '--parameter', 'c=0.38,0.2'])
 ])
 def test_generator_output(tmp_env, expected_file, args):
     """
     Test command line tool with option combinations
+    """
+    expected = tmp_env
+    result = sp.run([executable] + args, capture_output=True)
+    assert result.returncode == 0
+    with Image.open('fractal.png') as actual, \
+        Image.open(os.path.join(expected, expected_file)) as expected:
+        aAct = np.array(actual)
+        aExp = np.array(expected)
+        np.testing.assert_array_equal(aAct, aExp)
+
+
+@pytest.mark.parametrize('expected_file,args', [
+    ('colormap-blue2red.png', ['--colormap', 'blue2red']),
+    ('colormap-flower.png',   ['--colormap', 'flower']),
+    ('colormap-ink.png',      ['--colormap', 'ink']),
+    ('colormap-red2blue.png', ['--colormap', 'red2blue'])
+])
+def test_colormap_output(tmp_env, expected_file, args):
+    """
+    Test various colormaps with command line tool
     """
     expected = tmp_env
     result = sp.run([executable] + args, capture_output=True)
@@ -136,16 +154,6 @@ if __name__ == '__main__':
         os.environ['PATH'] = sys.argv[1] \
             + separator \
             + os.environ.get('PATH', '')
-
-    # Debug path stuff
-    print(os.environ['PATH'].split(separator))
-    try:
-        for path in os.environ['PATH'].split(separator):
-            print(path)
-            print(os.listdir(path))
-        print(os.listdir())
-    except OSError as e:
-        pass
 
     # Run tests
     sys.exit(pytest.main(['--verbose', 'run.py']))

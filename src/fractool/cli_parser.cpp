@@ -1,5 +1,6 @@
+// Fractool
 #include <fractool/colormap.hpp>
-#include <fractool/ftcore/cli_parser.hpp>
+#include <fractool/fractool/cli_parser.hpp>
 
 // External
 #include <boost/program_options.hpp>
@@ -7,6 +8,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <sstream>
+#include <vector>
 #include <map>
 
 // Program options namespace
@@ -48,6 +50,20 @@ static std::map<std::string, ALGORITHM> const algo_lookup = {
 };
 
 /**
+ * Representation of algorithm types (for printing in help message)
+ */
+static const char* repr_algorithms() {
+    std::stringstream sin;
+    sin << "Set algorithm type (";
+    for (auto it = algo_lookup.begin(); it != algo_lookup.end(); ++it) {
+        sin << it->first;
+        if (it != --algo_lookup.end()) sin << "|";
+    }
+    sin << ")";
+    return strdup(sin.str().c_str()); // SECURITY RISK
+};
+
+/**
  * Operator to interpret algorithm from input string
  */
 std::istream& operator>> (std::istream &in, ALGORITHM &algorithm)
@@ -75,19 +91,47 @@ std::istream& operator>> (std::istream &in, colormap &colormap)
     return in;
 }
 
-/**
- * Representation of algorithm types (for printing in help message)
- */
-const char* repr_algorithms() {
-    std::stringstream sin;
-    sin << "Set algorithm type (";
-    for (auto it = algo_lookup.begin(); it != algo_lookup.end(); ++it) {
-        sin << it->first;
-        if (it != --algo_lookup.end()) sin << "|";
+// Pair operators
+namespace std {
+    /**
+     * Operator to interpret pair values
+     */
+    template <typename T>
+    istream& operator>> (std::istream &in, pair<T,T> &mpair)
+    {
+        char c;
+        T a, b;
+        in >> a; 
+        in >> c; 
+        if (c != ',') { 
+            BOOST_LOG_TRIVIAL(error) << "Invalid character processing pair: \"" << c << "\" expecting \",\""; 
+            return in; 
+        }
+        in >> b;
+        mpair.first = a;
+        mpair.second = b;
+        return in;
     }
-    sin << ")";
-    return strdup(sin.str().c_str()); // SECURITY RISK
+}
+
+// Intermediary parameter type
+struct parameter {
+    std::string name;
+    std::string value;
 };
+
+/**
+ * Operator to interpret parameter
+ */
+std::istream& operator>> (std::istream &in, parameter &param)
+{
+    std::string name, value;
+    std::getline(in, name, '=');
+    std::getline(in, value, '=');
+    param.name = name;
+    param.value = value;
+    return in;
+}
 
 /**
  * Parse command line arguments and generates config
@@ -108,7 +152,8 @@ config config_from_cli(int argc, char **argv) {
         ("algorithm,a", po::value<ALGORITHM>(), repr_algorithms())
         ("image-size-x,u", po::value<int>(), "Set horizontal image size")
         ("image-size-y,v", po::value<int>(), "Set vertical image size")
-        ("colormap,C", po::value<colormap>(), "Set colormap");
+        ("colormap,C", po::value<colormap>(), "Set colormap")
+        ("parameter,p", po::value<std::vector<parameter>>(), "Set parameter(s)");
 
     // Parse options
     po::variables_map vm;
@@ -157,6 +202,13 @@ config config_from_cli(int argc, char **argv) {
         }
         BOOST_LOG_TRIVIAL(debug) << "algorithm = " << algo;
         cfg.algorithm = algo;
+    }
+    if (vm.count("parameter")) {
+        std::vector<parameter> ps = vm["parameter"].as<std::vector<parameter>>();
+        for (parameter p : ps) {
+            BOOST_LOG_TRIVIAL(debug) << "parameter " << p.name << " = " << p.value;
+            cfg.parameters[p.name] = p.value;
+        }
     }
     if (vm.count("colormap")) {
         cfg.cmap = vm["colormap"].as<colormap>();

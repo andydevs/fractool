@@ -29,4 +29,7 @@ void config::print() {
 void config::log() {
     BOOST_LOG_TRIVIAL(debug) << "config.image_size_x = " << image_size_x;
     BOOST_LOG_TRIVIAL(debug) << "config.image_size_y = " << image_size_y;
+    for (std::pair<std::string, std::string> p : parameters) {
+        BOOST_LOG_TRIVIAL(debug) << "config.parameters[\"" << p.first << "\"] = " << p.second;    
+    }
 };

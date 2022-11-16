@@ -3,6 +3,8 @@
 
 // Colormap
 #include <fractool/colormap.hpp>
+#include <map>
+#include <string>
 
 enum ALGORITHM {
     _INVALID,
@@ -16,10 +18,11 @@ enum ALGORITHM {
  * Configuration object for tool
  */
 struct config {
-    // Config parameters
+    // Config values
     unsigned image_size_x;
     unsigned image_size_y;
     ALGORITHM algorithm;
+    std::map<std::string, std::string> parameters;
     colormap cmap;
 
     /**

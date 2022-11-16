@@ -1,5 +1,6 @@
 // Fractool
 #include <fractool/macros.hpp>
+#include <fractool/ftcore/config.hpp>
 #include <fractool/ftcore/generate_mandelbrot.hpp>
 
 // Internal
@@ -12,7 +13,7 @@
 /**
  * Run mandelbrot set generation algorithm
  */
-void generate_mandelbrot(unsigned size_x, unsigned size_y, unsigned char* param_buffer)
+void generate_mandelbrot(config cfg, unsigned size_x, unsigned size_y, unsigned char* param_buffer)
 {
     // Print message
     BOOST_LOG_TRIVIAL(info) << "Generating mandelbrot...";
