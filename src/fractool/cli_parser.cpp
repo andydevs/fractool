@@ -141,24 +141,25 @@ config config_from_cli(int argc, char **argv) {
     po::options_description help("Help");
     help.add_options()
         ("help,h", "Produce help message")
-        ("colormaps,m", "List colormaps")
-        ("algorithms,n", "List algorithms");
+        ("colormaps,C", "List colormaps")
+        ("algorithms,A", "List algorithms");
     po::options_description algorithm("Algorithm");
     algorithm.add_options()
-        ("algorithm,a", po::value<ALGORITHM>(), "Use algorithm (see --algorithms)")
+        ("algorithm,a", po::value<ALGORITHM>()->value_name("algo"), 
+            "Use algorithm (see --algorithms)")
         ("parameter,p", po::value<std::vector<parameter>>()->value_name("param=value"), 
             "Set parameter. Set this option multiple times to set multiple parameters");
     po::options_description image("Image");
     image.add_options()
-        ("colormap,C", po::value<colormap>(), "Use colormap (see --colormaps)")
-        ("image-size,i", po::value<std::pair<unsigned,unsigned>>()->value_name("width,height"), "Set image size");
-    po::options_description options("Available Options:");
+        ("colormap,c", po::value<colormap>()->value_name("cmap"), 
+            "Use colormap (see --colormaps)")
+        ("image-size,i", po::value<std::pair<unsigned,unsigned>>()->value_name("width,height"), 
+            "Set image size");
+    po::options_description options("Available Options");
     options.add(help).add(algorithm).add(image);
 
-    // Parse options
-    po::variables_map vm;
-
     // Run options parsing
+    po::variables_map vm;
     try {
         po::store(po::parse_command_line(argc, argv, options), vm);
         po::notify(vm);

@@ -16,12 +16,12 @@ executable = 'fractool'
 # Help message
 help_options = [
     ('h', 'help', ''),
-    ('m', 'colormaps', ''),
-    ('n', 'algorithms', ''),
-    ('a', 'algorithm', 'arg'),
-    ('i', 'image-size', 'width,height'),
-    ('C', 'colormap', 'arg'),
-    ('p', 'parameter', 'param=value')
+    ('C', 'colormaps', ''),
+    ('A', 'algorithms', ''),
+    ('a', 'algorithm', 'algo'),
+    ('p', 'parameter', 'param=value'),
+    ('c', 'colormap', 'cmap'),
+    ('i', 'image-size', 'width,height')
 ]
 option_template = "\\s*\\-{0} \\[ \\-\\-{1} \\] ?{2}"
 
@@ -53,9 +53,13 @@ def tmp_env(tmp_path):
 @pytest.mark.parametrize('expected_file,args', [
     ('no-options.png',                          []),
     ('algorithm-julia.png',                     ['--algorithm', 'julia']),
-    ('algorithm-mbrot.png',                     ['--algorithm', 'mandelbrot']),
+    ('algorithm-julia.png',                     ['-a', 'julia']),
+    ('algorithm-mandelbrot.png',                ['--algorithm', 'mandelbrot']),
+    ('algorithm-mandelbrot.png',                ['-a', 'mandelbrot']),
     ('set-image-size.png',                      ['--image-size', '1600,900']),
-    ('algorithm-julia-parameter-c-p38-p20.png', ['--algorithm', 'julia', '--parameter', 'c=0.38,0.2'])
+    ('set-image-size.png',                      ['-i', '1600,900']),
+    ('algorithm-julia-parameter-c-p38-p20.png', ['--algorithm', 'julia', '--parameter', 'c=0.38,0.2']),
+    ('algorithm-julia-parameter-c-p38-p20.png', ['-a', 'julia', '-p', 'c=0.38,0.2'])
 ])
 def test_generator_output(tmp_env, expected_file, args):
     """
@@ -75,7 +79,11 @@ def test_generator_output(tmp_env, expected_file, args):
     ('colormap-blue2red.png', ['--colormap', 'blue2red']),
     ('colormap-flower.png',   ['--colormap', 'flower']),
     ('colormap-ink.png',      ['--colormap', 'ink']),
-    ('colormap-red2blue.png', ['--colormap', 'red2blue'])
+    ('colormap-red2blue.png', ['--colormap', 'red2blue']),
+    ('colormap-blue2red.png', ['-c', 'blue2red']),
+    ('colormap-flower.png',   ['-c', 'flower']),
+    ('colormap-ink.png',      ['-c', 'ink']),
+    ('colormap-red2blue.png', ['-c', 'red2blue'])
 ])
 def test_colormap_output(tmp_env, expected_file, args):
     """
@@ -101,10 +109,10 @@ def test_print_help_message(tmp_env, arg):
     assert result.returncode == 0
     for short, long, value in help_options:
         option_check = option_template.format(short, long, value)
-        assert re.search(option_check.encode('utf-8'), result.stdout)
+        assert re.search(bytes(option_check, 'utf-8'), result.stdout)
 
 
-@pytest.mark.parametrize('arg', ['--colormaps', '-m'])
+@pytest.mark.parametrize('arg', ['--colormaps', '-C'])
 def test_list_colormaps(tmp_env, arg):
     """
     Test command line prints colormaps
@@ -116,6 +124,18 @@ def test_list_colormaps(tmp_env, arg):
         assert bytes(colormap, 'utf-8') in result.stdout
 
 
+@pytest.mark.parametrize('arg', ['--algorithms', '-A'])
+def test_list_algorithms(tmp_env, arg):
+    """
+    Test command line prints algorithms
+    """
+    expected = tmp_env
+    result = sp.run([executable, arg], capture_output=True)
+    assert result.returncode == 0
+    for algorithm in algorithms:
+        assert bytes(algorithm, 'utf-8') in result.stdout
+
+
 def test_invalid_option(tmp_env):
     """
     Test command line tool errors when given invalid option
@@ -125,7 +145,7 @@ def test_invalid_option(tmp_env):
     assert b'Invalid option: --foobar' in result.stdout
     for short, long, value in help_options:
         option_check = option_template.format(short, long, value)
-        assert re.search(option_check.encode('utf-8'), result.stdout)
+        assert re.search(bytes(option_check, 'utf-8'), result.stdout)
 
 
 def test_invalid_algorithm_type(tmp_env):
@@ -136,7 +156,7 @@ def test_invalid_algorithm_type(tmp_env):
     assert result.returncode != 0
     assert b'Invalid algorithm type: foobar' in result.stdout
     for algo in algorithms:
-        assert (f'- {algo}').encode('utf-8') in result.stdout
+        assert bytes(f'- {algo}', 'utf-8') in result.stdout
 
 
 def test_invalid_colormap_name(tmp_env):
