@@ -11,7 +11,7 @@ accepted_dir = 'expected'
 images = [
     ('no-options.png',                          []),
     ('algorithm-julia.png',                     ['--algorithm', 'julia']),
-    ('algorithm-mbrot.png',                     ['--algorithm', 'mbrot']),
+    ('algorithm-mbrot.png',                     ['--algorithm', 'mandelbrot']),
     ('set-image-size.png',                      ['--image-size', '1600,900']),
     ('algorithm-julia-parameter-c-p38-p20.png', ['--algorithm', 'julia', '--parameter', 'c=0.38,0.2']),
     ('colormap-blue2red.png',                   ['--colormap', 'blue2red']),

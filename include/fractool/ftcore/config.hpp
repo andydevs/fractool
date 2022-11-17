@@ -17,8 +17,8 @@ enum ALGORITHM {
 
 // Algorithm lookup table
 const std::map<std::string, ALGORITHM> algo_lookup = {
-    { "mbrot", ALGORITHM::MANDELBROT },
-    { "julia", ALGORITHM::JULIA }
+    { "mandelbrot", ALGORITHM::MANDELBROT },
+    { "julia",      ALGORITHM::JULIA }
 };
 
 /**

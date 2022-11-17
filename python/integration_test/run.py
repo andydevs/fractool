@@ -17,6 +17,7 @@ executable = 'fractool'
 help_options = [
     ('h', 'help', ''),
     ('m', 'colormaps', ''),
+    ('n', 'algorithms', ''),
     ('a', 'algorithm', 'arg'),
     ('i', 'image-size', 'width,height'),
     ('C', 'colormap', 'arg'),
@@ -29,6 +30,12 @@ colormaps = []
 with open('../../colormaps.yml', 'r') as cmapfile:
     documents = yaml.safe_load(cmapfile)['colormaps']
     colormaps = [ doc['name'] for doc in documents ]
+
+# List algorithms
+algorithms = [
+    'julia',
+    'mandelbrot'
+]
 
 
 @pytest.fixture
@@ -46,7 +53,7 @@ def tmp_env(tmp_path):
 @pytest.mark.parametrize('expected_file,args', [
     ('no-options.png',                          []),
     ('algorithm-julia.png',                     ['--algorithm', 'julia']),
-    ('algorithm-mbrot.png',                     ['--algorithm', 'mbrot']),
+    ('algorithm-mbrot.png',                     ['--algorithm', 'mandelbrot']),
     ('set-image-size.png',                      ['--image-size', '1600,900']),
     ('algorithm-julia-parameter-c-p38-p20.png', ['--algorithm', 'julia', '--parameter', 'c=0.38,0.2'])
 ])
@@ -128,9 +135,8 @@ def test_invalid_algorithm_type(tmp_env):
     result = sp.run([executable, '--algorithm', 'foobar'], capture_output=True)
     assert result.returncode != 0
     assert b'Invalid algorithm type: foobar' in result.stdout
-    for short, long, value in help_options:
-        option_check = option_template.format(short, long, value)
-        assert re.search(option_check.encode('utf-8'), result.stdout)
+    for algo in algorithms:
+        assert (f'- {algo}').encode('utf-8') in result.stdout
 
 
 def test_invalid_colormap_name(tmp_env):
