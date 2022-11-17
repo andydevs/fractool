@@ -145,15 +145,21 @@ config config_from_cli(int argc, char **argv) {
     BOOST_LOG_TRIVIAL(debug) << "Parsing command line options";
 
     // Setup options description
-    po::options_description desc("Configuration options");
-    desc.add_options()
+    po::options_description help("Help");
+    help.add_options()
         ("help,h", "Produce help message")
-        ("colormaps,m", "List colormaps")
+        ("colormaps,m", "List colormaps");
+    po::options_description algorithm("Algorithm");
+    algorithm.add_options()
         ("algorithm,a", po::value<ALGORITHM>(), repr_algorithms())
-        ("image-size,i", po::value<std::pair<unsigned,unsigned>>()->value_name("width,height"), "Set image size")
-        ("colormap,C", po::value<colormap>(), "Set colormap")
         ("parameter,p", po::value<std::vector<parameter>>()->value_name("param=value"), 
             "Set parameter. Set this option multiple times to set multiple parameters");
+    po::options_description image("Image");
+    image.add_options()
+        ("colormap,C", po::value<colormap>(), "Set colormap")
+        ("image-size,i", po::value<std::pair<unsigned,unsigned>>()->value_name("width,height"), "Set image size");
+    po::options_description desc("Available Options:");
+    desc.add(help).add(algorithm).add(image);
 
     // Parse options
     po::variables_map vm;
