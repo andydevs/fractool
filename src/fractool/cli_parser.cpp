@@ -42,26 +42,19 @@ static void print_cmaps() {
 }
 
 /**
- * Map names to algorithm types
+ * Print algorithm list
  */
-static std::map<std::string, ALGORITHM> const algo_lookup = {
-    { "mbrot", ALGORITHM::MANDELBROT },
-    { "julia", ALGORITHM::JULIA }
-};
-
-/**
- * Representation of algorithm types (for printing in help message)
- */
-static const char* repr_algorithms() {
-    std::stringstream sin;
-    sin << "Set algorithm type (";
+static void print_algos() {
+    BOOST_LOG_TRIVIAL(debug) << "Printing algorithms list";
+    std::cout << std::endl 
+        << "Algorithms list:" 
+        << std::endl 
+        << std::endl;
     for (auto it = algo_lookup.begin(); it != algo_lookup.end(); ++it) {
-        sin << it->first;
-        if (it != --algo_lookup.end()) sin << "|";
+        std::cout << "\t- " << it->first << std::endl;
     }
-    sin << ")";
-    return strdup(sin.str().c_str()); // SECURITY RISK
-};
+    std::cout << std::endl;
+}
 
 /**
  * Operator to interpret algorithm from input string
@@ -97,7 +90,7 @@ namespace std {
      * Operator to interpret pair values
      */
     template <typename T>
-    istream& operator>> (std::istream &in, pair<T,T> &mpair)
+    istream& operator>> (istream &in, pair<T,T> &mpair)
     {
         char c;
         T a, b;
@@ -148,42 +141,48 @@ config config_from_cli(int argc, char **argv) {
     po::options_description help("Help");
     help.add_options()
         ("help,h", "Produce help message")
-        ("colormaps,m", "List colormaps");
+        ("colormaps,m", "List colormaps")
+        ("algorithms,n", "List algorithms");
     po::options_description algorithm("Algorithm");
     algorithm.add_options()
-        ("algorithm,a", po::value<ALGORITHM>(), repr_algorithms())
+        ("algorithm,a", po::value<ALGORITHM>(), "Use algorithm (see --algorithms)")
         ("parameter,p", po::value<std::vector<parameter>>()->value_name("param=value"), 
             "Set parameter. Set this option multiple times to set multiple parameters");
     po::options_description image("Image");
     image.add_options()
-        ("colormap,C", po::value<colormap>(), "Set colormap")
+        ("colormap,C", po::value<colormap>(), "Use colormap (see --colormaps)")
         ("image-size,i", po::value<std::pair<unsigned,unsigned>>()->value_name("width,height"), "Set image size");
-    po::options_description desc("Available Options:");
-    desc.add(help).add(algorithm).add(image);
+    po::options_description options("Available Options:");
+    options.add(help).add(algorithm).add(image);
 
     // Parse options
     po::variables_map vm;
 
     // Run options parsing
     try {
-        po::store(po::parse_command_line(argc, argv, desc), vm);
+        po::store(po::parse_command_line(argc, argv, options), vm);
         po::notify(vm);
     }
     catch (po::unknown_option& err)
     {
         BOOST_LOG_TRIVIAL(error) << "Invalid option: " << err.get_option_name();
-        print_help(desc);
+        print_help(options);
         exit(1);
     }
 
     // Exit if printing any help message
     if (vm.count("help")) {
-        print_help(desc);
+        print_help(options);
         BOOST_LOG_TRIVIAL(debug) << "Exiting with status 0...";
         exit(0);
     }
     else if (vm.count("colormaps")) {
         print_cmaps();
+        BOOST_LOG_TRIVIAL(debug) << "Exiting with status 0...";
+        exit(0);
+    }
+    else if (vm.count("algorithms")) {
+        print_algos();
         BOOST_LOG_TRIVIAL(debug) << "Exiting with status 0...";
         exit(0);
     }
@@ -200,7 +199,7 @@ config config_from_cli(int argc, char **argv) {
     if (vm.count("algorithm")) {
         ALGORITHM algo = vm["algorithm"].as<ALGORITHM>();
         if (algo == ALGORITHM::_INVALID) {
-            print_help(desc);
+            print_algos();
             BOOST_LOG_TRIVIAL(debug) << "Exiting with status 1...";
             exit(1);
         }
