@@ -1,7 +1,7 @@
 // Fractool
 #include <fractool/macros.hpp>
 #include <fractool/ftcore/config.hpp>
-#include <fractool/ftcore/generate_mandelbrot.hpp>
+#include <fractool/ftensp/generate_mandelbrot.hpp>
 
 // Internal
 #include <algorithm>

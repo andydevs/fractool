@@ -6,8 +6,8 @@
 #include <fractool/ftcore/config.hpp>
 #include <fractool/ftcore/map_color.hpp>
 #include <fractool/ftcore/write_image.hpp>
-#include <fractool/ftcore/generate_mandelbrot.hpp>
-#include <fractool/ftcore/generate_julia.hpp>
+#include <fractool/ftensp/generate_mandelbrot.hpp>
+#include <fractool/ftensp/generate_julia.hpp>
 
 // Fractool
 #include <fractool/fractool/cli_parser.hpp>
