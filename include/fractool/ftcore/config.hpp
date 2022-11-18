@@ -3,15 +3,22 @@
 
 // Colormap
 #include <fractool/colormap.hpp>
-#include <map>
 #include <string>
+#include <map>
 
+// Algorithm enums
 enum ALGORITHM {
     _INVALID,
 
     // Algorithms
     MANDELBROT,
     JULIA
+};
+
+// Algorithm lookup table
+const std::map<std::string, ALGORITHM> algo_lookup = {
+    { "mandelbrot", ALGORITHM::MANDELBROT },
+    { "julia",      ALGORITHM::JULIA }
 };
 
 /**
