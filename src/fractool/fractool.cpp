@@ -2,15 +2,11 @@
 #include <fractool/macros.hpp>
 #include <fractool/colormap.hpp>
 
-// FTCore
+// Fraactool
 #include <fractool/ftcore/config.hpp>
+#include <fractool/ftensp/algorithm.hpp>
 #include <fractool/ftcore/map_color.hpp>
 #include <fractool/ftcore/write_image.hpp>
-#include <fractool/ftensp/algorithm.hpp>
-#include <fractool/ftensp/generate_mandelbrot.hpp>
-#include <fractool/ftensp/generate_julia.hpp>
-
-// Fractool
 #include <fractool/fractool/cli_parser.hpp>
 
 // External
@@ -48,17 +44,7 @@ int main(int argc, char **argv) {
     unsigned char* color_buffer = new unsigned char[conf.image_size_x * conf.image_size_y * NUM_CHANS];
 
     // Get algorithm
-    Algorithm *algo = nullptr;
-    switch(conf.algorithm) {
-        case ALGORITHM::MANDELBROT:
-            algo = new ZSquareParamAlgorithm();
-            break;
-        case ALGORITHM::JULIA:
-            algo = new ZSquareSeedAlgorithm();
-            break;
-        default:
-            break;
-    }
+    Algorithm *algo = create_algorithm(conf);
     if (algo == nullptr) {
         // Exit status 1
         BOOST_LOG_TRIVIAL(error) << "No algorithm was set! Exiting..." << std::endl;
