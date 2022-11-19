@@ -1,7 +1,7 @@
 // Fractool
 #include <fractool/macros.hpp>
-#include <fractool/ftensp/generate_julia.hpp>
-#include <fractool/ftensp/generate_mandelbrot.hpp>
+#include <fractool/ftensp/zsquare-seed.hpp>
+#include <fractool/ftensp/zsquare-param.hpp>
 
 // External
 #include <boost/log/trivial.hpp>

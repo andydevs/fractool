@@ -1,6 +1,6 @@
 // Fractool
 #include <fractool/macros.hpp>
-#include <fractool/ftensp/generate_mandelbrot.hpp>
+#include <fractool/ftensp/zsquare-param.hpp>
 
 // Internal
 #include <algorithm>

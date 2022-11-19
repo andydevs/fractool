@@ -1,6 +1,6 @@
 // Fractool
 #include <fractool/macros.hpp>
-#include <fractool/ftensp/generate_julia.hpp>
+#include <fractool/ftensp/zsquare-seed.hpp>
 
 // Internal
 #include <algorithm>
