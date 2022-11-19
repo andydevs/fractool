@@ -6,6 +6,7 @@
 #include <fractool/ftcore/config.hpp>
 #include <fractool/ftcore/map_color.hpp>
 #include <fractool/ftcore/write_image.hpp>
+#include <fractool/ftensp/algorithm.hpp>
 #include <fractool/ftensp/generate_mandelbrot.hpp>
 #include <fractool/ftensp/generate_julia.hpp>
 
@@ -46,23 +47,33 @@ int main(int argc, char **argv) {
     unsigned char* param_buffer = new unsigned char[conf.image_size_x * conf.image_size_y];
     unsigned char* color_buffer = new unsigned char[conf.image_size_x * conf.image_size_y * NUM_CHANS];
 
-    // Run stages
+    // Get algorithm
+    Algorithm *algo = nullptr;
     switch(conf.algorithm) {
         case ALGORITHM::MANDELBROT:
-            generate_mandelbrot(conf, conf.image_size_x, conf.image_size_y, param_buffer);
+            algo = new ZSquareParamAlgorithm();
             break;
         case ALGORITHM::JULIA:
-            generate_julia(conf, conf.image_size_x, conf.image_size_y, param_buffer);
+            algo = new ZSquareSeedAlgorithm();
             break;
         default:
             break;
     }
+    if (algo == nullptr) {
+        // Exit status 1
+        BOOST_LOG_TRIVIAL(error) << "No algorithm was set! Exiting..." << std::endl;
+        return 1;
+    }
+
+    // Run stages
+    algo->generate(conf, conf.image_size_x, conf.image_size_y, param_buffer);
     map_color(conf.image_size_x, conf.image_size_y, conf.cmap, param_buffer, color_buffer);
     write_image(conf.image_size_x, conf.image_size_y, color_buffer, "fractal.png");
 
     // Delete resources
     delete[] param_buffer;
     delete[] color_buffer;
+    if (algo != nullptr) delete algo;
 
     // Exit
     return 0;

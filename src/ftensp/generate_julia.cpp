@@ -32,7 +32,7 @@ std::istream& operator>> (std::istream &in, std::complex<float> &c) {
 /**
  * Run julia set generation algorithm
  */
-void generate_julia(config cfg, unsigned size_x, unsigned size_y, unsigned char* param_buffer)
+void ZSquareSeedAlgorithm::generate(config cfg, unsigned size_x, unsigned size_y, unsigned char* param_buffer)
 {
     // Print message
     BOOST_LOG_TRIVIAL(info) << "Generating julia...";
