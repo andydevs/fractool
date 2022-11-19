@@ -9,4 +9,3 @@ target_link_libraries(ftcore
         Boost::log_setup
         Boost::thread
         Boost::filesystem)
-install(TARGETS ftcore LIBRARY)
