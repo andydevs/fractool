@@ -17,13 +17,7 @@
  */
 ZSquareSeedAlgorithm::ZSquareSeedAlgorithm(config cfg): Algorithm(cfg) {
     // Set parameter c if available
-    auto it = cfg.parameters.find("c");
-    if (it != cfg.parameters.end()) {
-        std::istringstream css(it->second);
-        css >> c;
-    } else {
-        c = std::complex<float>(-0.4, 0.6);
-    }
+    c = cfg.parameter("c", std::complex<float>(-0.4, 0.6));
     BOOST_LOG_TRIVIAL(debug) << "c parameter: " << c;
 }
 

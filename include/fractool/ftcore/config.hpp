@@ -32,6 +32,12 @@ struct config {
      * Log config parameters
      */
     void log();
+
+    /**
+     * Get parameter or default
+     */
+    template <typename T>
+    T parameter(std::string name, T defVal);
 };
 
 #endif // __FRACTOOL_CONFIG_H__
