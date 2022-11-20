@@ -12,6 +12,9 @@ private:
     // Parameters from config
     std::complex<float> c;
 public:
+    // Constants (final grid scale)
+    static constexpr const float grid_scale = 4.0f;
+    
     // Setup
     ZSquareSeedAlgorithm(config cfg);
     

@@ -8,6 +8,9 @@
 // ZSquare Param (Mandelbrot set) implementation of algorithm
 class ZSquareParamAlgorithm : public Algorithm {
 public:
+    // Constants (final grid scale)
+    static constexpr const float grid_scale = 4.0f;
+
     // Setup
     ZSquareParamAlgorithm(config cfg);
 
