@@ -6,7 +6,6 @@
 // External
 #include <boost/log/trivial.hpp>
 
-
 /**
  * Build algorithm from config file
  */

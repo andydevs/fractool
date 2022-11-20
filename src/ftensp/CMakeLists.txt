@@ -1,4 +1,5 @@
 add_library(ftensp
+	config.cpp
 	algorithm.cpp
 	zsquare-seed.cpp
 	zsquare-param.cpp)

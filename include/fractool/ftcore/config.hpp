@@ -1,25 +1,11 @@
 #ifndef __FRACTOOL_CONFIG_H__
 #define __FRACTOOL_CONFIG_H__
 
-// Colormap
+// Includes
 #include <fractool/colormap.hpp>
+#include <fractool/ftensp/config.hpp>
 #include <string>
 #include <map>
-
-// Algorithm enums
-enum ALGORITHM {
-    _INVALID,
-
-    // Algorithms
-    MANDELBROT,
-    JULIA
-};
-
-// Algorithm lookup table
-const std::map<std::string, ALGORITHM> algo_lookup = {
-    { "mandelbrot", ALGORITHM::MANDELBROT },
-    { "julia",      ALGORITHM::JULIA }
-};
 
 /**
  * Configuration object for tool
