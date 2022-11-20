@@ -16,10 +16,10 @@ Algorithm* create_algorithm(config conf)
     Algorithm *algo = nullptr;
     switch(conf.algorithm) {
         case ALGORITHM::MANDELBROT:
-            algo = new ZSquareParamAlgorithm();
+            algo = new ZSquareParamAlgorithm(conf);
             break;
         case ALGORITHM::JULIA:
-            algo = new ZSquareSeedAlgorithm();
+            algo = new ZSquareSeedAlgorithm(conf);
             break;
         default:
             break;

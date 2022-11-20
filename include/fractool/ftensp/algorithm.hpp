@@ -7,11 +7,14 @@
 // Abstract
 class Algorithm {
 public:
+    // Default setup
+    Algorithm(config cfg) {}
+
     // Default teardown for algorithm (do nothing)
     virtual ~Algorithm() {}
 
     // REQUIRED Generate function
-    virtual void generate(config cfg, unsigned size_x, unsigned size_y, unsigned char* param_buffer) = 0;
+    virtual void generate(unsigned size_x, unsigned size_y, unsigned char* param_buffer) = 0;
 };
 
 /**

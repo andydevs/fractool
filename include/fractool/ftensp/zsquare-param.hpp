@@ -8,7 +8,11 @@
 // ZSquare Param (Mandelbrot set) implementation of algorithm
 class ZSquareParamAlgorithm : public Algorithm {
 public:
-    void generate(config cfg, unsigned size_x, unsigned size_y, unsigned char* param_buffer) override;
+    // Setup
+    ZSquareParamAlgorithm(config cfg);
+
+    // Run algorithm
+    void generate(unsigned size_x, unsigned size_y, unsigned char* param_buffer) override;
 };
 
 #endif // __FRACTOOL_GENERATEMANDELBROT_H__

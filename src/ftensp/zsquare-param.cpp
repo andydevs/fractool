@@ -10,9 +10,14 @@
 #include <boost/log/trivial.hpp>
 
 /**
+ * Constructor
+ */
+ZSquareParamAlgorithm::ZSquareParamAlgorithm(config cfg): Algorithm(cfg) {}
+
+/**
  * Run mandelbrot set generation algorithm
  */
-void ZSquareParamAlgorithm::generate(config cfg, unsigned size_x, unsigned size_y, unsigned char* param_buffer)
+void ZSquareParamAlgorithm::generate(unsigned size_x, unsigned size_y, unsigned char* param_buffer)
 {
     // Print message
     BOOST_LOG_TRIVIAL(info) << "Generating mandelbrot...";

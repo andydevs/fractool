@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
     }
 
     // Run stages
-    algo->generate(conf, conf.image_size_x, conf.image_size_y, param_buffer);
+    algo->generate(conf.image_size_x, conf.image_size_y, param_buffer);
     map_color(conf.image_size_x, conf.image_size_y, conf.cmap, param_buffer, color_buffer);
     write_image(conf.image_size_x, conf.image_size_y, color_buffer, "fractal.png");
 

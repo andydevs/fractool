@@ -19,3 +19,4 @@ __pycache__/
 /zlib-install
 /out/install/x64-Release
 /.vs
+/python/integration_test/pending
