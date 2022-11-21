@@ -8,5 +8,6 @@ add_executable(fractool
 target_link_libraries(fractool 
     PRIVATE 
         ftcore
+        ftensp
         Boost::program_options)
 install(TARGETS fractool RUNTIME)

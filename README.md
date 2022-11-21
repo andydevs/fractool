@@ -1,6 +1,8 @@
 FracTool
 ======================================================================
 
+![Fractal](fractal.png)
+
 Generate fractal images.
 
 [Website](https://andydevs.github.io/fractool/)

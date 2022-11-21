@@ -1,6 +1,6 @@
 // Fractool
 #include <fractool/macros.hpp>
-#include <fractool/ftcore/generate_julia.hpp>
+#include <fractool/ftensp/zsquare-seed.hpp>
 
 // Internal
 #include <algorithm>
@@ -13,47 +13,27 @@
 #include <boost/log/trivial.hpp>
 
 /**
- * Operator to read complex numbers
+ * Constructor
  */
-std::istream& operator>> (std::istream &in, std::complex<float> &c) {
-    float real; float imag;
-    char cm;
-    in >> real;
-    in >> cm;
-    if (cm != ',') { 
-        BOOST_LOG_TRIVIAL(error) << "Invalid character processing pair: \"" << cm << "\" expecting \",\""; 
-        return in;
-    }
-    in >> imag;
-    c = std::complex<float>(real, imag);
-    return in;
+ZSquareSeedAlgorithm::ZSquareSeedAlgorithm(config cfg): Algorithm(cfg) {
+    // Set parameter c if available
+    c = cfg.parameter("c", std::complex<float>(-0.4, 0.6));
+    BOOST_LOG_TRIVIAL(debug) << "c parameter: " << c;
 }
 
 /**
  * Run julia set generation algorithm
  */
-void generate_julia(config cfg, unsigned size_x, unsigned size_y, unsigned char* param_buffer)
+void ZSquareSeedAlgorithm::generate(unsigned size_x, unsigned size_y, unsigned char* param_buffer)
 {
     // Print message
     BOOST_LOG_TRIVIAL(info) << "Generating julia...";
 
-    // Parameter
-    std::complex<float> c(-0.4, 0.6);
-
-    // Set c parameter if available
-    auto it = cfg.parameters.find("c");
-    if (it != cfg.parameters.end()) {
-        std::istringstream css(it->second);
-        css >> c;
-    }
-    BOOST_LOG_TRIVIAL(debug) << "c parameter: " << c;
-
     // Helper variables
-    float gsc = 4.0;                            // Grid scale
-    float x0 = (float)size_x/2;                 // Center x value
-    float y0 = (float)size_y/2;                 // Center y value
-    float scl = gsc / std::min(size_x, size_y); // Final scale factor
-    BOOST_LOG_TRIVIAL(debug) << "Grid scale: " << gsc;
+    float x0 = (float)size_x/2;                        // Center x value
+    float y0 = (float)size_y/2;                        // Center y value
+    float scl = grid_scale / std::min(size_x, size_y); // Final scale factor
+    BOOST_LOG_TRIVIAL(debug) << "Grid scale: " << grid_scale;
     BOOST_LOG_TRIVIAL(debug) << "Origin Point (x0, y0): (" << x0 << "," << y0 << ")";
     BOOST_LOG_TRIVIAL(debug) << "Final Scale: " << scl;
 

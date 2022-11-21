@@ -4,6 +4,8 @@
 // External
 #include <boost/log/trivial.hpp>
 #include <iostream>
+#include <sstream>
+#include <complex>
 
 /**
  * Initialize with default parameters
@@ -33,3 +35,23 @@ void config::log() {
         BOOST_LOG_TRIVIAL(debug) << "config.parameters[\"" << p.first << "\"] = " << p.second;    
     }
 };
+
+// Explicit instantiation of template parameter get
+template std::complex<float> config::parameter(std::string name, std::complex<float> defVal);
+
+/**
+ * Get parameter or default
+ */
+template <typename T>
+T config::parameter(std::string name, T defVal) {
+    // Get parameter c if available
+    T val;
+    auto it = parameters.find(name);
+    if (it != parameters.end()) {
+        std::istringstream valss(it->second);
+        valss >> val;
+        return val;
+    } else {
+        return defVal;
+    }
+}

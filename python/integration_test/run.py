@@ -58,8 +58,8 @@ def tmp_env(tmp_path):
     ('algorithm-mandelbrot.png',                ['-a', 'mandelbrot']),
     ('set-image-size.png',                      ['--image-size', '1600,900']),
     ('set-image-size.png',                      ['-i', '1600,900']),
-    ('algorithm-julia-parameter-c-p38-p20.png', ['--algorithm', 'julia', '--parameter', 'c=0.38,0.2']),
-    ('algorithm-julia-parameter-c-p38-p20.png', ['-a', 'julia', '-p', 'c=0.38,0.2'])
+    ('algorithm-julia-parameter-c-p38-p20.png', ['--algorithm', 'julia', '--parameter', 'c=(0.38,0.2)']),
+    ('algorithm-julia-parameter-c-p38-p20.png', ['-a', 'julia', '-p', 'c=(0.38,0.2)'])
 ])
 def test_generator_output(tmp_env, expected_file, args):
     """
@@ -77,12 +77,12 @@ def test_generator_output(tmp_env, expected_file, args):
 
 @pytest.mark.parametrize('expected_file,args', [
     ('colormap-blue2red.png', ['--colormap', 'blue2red']),
-    ('colormap-flower.png',   ['--colormap', 'flower']),
-    ('colormap-ink.png',      ['--colormap', 'ink']),
-    ('colormap-red2blue.png', ['--colormap', 'red2blue']),
     ('colormap-blue2red.png', ['-c', 'blue2red']),
+    ('colormap-flower.png',   ['--colormap', 'flower']),
     ('colormap-flower.png',   ['-c', 'flower']),
+    ('colormap-ink.png',      ['--colormap', 'ink']),
     ('colormap-ink.png',      ['-c', 'ink']),
+    ('colormap-red2blue.png', ['--colormap', 'red2blue']),
     ('colormap-red2blue.png', ['-c', 'red2blue'])
 ])
 def test_colormap_output(tmp_env, expected_file, args):

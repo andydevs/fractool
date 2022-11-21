@@ -1,7 +1,6 @@
 // Fractool
 #include <fractool/macros.hpp>
-#include <fractool/ftcore/config.hpp>
-#include <fractool/ftcore/generate_mandelbrot.hpp>
+#include <fractool/ftensp/zsquare-param.hpp>
 
 // Internal
 #include <algorithm>
@@ -11,19 +10,23 @@
 #include <boost/log/trivial.hpp>
 
 /**
+ * Constructor
+ */
+ZSquareParamAlgorithm::ZSquareParamAlgorithm(config cfg): Algorithm(cfg) {}
+
+/**
  * Run mandelbrot set generation algorithm
  */
-void generate_mandelbrot(config cfg, unsigned size_x, unsigned size_y, unsigned char* param_buffer)
+void ZSquareParamAlgorithm::generate(unsigned size_x, unsigned size_y, unsigned char* param_buffer)
 {
     // Print message
     BOOST_LOG_TRIVIAL(info) << "Generating mandelbrot...";
 
     // Helper variables
-    float gsc = 4.0;                            // Grid scale
-    float x0 = (float)size_x/2;                 // Center x value
-    float y0 = (float)size_y/2;                 // Center y value
-    float scl = gsc / std::min(size_x, size_y); // Final scale factor
-    BOOST_LOG_TRIVIAL(debug) << "Grid scale: " << gsc;
+    float x0 = (float)size_x/2;                        // Center x value
+    float y0 = (float)size_y/2;                        // Center y value
+    float scl = grid_scale / std::min(size_x, size_y); // Final scale factor
+    BOOST_LOG_TRIVIAL(debug) << "Grid scale: " << grid_scale;
     BOOST_LOG_TRIVIAL(debug) << "Origin Point (x0, y0): (" << x0 << "," << y0 << ")";
     BOOST_LOG_TRIVIAL(debug) << "Final Scale: " << scl;
 
