@@ -15,7 +15,7 @@ Usage
 - Download appropriate binary from 
     [releases](https://github.com/andydevs/fractool/releases/) page. 
 - For *Windows*, simply run the installer.
-- For *Linux* and *MacOS*, run the self-extracting tar file (.sh) with 
+- For *MacOS*, run the self-extracting tar file (.sh) with 
     the argument `--prefix=[install-directory]`
     - For MacOS, use the "Darwin" installer
 
