@@ -4,7 +4,7 @@ add_library(ftcore
     write_image.cpp)
 target_link_libraries(ftcore
     PUBLIC
-        png_static
+        PNG::PNG
         Boost::log
         Boost::log_setup
         Boost::thread

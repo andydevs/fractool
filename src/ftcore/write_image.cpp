@@ -3,7 +3,7 @@
 
 // External
 #include <boost/log/trivial.hpp>
-#include <png.h>
+#include <libpng16/png.h>
 #include <cstdio>
 #include <stdexcept>
 

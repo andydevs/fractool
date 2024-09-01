@@ -1,3 +1,8 @@
 {
-    "cmake.installPrefix": "${workspaceFolder}/build/test-install"
+    "cmake.installPrefix": "${workspaceFolder}/build/test-install",
+    "files.associations": {
+        "**/frontmatter.json": "jsonc",
+        "**/.frontmatter/config/*.json": "jsonc",
+        "cstdio": "cpp"
+    }
 }
