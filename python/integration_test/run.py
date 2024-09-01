@@ -11,7 +11,7 @@ import yaml
 
 # Directory environment
 expected_rel = 'expected'
-rel_executable = '..\\..\\build\\src\\fractool\\Debug\\fractool.exe'
+rel_executable = '..\\..\\build\\Debug\\fractool.exe'
 
 # Help message
 help_options = [

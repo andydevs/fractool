@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.30.2)
 project(FracTool VERSION 0.1.0)
 
 # Configure Project
+add_compile_definitions($<$<CONFIG:Debug>:DEBUG=1>)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_FIND_FRAMEWORK LAST)
 if (NOT WIN32)
@@ -19,7 +20,40 @@ find_package(PNG REQUIRED)
 
 # Source code
 include_directories(include)
-add_subdirectory(src)
+
+# FTCore
+add_library(ftcore 
+    src/ftcore/config.cpp
+    src/ftcore/map_color.cpp
+    src/ftcore/write_image.cpp)
+target_link_libraries(ftcore
+    PUBLIC
+        PNG::PNG
+        Boost::log
+        Boost::log_setup
+        Boost::thread
+        Boost::filesystem)
+
+# Fractool Engine Single-Process
+add_library(ftensp
+    src/ftensp/config.cpp
+    src/ftensp/algorithm.cpp
+    src/ftensp/zsquare-seed.cpp
+    src/ftensp/zsquare-param.cpp)
+target_link_libraries(ftensp PUBLIC ftcore)
+
+# Fractool
+add_executable(fractool 
+    src/fractool/fractool.cpp 
+    src/fractool/cli_parser.cpp)
+target_link_libraries(fractool 
+    PRIVATE 
+        ftcore
+        ftensp
+        Boost::program_options)
+        
+# Install
+install(TARGETS fractool RUNTIME)
 
 # CPack
 set(CPACK_PACKAGE_NAME "FracTool")
