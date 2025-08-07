@@ -1,35 +1,59 @@
 # Root
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.30.2)
 project(FracTool VERSION 0.1.0)
 
 # Configure Project
+add_compile_definitions($<$<CONFIG:Debug>:DEBUG=1>)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_FIND_FRAMEWORK LAST)
-include_directories(include)
 if (NOT WIN32)
     link_directories(/usr/local/lib)
     add_compile_options(-pthread)
     add_link_options(-pthread)
 endif()
-set(Boost_USE_STATIC_LIBS ON)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
 # External packages
-include(${PROJECT_SOURCE_DIR}/extern/libpng/libpng-install/lib/libpng/libpng16.cmake)
-include_directories(${PROJECT_SOURCE_DIR}/extern/libpng/libpng-install/include)
-set(BOOST_ROOT "${PROJECT_SOURCE_DIR}/extern/boost/boost-install")
-find_package(Boost REQUIRED COMPONENTS log log_setup program_options)
-include_directories(${Boost_INCLUDE_DIRS})
+find_package(ZLIB REQUIRED)
+find_package(Boost REQUIRED)
+find_package(PNG REQUIRED)
 
 # Source code
-add_subdirectory(src modules)
+include_directories(include)
 
-# After install
-if(APPLE)
-    install(CODE "execute_process(COMMAND update_dyld_shared_cache)")
-elseif(NOT WIN32)
-    install(CODE "execute_process(COMMAND ldconfig)")
-endif()
+# FTCore
+add_library(ftcore 
+    src/ftcore/config.cpp
+    src/ftcore/map_color.cpp
+    src/ftcore/write_image.cpp)
+target_link_libraries(ftcore
+    PUBLIC
+        PNG::PNG
+        Boost::log
+        Boost::log_setup
+        Boost::thread
+        Boost::filesystem)
+
+# Fractool Engine Single-Process
+add_library(ftensp
+    src/ftensp/config.cpp
+    src/ftensp/algorithm.cpp
+    src/ftensp/zsquare-seed.cpp
+    src/ftensp/zsquare-param.cpp)
+target_link_libraries(ftensp PUBLIC ftcore)
+
+# Fractool
+add_executable(fractool 
+    src/fractool/fractool.cpp 
+    src/fractool/cli_parser.cpp)
+target_link_libraries(fractool 
+    PRIVATE 
+        ftcore
+        ftensp
+        Boost::program_options)
+        
+# Install
+install(TARGETS fractool RUNTIME)
 
 # CPack
 set(CPACK_PACKAGE_NAME "FracTool")
